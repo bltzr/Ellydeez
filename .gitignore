@@ -1,0 +1,5 @@
+/bin/ledMapperDebug.app
+/bin/NebulaDebug.app
+/bin/NebulaLEDs.app
+/bin/NebulaLEDsDebug.app
+*.app

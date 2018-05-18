@@ -1,0 +1,3 @@
+[submodule "OSC2APA102"]
+	path = OSC2APA102
+	url = https://bltzr@github.com/bltzr/OSC2APA102.git
