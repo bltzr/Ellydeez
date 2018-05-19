@@ -89,6 +89,9 @@ void ofApp::setup(){
     ledLine[5].Ysize = 4;
     ledLine[5].Xsize = 66;
     
+     
+    // Calculate our drawing size
+    
     for (int i = 0; i < NUM_LEDLINES; ++i){
         if(drawXsize<ledLine[i].Xsize) drawXsize=ledLine[i].Xsize;
         drawYsize+=ledLine[i].Ysize;
@@ -138,12 +141,12 @@ void ofApp::update(){
         if(m.getAddress() == "/b"){
             ofLog() << "b" << m.getArgAsInt32(0);
             for (int i=0; i<6; i++){
-                setBrightness(i, m.getArgAsInt32(0));
+                ledLine[i].setBrightness(m.getArgAsInt32(0));
             }
         }
         else if(m.getAddress() == "/d"){
             for (int i=0; i<6; i++){
-                setDither(i, m.getArgAsInt32(0));
+                ledLine[i].setDither(m.getArgAsInt32(0));
             }
             ofLog() << "d" << m.getArgAsInt32(0);
         }
@@ -152,117 +155,10 @@ void ofApp::update(){
     // Send the whole thing to the LED lines:
     
     for (int i=0; i<6; i++) {
-    sendLine(i);
+    ledLine[i].sendLine();
     }
     
 }
-
-//--------------------------------------------------------------
-// Set APA102 Brightness for each LED line:
-//
-void ofApp::setBrightness(int i, int brightness) {
-
-    // check for waiting messages
-    
-        LedLine line = ledLine[i];
-        ofxOscMessage n;
-        n.setAddress(line.address);
-        n.addIntArg(brightness);
-        
-        // this code come from ofxOscSender::sendMessage in ofxOscSender.cpp
-        static const int OUTPUT_BUFFER_SIZE = 16384;
-        char buffer[OUTPUT_BUFFER_SIZE];
-        osc::OutboundPacketStream p( buffer, OUTPUT_BUFFER_SIZE );
-        
-        // serialise the message
-        
-        p << osc::BeginBundleImmediate;
-        appendMessage( n, p );
-        p << osc::EndBundle;
-        
-        ofx::IO::ByteBuffer toEncode(p.Data(),p.Size());
-        
-        try {
-            line.dev->dev.send(toEncode);
-        } catch ( serial::SerialException e) {
-            ofLogError("sendLine") << "failed to send data : " << e.what();
-            line.dev->setup();
-        }
-
-}
-
-//--------------------------------------------------------------
-// Set FastLED Brightness (aka dither) for each LED line:
-//
-void ofApp::setDither(int i, int dither) {
-  
-        // check for waiting messages
-        
-        LedLine line = ledLine[i];
-        ofxOscMessage n;
-        n.setAddress("/b");
-        n.addIntArg(dither);
-        
-        // this code come from ofxOscSender::sendMessage in ofxOscSender.cpp
-        static const int OUTPUT_BUFFER_SIZE = 16384;
-        char buffer[OUTPUT_BUFFER_SIZE];
-        osc::OutboundPacketStream p( buffer, OUTPUT_BUFFER_SIZE );
-        
-        // serialise the message
-        
-        p << osc::BeginBundleImmediate;
-        appendMessage( n, p );
-        p << osc::EndBundle;
-        
-        ofx::IO::ByteBuffer toEncode(p.Data(),p.Size());
-        
-        try {
-          line.dev->dev.send(toEncode);
-        } catch ( serial::SerialException e) {
-          ofLogError("sendLine") << "failed to send data : " << e.what();
-          line.dev->setup();
-        }
-  
-}
-
-//--------------------------------------------------------------
-// Send the whole thing to each LED line:
-//
-void ofApp::sendLine(int i) {
-
-    LedLine &line = ledLine[i];
-    //ofPixels pixelCrop;
-    line.src->cropTo(line.pixelCrop, 0 , line.Yoffset, line.Xsize, line.Ysize);
-    
-    ofBuffer imgAsBuffer;
-    imgAsBuffer.clear();
-    imgAsBuffer.append((const char*)line.pixelCrop.getData(),line.nbPix*3);
-    
-    ofxOscMessage m;
-    m.setAddress(line.address);
-    m.addBlobArg(imgAsBuffer);
-    
-    // this code comes from ofxOscSender::sendMessage in ofxOscSender.cpp
-    static const int OUTPUT_BUFFER_SIZE = 16384;
-    char buffer[OUTPUT_BUFFER_SIZE];
-    osc::OutboundPacketStream p( buffer, OUTPUT_BUFFER_SIZE );
-    
-    // serialise the message
-    p << osc::BeginBundleImmediate;
-    appendMessage( m, p );
-    p << osc::EndBundle;
-    
-    ofx::IO::ByteBuffer toEncode(p.Data(),p.Size());
-    
-    try {
-        line.dev->dev.send(toEncode);
-    } catch ( serial::SerialException e) {
-        ofLogError("sendLine") << "failed to send data : " << e.what();
-        line.dev->setup();
-    }
-}
-
-
 
 //------------------------------------------------------------------------
 // Draw the current state of operations (Mac only, this won't happen on Pi
@@ -292,6 +188,7 @@ void ofApp::draw(){
 
 
 
+
 //------------------------------------------------------------------------
 // Serial messages management
 //
@@ -316,44 +213,4 @@ void ofApp::onSerialError(const ofx::IO::SerialBufferErrorEventArgs& args)
     ofLogNotice("onSerialError") << "got serial error : " << message.exception;
 }
 
-void ofApp::appendMessage( ofxOscMessage& message, osc::OutboundPacketStream& p )
-{
-    p << osc::BeginMessage( message.getAddress().c_str() );
-	for ( int i=0; i< message.getNumArgs(); ++i )
-	{
-		if ( message.getArgType(i) == OFXOSC_TYPE_INT32 )
-			p << message.getArgAsInt32( i );
-		else if ( message.getArgType(i) == OFXOSC_TYPE_INT64 )
-			p << (osc::int64)message.getArgAsInt64( i );
-		else if ( message.getArgType( i ) == OFXOSC_TYPE_FLOAT )
-			p << message.getArgAsFloat( i );
-		else if ( message.getArgType( i ) == OFXOSC_TYPE_DOUBLE )
-			p << message.getArgAsDouble( i );
-		else if ( message.getArgType( i ) == OFXOSC_TYPE_STRING || message.getArgType( i ) == OFXOSC_TYPE_SYMBOL)
-			p << message.getArgAsString( i ).c_str();
-		else if ( message.getArgType( i ) == OFXOSC_TYPE_CHAR )
-			p << message.getArgAsChar( i );
-		else if ( message.getArgType( i ) == OFXOSC_TYPE_MIDI_MESSAGE )
-			p << message.getArgAsMidiMessage( i );
-		else if ( message.getArgType( i ) == OFXOSC_TYPE_TRUE || message.getArgType( i ) == OFXOSC_TYPE_FALSE )
-			p << message.getArgAsBool( i );
-		else if ( message.getArgType( i ) == OFXOSC_TYPE_TRIGGER )
-			p << message.getArgAsTrigger( i );
-		else if ( message.getArgType( i ) == OFXOSC_TYPE_TIMETAG )
-			p << (osc::int64)message.getArgAsTimetag( i );
-		//else if ( message.getArgType( i ) == OFXOSC_TYPE_RGBA_COLOR )
-		//	p << message.getArgAsRgbaColor( i );
-        else if ( message.getArgType( i ) == OFXOSC_TYPE_BLOB ){
-            ofBuffer buff = message.getArgAsBlob(i);
-            osc::Blob b(buff.getData(), (unsigned long)buff.size());
-            p << b; 
-		}else
-		{
-			ofLogError("ofxOscSender") << "appendMessage(): bad argument type " << message.getArgType( i );
-			assert( false );
-		}
-	}
-	p << osc::EndMessage;
-}
-//------------------------------------------------------------------------
 
