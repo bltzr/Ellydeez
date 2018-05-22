@@ -1,6 +1,6 @@
 //
 //  ledLine.hpp
-//  ledMapper
+//  Ellydee
 //
 //  Created by Pascal Baltazar on 19/05/2018.
 //

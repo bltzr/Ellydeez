@@ -2,9 +2,10 @@
 
 #include "ofMain.h"
 
-#include "ledLine.hpp"
-
 #include "ofxSyphon.h"
+
+#include "ledLine.hpp"
+#include "DMXLine.hpp"
 
 
 #define NUM_MSG_STRINGS 20
@@ -12,7 +13,8 @@
 
 // project-specific numbers:
 #define NUM_TEENSIES 3          // How many Teensies to use ?
-#define NUM_LEDLINES 6          // How many physical LED lines ?
+#define NUM_LEDLINES 5          // How many physical LED lines ?
+#define NUM_DMXLINES 1
 #define NUM_SYPHON 1            // How many Syphon clients ?
 #define PORTIN 66666              // for incoming OSC messages
 
@@ -42,6 +44,7 @@ public:
     OSC2APA102 device[NUM_TEENSIES] ;
 
     LedLine ledLine[NUM_LEDLINES];
+    DMXLine dmxLine[NUM_DMXLINES];
 
     int playing = 1;
 

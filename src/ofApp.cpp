@@ -92,19 +92,22 @@ void ofApp::setup(){
     ledLine[4].Ysize = 4;
     ledLine[4].Xsize = 66;
     
-    ledLine[5].dev = &device[2];
-    ledLine[5].src = &pixels;
-    ledLine[5].address = "/2";
-    ledLine[5].nbPix = 264;
-    ledLine[5].Yoffset = 20;
-    ledLine[5].Ysize = 4;
-    ledLine[5].Xsize = 66;
+    dmxLine[0].dev = &device[2];
+    dmxLine[0].src = &pixels;
+    dmxLine[0].address = "/DMX";
+    dmxLine[0].nbPix = 12;
+    dmxLine[0].Yoffset = 20;
+    dmxLine[0].Ysize = 1;
+    dmxLine[0].Xsize = 6;
     
-     
     // Calculate our drawing size
     
     if (drawXsize == 0 && drawYsize == 0){
         for (int i = 0; i < NUM_LEDLINES; ++i){
+            if(drawXsize<ledLine[i].Xsize) drawXsize=ledLine[i].Xsize;
+            drawYsize+=ledLine[i].Ysize;
+        }
+        for (int i = 0; i < NUM_DMXLINES; ++i){
             if(drawXsize<ledLine[i].Xsize) drawXsize=ledLine[i].Xsize;
             drawYsize+=ledLine[i].Ysize;
         }
@@ -202,6 +205,9 @@ void ofApp::update(){
     for (int i=0; i<NUM_LEDLINES; i++) {
         ledLine[i].sendLine();
     }
+    for (int i=0; i<NUM_DMXLINES; i++) {
+        dmxLine[i].sendLine();
+    }
     
 }
 
@@ -231,6 +237,11 @@ void ofApp::draw(){
         ofImage img;
         img.setFromPixels(ledLine[i].pixelCrop);
         img.draw(500, ledLine[i].Yoffset*15+20, 450, ledLine[i].Ysize*10);
+    }
+    for (int i=0; i<NUM_DMXLINES; i++) {
+        ofImage img;
+        img.setFromPixels(dmxLine[i].pixelCrop);
+        img.draw(500, dmxLine[i].Yoffset*15+50, 450, ledLine[i].Ysize*10);
     }
     
     #endif
