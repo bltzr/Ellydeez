@@ -11,11 +11,22 @@ void ofApp::setup(){
     // OSC
     receiver.setup(PORTIN);
     ofLog() << "Opened OSC Receiver";
-   
+    
     // Syphon
     mClient.setup();
     mClient.set("","Simple Server"); // Use Syphon Simple Server to test this, change arguments at will
 
+    // Video Player
+    trame.setPixelFormat(OF_PIXELS_RGB);
+    trame.load("test.mov");
+    trame.setLoopState(OF_LOOP_NORMAL);
+    
+    if(playing){
+        trame.play();
+        trame.setSpeed(1);
+    }
+
+    
     // Serial
     bool printDevices = true;        // Set this to true to display the list of devices in the Log Window
     int devNumb = 0;
@@ -92,9 +103,11 @@ void ofApp::setup(){
      
     // Calculate our drawing size
     
-    for (int i = 0; i < NUM_LEDLINES; ++i){
-        if(drawXsize<ledLine[i].Xsize) drawXsize=ledLine[i].Xsize;
-        drawYsize+=ledLine[i].Ysize;
+    if (drawXsize == 0 && drawYsize == 0){
+        for (int i = 0; i < NUM_LEDLINES; ++i){
+            if(drawXsize<ledLine[i].Xsize) drawXsize=ledLine[i].Xsize;
+            drawYsize+=ledLine[i].Ysize;
+        }
     }
     
     //Initial FBO allocation and cleanup
@@ -105,32 +118,10 @@ void ofApp::setup(){
     fbo.end();
 }
 
+
 //--------------------------------------------------------------
 void ofApp::update(){
 
-    
-    // If the source dimensions change, we reallocate the FBO to the right sizes
-    
-    if (sourceXsize!=mClient.getTexture().getWidth() || sourceYsize!=mClient.getTexture().getHeight()){
-        cout << "Syphon Input: width/height: " << mClient.getTexture().getWidth() << " " << mClient.getTexture().getHeight() << endl;
-        sourceXsize=mClient.getTexture().getWidth();
-        sourceYsize=mClient.getTexture().getHeight();
-        fbo.allocate(sourceXsize, sourceYsize, GL_RGB);
-        fbo.begin();
-        ofClear(0,0,0);
-        fbo.end();
-    }
-    
-    
-    // FBO operations:
-    
-    fbo.begin();
-    mClient.draw(0, 0, drawXsize, drawYsize);
-    fbo.end();
-    
-    fbo.readToPixels(pixels);
-    
-    
     // Treat incoming OSC Messages:
     
     while(receiver.hasWaitingMessages()){
@@ -140,28 +131,83 @@ void ofApp::update(){
         
         if(m.getAddress() == "/b"){
             ofLog() << "b" << m.getArgAsInt32(0);
-            for (int i=0; i<6; i++){
+            for (int i=0; i<NUM_LEDLINES; i++){
                 ledLine[i].setBrightness(m.getArgAsInt32(0));
             }
         }
         else if(m.getAddress() == "/d"){
-            for (int i=0; i<6; i++){
+            for (int i=0; i<NUM_LEDLINES; i++){
                 ledLine[i].setDither(m.getArgAsInt32(0));
             }
             ofLog() << "d" << m.getArgAsInt32(0);
         }
+        else if(m.getAddress() == "/play"){
+            ofLog() << "play" << m.getArgAsInt32(0);
+            if(m.getArgAsBool(0)){trame.play(); playing = 1;}
+            else if(!m.getArgAsBool(0)){trame.stop(); playing = 0;}
+        }
+        else if(m.getAddress() == "/pause"){
+            ofLog() << "pause" << m.getArgAsInt32(0);
+            if(m.getArgAsBool(0)){trame.setPaused(1);}
+            
+            else if(!m.getArgAsBool(0)){trame.setPaused(1);}
+        }
+        else if(m.getAddress() == "/position"){
+            ofLog() << "position" << m.getArgAsFloat(0);
+            trame.setPosition(m.getArgAsFloat(0));
+        }
+        else if(m.getAddress() == "/speed"){
+            ofLog() << "speed" << m.getArgAsFloat(0);
+            trame.setSpeed(m.getArgAsFloat(0));
+        }
+
     }
+    
+    // Get Data from the sources:
+    
+    if(playing){                        // Data from a movie
+        
+        trame.update();
+        pixels = trame.getPixels();
+        
+    } else {                            // Data from Syphon
+        
+        // If the source dimensions change, we reallocate the FBO to the right sizes
+        if (sourceXsize!=mClient.getTexture().getWidth() ||
+            sourceYsize!=mClient.getTexture().getHeight()){
+            
+            cout << "Syphon Input: width/height: " << mClient.getTexture().getWidth() << " " << mClient.getTexture().getHeight() << endl;
+            sourceXsize=mClient.getTexture().getWidth();
+            sourceYsize=mClient.getTexture().getHeight();
+            fbo.allocate(sourceXsize, sourceYsize, GL_RGB);
+            fbo.begin();
+            ofClear(0,0,0);
+            fbo.end();
+        }
+        
+        // FBO operations:
+        
+        fbo.begin();
+        mClient.draw(0, 0, drawXsize, drawYsize);
+        fbo.end();
+        
+        fbo.readToPixels(pixels);
+    
+    }
+    
+
   
     // Send the whole thing to the LED lines:
     
-    for (int i=0; i<6; i++) {
-    ledLine[i].sendLine();
+    for (int i=0; i<NUM_LEDLINES; i++) {
+        ledLine[i].sendLine();
     }
     
 }
 
-//------------------------------------------------------------------------
-// Draw the current state of operations (Mac only, this won't happen on Pi
+
+//-------------------------------------------------------------------------
+// Draw the current state of operations (Desktop only, this won't happen on Pi)
 //
 void ofApp::draw(){
   
@@ -171,10 +217,17 @@ void ofApp::draw(){
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    if(playing){
+        
+        trame.draw(20, 20, 450, 450);
+        
+    } else {
     
-    fbo.draw(20, 20, 450, 450);
+        fbo.draw(20, 20, 450, 450);
+        
+    }
     
-    for (int i=0; i<6; i++) {
+    for (int i=0; i<NUM_LEDLINES; i++) {
         ofImage img;
         img.setFromPixels(ledLine[i].pixelCrop);
         img.draw(500, ledLine[i].Yoffset*15+20, 450, ledLine[i].Ysize*10);
@@ -187,7 +240,7 @@ void ofApp::draw(){
 
 
 
-
+    /// TODO: check that we really need this:
 
 //------------------------------------------------------------------------
 // Serial messages management
