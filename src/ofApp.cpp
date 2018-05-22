@@ -163,8 +163,8 @@ void ofApp::update(){
             ofLog() << "speed" << m.getArgAsFloat(0);
             trame.setSpeed(m.getArgAsFloat(0));
         }
-
     }
+    
     
     // Get Data from the sources:
     
@@ -188,6 +188,7 @@ void ofApp::update(){
             fbo.end();
         }
         
+        
         // FBO operations:
         
         fbo.begin();
@@ -198,9 +199,21 @@ void ofApp::update(){
     
     }
     
-
+    // Temporary hack to get the brightnesses from the video
+    /// TODO: turn this into (a) proper class(es)
+    
+    pixels.cropTo(BrightPix, 0, 23, 2, 1);
+    Brights = BrightPix.getData();
+    
+    for (int i=0; i<NUM_LEDLINES; i++){
+        ledLine[i].setDither(int(Brights[0]));
+    }
+    
+    for (int i=0; i<6; i++){
+        ledLine[i].setBrightness(int(Brights[3]/8));
+    }
   
-    // Send the whole thing to the LED lines:
+    // Send the whole thing to the LED/DMX lines:
     
     for (int i=0; i<NUM_LEDLINES; i++) {
         ledLine[i].sendLine();
@@ -208,6 +221,9 @@ void ofApp::update(){
     for (int i=0; i<NUM_DMXLINES; i++) {
         dmxLine[i].sendLine();
     }
+    
+    
+
     
 }
 
@@ -233,16 +249,25 @@ void ofApp::draw(){
         
     }
     
+    // LED lines display
     for (int i=0; i<NUM_LEDLINES; i++) {
         ofImage img;
         img.setFromPixels(ledLine[i].pixelCrop);
         img.draw(500, ledLine[i].Yoffset*15+20, 450, ledLine[i].Ysize*10);
     }
+    
+    // DMX display
     for (int i=0; i<NUM_DMXLINES; i++) {
         ofImage img;
         img.setFromPixels(dmxLine[i].pixelCrop);
-        img.draw(500, dmxLine[i].Yoffset*15+50, 450, ledLine[i].Ysize*10);
+        img.draw(500, dmxLine[i].Yoffset*15+50, 450, dmxLine[i].Ysize*50);
     }
+    
+    // dither + brightness display
+    ofImage img;
+    img.setFromPixels(BrightPix);
+    img.draw(500, dmxLine[NUM_DMXLINES-1].Yoffset*15+80+ledLine[NUM_LEDLINES-1].Ysize*10, 450, 50);
+    
     
     #endif
 

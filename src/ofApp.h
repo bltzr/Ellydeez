@@ -31,7 +31,7 @@ public:
     void draw();
 
     ofFbo fbo ;
-    ofPixels pixels ; ;
+    ofPixels pixels ;
 
     ofxSyphonClient mClient ;
     int sourceXsize = 0, sourceYsize = 0;
@@ -45,8 +45,16 @@ public:
 
     LedLine ledLine[NUM_LEDLINES];
     DMXLine dmxLine[NUM_DMXLINES];
-
+    
     int playing = 1;
+    
+    
+    
+    // temporary way to deal with brightness info from the video:
+    ofPixels BrightPix;
+    unsigned char * Brights;
+
+    
 
 
 /// TODO: check that we really need this:
