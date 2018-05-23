@@ -12,8 +12,43 @@
 #include "ofxIO.h"
 
 
+
+
 //--------------------------------------------------------------
-//      Our utility classes
+class OSC2APA102
+{
+public:
+    
+    OSC2APA102(string addr):
+        name{addr}
+    {setup();}
+    
+    void send(ofx::IO::ByteBuffer m) {dev.send(m);}
+    void reconnect(){
+        if ( !dev.setup(name) )
+                    ofLogError("OSC2APA102 Teensy") << "Can't connect to " << name;
+        }
+    
+private:
+    
+    ofx::IO::PacketSerialDevice_<ofx::IO::SLIPEncoding, ofx::IO::SLIPEncoding::END, 16384> dev;
+    string name;
+    
+    void setup(){
+        if (name == "") {
+            ofLogError("OSC2APA102 Teensy") << "please set dev name before setup()";
+            return;
+        }
+        if ( !dev.setup(name) )
+            ofLogError("OSC2APA102 Teensy") << "Can't connect to " << name;
+    }
+};
+
+
+
+
+//--------------------------------------------------------------
+//      
 
 class SerialMessage
 {
@@ -31,23 +66,6 @@ public:
     std::string message;
     std::string exception;
     int fade;
-};
-
-//--------------------------------------------------------------
-class OSC2APA102
-{
-public:
-    ofx::IO::PacketSerialDevice_<ofx::IO::SLIPEncoding, ofx::IO::SLIPEncoding::END, 16384> dev;
-    string name;
-    
-    void setup(){
-        if (name == "") {
-            ofLogError("OSC2APA102 Teensy") << "please set dev name before setup()";
-            return;
-        }
-        if ( !dev.setup(name) )
-            ofLogError("OSC2APA102 Teensy") << "Can't connect to " << name;
-    }
 };
 
 

@@ -14,7 +14,17 @@
 class OutLine
 {
 public:
-    ofPixels * src;      // source
+    
+    OutLine(OSC2APA102 * dev, ofPixels * src,
+            int XOffset = 0, int Yoffset = 0,
+            int Xsize = 0, int Ysize = 0):
+    device{dev},
+    source{src}
+    {}
+    
+    OSC2APA102 * device; // serial device
+    
+    ofPixels * source;      // source
     string address;      // OSC address
     int nbPix;           // number of pixels
     int Xoffset = 0;
@@ -24,7 +34,7 @@ public:
 
     ofPixels pixelCrop;
     
-    OSC2APA102 * dev; // serial device
+    
     
     virtual void sendLine() = 0;
     

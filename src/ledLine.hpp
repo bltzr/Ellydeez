@@ -13,6 +13,7 @@
 class LedLine : public OutLine
 {
 public:
+    
     void setBrightness(int brightness);
     void setDither(int dither);
     void sendLine();

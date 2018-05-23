@@ -91,10 +91,10 @@ void OutLine::sendOSCMessage( ofxOscMessage& message)
     ofx::IO::ByteBuffer toEncode(p.Data(),p.Size());
     
     try {
-        dev->dev.send(toEncode);
+        device->send(toEncode);
     } catch ( serial::SerialException e) {
         ofLogError("sendLine") << "failed to send data : " << e.what();
-        dev->setup();
+        device->reconnect();
     }
     
 }

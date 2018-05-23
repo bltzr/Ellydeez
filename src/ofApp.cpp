@@ -8,6 +8,15 @@ void ofApp::setup(){
     ofSetWindowTitle("ledMapper");
     ofSetFrameRate(60); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
     
+    // Try to load XML config file
+    
+    if( XML.loadFile("mySettings.xml") ){
+        ofLog() << "mySettings.xml loaded!";
+    }else{
+        ofLog() << "unable to load mySettings.xml check data/ folder";
+        ofApp::exit();
+    }
+    
     // OSC
     receiver.setup(PORTIN);
     ofLog() << "Opened OSC Receiver";
@@ -21,26 +30,30 @@ void ofApp::setup(){
     trame.load("test.mov");
     trame.setLoopState(OF_LOOP_NORMAL);
     
-    if(playing){
-        trame.play();
-        trame.setSpeed(1);
-    }
+    if(playing) trame.play();
 
-    
+
     // Serial
-    bool printDevices = true;        // Set this to true to display the list of devices in the Log Window
-    int devNumb = 0;
-    if (printDevices){
-        std::vector<ofx::IO::SerialDeviceInfo> devicesInfo = ofx::IO::SerialDeviceUtils::listDevices();
-        ofLogNotice("ofApp::setup") << "Connected Devices: ";
-        for (ofx::IO::SerialDeviceInfo d : devicesInfo){
-            ofLogNotice("  ") << devNumb << ": " << d;
-            ++devNumb;
-        }
-    }
+    // printDevices(); // Set this to true to display the list of devices in the Log Window
     
     ofLog() << "Opening serial devices:";
     
+    int numOSC2APA102 = XML.getNumTags("OSC2APA102");
+    if(numOSC2APA102 > 0){
+        for (int i=0; i< numOSC2APA102; ++i){
+            XML.pushTag("OSC2APA102", i);
+            device.emplace_back(XML.getValue("name", ""));
+            int numLedLines = XML.getNumTags("LedLine");
+            if(numLedLines > 0){
+                for (int i=0; i< numLedLines; ++i){
+                    
+                }
+            }
+                
+        }
+    }
+    
+    /*
     device[0].name = "/dev/cu.usbmodem1369841";
     device[1].name = "/dev/cu.usbmodem1455771";
     device[2].name = "/dev/cu.usbmodem1383111";
@@ -48,12 +61,13 @@ void ofApp::setup(){
     for (int i = 0; i< NUM_TEENSIES; ++i){
         device[i].setup();
     }
+     */
 
     
     // LED lines assignments
     
     ledLine[0].dev = &device[0];
-    ledLine[0].src = &pixels;
+    ledLine[0].source = &pixels;
     ledLine[0].address = "/1";
     ledLine[0].nbPix = 264;
     ledLine[0].Yoffset = 0;
@@ -61,7 +75,7 @@ void ofApp::setup(){
     ledLine[0].Xsize = 66;
     
     ledLine[1].dev = &device[0];
-    ledLine[1].src = &pixels;
+    ledLine[1].source = &pixels;
     ledLine[1].address = "/2";
     ledLine[1].nbPix = 264;
     ledLine[1].Yoffset = 4;
@@ -69,7 +83,7 @@ void ofApp::setup(){
     ledLine[1].Xsize = 66;
 
     ledLine[2].dev = &device[1];
-    ledLine[2].src = &pixels;
+    ledLine[2].source = &pixels;
     ledLine[2].address = "/1";
     ledLine[2].nbPix = 81;
     ledLine[2].Yoffset = 8;
@@ -77,7 +91,7 @@ void ofApp::setup(){
     ledLine[2].Xsize = 66;
 
     ledLine[3].dev = &device[1];
-    ledLine[3].src = &pixels;
+    ledLine[3].source = &pixels;
     ledLine[3].address = "/2";
     ledLine[3].nbPix = 264;
     ledLine[3].Yoffset = 12;
@@ -85,7 +99,7 @@ void ofApp::setup(){
     ledLine[3].Xsize = 66;
     
     ledLine[4].dev = &device[2];
-    ledLine[4].src = &pixels;
+    ledLine[4].source = &pixels;
     ledLine[4].address = "/1";
     ledLine[4].nbPix = 264;
     ledLine[4].Yoffset = 16;
@@ -93,7 +107,7 @@ void ofApp::setup(){
     ledLine[4].Xsize = 66;
     
     dmxLine[0].dev = &device[2];
-    dmxLine[0].src = &pixels;
+    dmxLine[0].source = &pixels;
     dmxLine[0].address = "/DMX";
     dmxLine[0].nbPix = 12;
     dmxLine[0].Yoffset = 20;
@@ -221,8 +235,6 @@ void ofApp::update(){
     for (int i=0; i<NUM_DMXLINES; i++) {
         dmxLine[i].sendLine();
     }
-    
-    
 
     
 }
@@ -272,8 +284,22 @@ void ofApp::draw(){
     #endif
 
 }
+
+
+
 //------------------------------------------------------------------------
 
+void ofApp::printDevices(){
+    
+    int devNumb = 0;
+    
+    std::vector<ofx::IO::SerialDeviceInfo> devicesInfo = ofx::IO::SerialDeviceUtils::listDevices();
+    ofLogNotice("ofApp::setup") << "Connected Devices: ";
+    for (ofx::IO::SerialDeviceInfo d : devicesInfo){
+        ofLogNotice("  ") << devNumb << ": " << d;
+        ++devNumb;
+    }
+}
 
 
     /// TODO: check that we really need this:

@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 
+#include "ofxXmlSettings.h"
+
 #include "ofxSyphon.h"
 
 #include "ledLine.hpp"
@@ -16,7 +18,7 @@
 #define NUM_LEDLINES 5          // How many physical LED lines ?
 #define NUM_DMXLINES 1
 #define NUM_SYPHON 1            // How many Syphon clients ?
-#define PORTIN 66666              // for incoming OSC messages
+#define PORTIN 66666            // for incoming OSC messages
 
 
 
@@ -30,23 +32,27 @@ public:
     void update();
     void draw();
 
-    ofFbo fbo ;
-    ofPixels pixels ;
+    ofxXmlSettings XML;
 
     ofxSyphonClient mClient ;
-    int sourceXsize = 0, sourceYsize = 0;
-    int drawXsize = 0, drawYsize = 0;
-
+    ofFbo fbo ;
+    
     ofVideoPlayer trame;
 
     ofxOscReceiver receiver;
 
-    OSC2APA102 device[NUM_TEENSIES] ;
+    vector<OSC2APA102> device;
 
     LedLine ledLine[NUM_LEDLINES];
     DMXLine dmxLine[NUM_DMXLINES];
     
+    
     int playing = 1;
+    
+    
+    ofPixels pixels ;
+    int sourceXsize = 0, sourceYsize = 0;
+    int drawXsize = 0, drawYsize = 0;
     
     
     
@@ -55,7 +61,6 @@ public:
     unsigned char * Brights;
 
     
-
 
 /// TODO: check that we really need this:
 
@@ -67,6 +72,8 @@ public:
     int current_msg_string;
     string msg_strings[NUM_MSG_STRINGS];
     float timers[NUM_MSG_STRINGS];
+    
+    void printDevices();
     
     
 };

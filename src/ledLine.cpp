@@ -12,7 +12,7 @@
 //
 void LedLine::sendLine() {
     
-    src->cropTo(pixelCrop, Xoffset, Yoffset, Xsize, Ysize);
+    source->cropTo(pixelCrop, Xoffset, Yoffset, Xsize, Ysize);
     
     sendPixelsAsBlobMessage(address, pixelCrop, nbPix*3);
     
