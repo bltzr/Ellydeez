@@ -12,8 +12,8 @@
 
 
 // project-specific numbers:
-#define NUM_TEENSIES 3          // How many Teensies to use ?
-#define NUM_LEDLINES 5          // How many physical LED lines ?
+#define NUM_TEENSIES 9          // How many Teensies to use ?
+#define NUM_LEDLINES 18          // How many physical LED lines ?
 #define NUM_DMXLINES 1
 #define NUM_SYPHON 1            // How many Syphon clients ?
 #define PORTIN 66666              // for incoming OSC messages
@@ -46,7 +46,7 @@ public:
     LedLine ledLine[NUM_LEDLINES];
     DMXLine dmxLine[NUM_DMXLINES];
     
-    int playing = 1;
+    int playing = 0;
     
     
     

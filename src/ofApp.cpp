@@ -5,7 +5,7 @@
 void ofApp::setup(){
 
     // display
-    ofSetWindowTitle("ledMapper");
+    ofSetWindowTitle("AdAstra");
     ofSetFrameRate(60); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
     
     // OSC
@@ -14,7 +14,7 @@ void ofApp::setup(){
     
     // Syphon
     mClient.setup();
-    mClient.set("","Simple Server"); // Use Syphon Simple Server to test this, change arguments at will
+    mClient.set("AdAstra","Max"); // Use Syphon Simple Server to test this, change arguments at will
 
     // Video Player
     trame.setPixelFormat(OF_PIXELS_RGB);
@@ -41,9 +41,18 @@ void ofApp::setup(){
     
     ofLog() << "Opening serial devices:";
     
-    device[0].name = "/dev/cu.usbmodem1369841";
-    device[1].name = "/dev/cu.usbmodem1455771";
-    device[2].name = "/dev/cu.usbmodem1383111";
+    // Verticaux
+    device[0].name = "/dev/cu.usbmodem3767281";
+    device[1].name = "/dev/cu.usbmodem1382271";
+    device[2].name = "/dev/cu.usbmodem4115751";
+    //Plafond
+    device[3].name = "/dev/cu.usbmodem4115531";
+    device[4].name = "/dev/cu.usbmodem4115541";
+    device[5].name = "/dev/cu.usbmodem3960031";
+    device[6].name = "/dev/cu.usbmodem3962841";
+    device[7].name = "/dev/cu.usbmodem3884291";
+    device[8].name = "/dev/cu.usbmodem4115521"; // + DMX
+    
     
     for (int i = 0; i< NUM_TEENSIES; ++i){
         device[i].setup();
@@ -52,53 +61,154 @@ void ofApp::setup(){
     
     // LED lines assignments
     
+    // Verticaux:
+    
     ledLine[0].dev = &device[0];
     ledLine[0].src = &pixels;
     ledLine[0].address = "/1";
-    ledLine[0].nbPix = 264;
+    ledLine[0].nbPix = 134;
     ledLine[0].Yoffset = 0;
-    ledLine[0].Ysize = 4;
-    ledLine[0].Xsize = 66;
+    ledLine[0].Ysize = 1;
+    ledLine[0].Xsize = 134;
     
     ledLine[1].dev = &device[0];
     ledLine[1].src = &pixels;
     ledLine[1].address = "/2";
-    ledLine[1].nbPix = 264;
-    ledLine[1].Yoffset = 4;
-    ledLine[1].Ysize = 4;
-    ledLine[1].Xsize = 66;
-
+    ledLine[1].nbPix = 134;
+    ledLine[1].Yoffset = 1;
+    ledLine[1].Ysize = 1;
+    ledLine[1].Xsize = 134;
+    
     ledLine[2].dev = &device[1];
     ledLine[2].src = &pixels;
     ledLine[2].address = "/1";
-    ledLine[2].nbPix = 81;
-    ledLine[2].Yoffset = 8;
-    ledLine[2].Ysize = 4;
-    ledLine[2].Xsize = 66;
-
+    ledLine[2].nbPix = 134;
+    ledLine[2].Yoffset = 2;
+    ledLine[2].Ysize = 1;
+    ledLine[2].Xsize = 134;
+    
     ledLine[3].dev = &device[1];
     ledLine[3].src = &pixels;
     ledLine[3].address = "/2";
-    ledLine[3].nbPix = 264;
-    ledLine[3].Yoffset = 12;
-    ledLine[3].Ysize = 2;
-    ledLine[3].Xsize = 66;
+    ledLine[3].nbPix = 134;
+    ledLine[3].Yoffset = 3;
+    ledLine[3].Ysize = 1;
+    ledLine[3].Xsize = 134;
     
     ledLine[4].dev = &device[2];
     ledLine[4].src = &pixels;
     ledLine[4].address = "/1";
-    ledLine[4].nbPix = 264;
-    ledLine[4].Yoffset = 16;
-    ledLine[4].Ysize = 4;
-    ledLine[4].Xsize = 66;
+    ledLine[4].nbPix = 134;
+    ledLine[4].Yoffset = 4;
+    ledLine[4].Ysize = 1;
+    ledLine[4].Xsize = 134;
     
-    dmxLine[0].dev = &device[2];
-    dmxLine[0].src = &pixels;
-    dmxLine[0].address = "/DMX";
-    dmxLine[0].nbPix = 12;
-    dmxLine[0].Yoffset = 20;
-    dmxLine[0].Ysize = 1;
-    dmxLine[0].Xsize = 6;
+    ledLine[5].dev = &device[2];
+    ledLine[5].src = &pixels;
+    ledLine[5].address = "/2";
+    ledLine[5].nbPix = 134;
+    ledLine[5].Yoffset = 5;
+    ledLine[5].Ysize = 1;
+    ledLine[5].Xsize = 134;
+    
+    
+    // Plafond:
+    
+    ledLine[6].dev = &device[3];
+    ledLine[6].src = &pixels;
+    ledLine[6].address = "/1";
+    ledLine[6].nbPix = 92;
+    ledLine[6].Yoffset = 6;
+    ledLine[6].Ysize = 1;
+    ledLine[6].Xsize = 92;
+    
+    ledLine[7].dev = &device[3];
+    ledLine[7].src = &pixels;
+    ledLine[7].address = "/2";
+    ledLine[7].nbPix = 92;
+    ledLine[7].Yoffset = 7;
+    ledLine[7].Ysize = 1;
+    ledLine[7].Xsize = 92;
+    
+    ledLine[8].dev = &device[4];
+    ledLine[8].src = &pixels;
+    ledLine[8].address = "/1";
+    ledLine[8].nbPix = 92;
+    ledLine[8].Yoffset = 8;
+    ledLine[8].Ysize = 1;
+    ledLine[8].Xsize = 92;
+    
+    ledLine[9].dev = &device[4];
+    ledLine[9].src = &pixels;
+    ledLine[9].address = "/2";
+    ledLine[9].nbPix = 92;
+    ledLine[9].Yoffset = 9;
+    ledLine[9].Ysize = 1;
+    ledLine[9].Xsize = 92;
+    
+    ledLine[10].dev = &device[5];
+    ledLine[10].src = &pixels;
+    ledLine[10].address = "/1";
+    ledLine[10].nbPix = 92;
+    ledLine[10].Yoffset = 10;
+    ledLine[10].Ysize = 1;
+    ledLine[10].Xsize = 92;
+    
+    ledLine[11].dev = &device[5];
+    ledLine[11].src = &pixels;
+    ledLine[11].address = "/2";
+    ledLine[11].nbPix = 92;
+    ledLine[11].Yoffset = 11;
+    ledLine[11].Ysize = 1;
+    ledLine[11].Xsize = 92;
+    
+    ledLine[12].dev = &device[6];
+    ledLine[12].src = &pixels;
+    ledLine[12].address = "/1";
+    ledLine[12].nbPix = 92;
+    ledLine[12].Yoffset = 12;
+    ledLine[12].Ysize = 1;
+    ledLine[12].Xsize = 92;
+    
+    ledLine[13].dev = &device[6];
+    ledLine[13].src = &pixels;
+    ledLine[13].address = "/2";
+    ledLine[13].nbPix = 92;
+    ledLine[13].Yoffset = 13;
+    ledLine[13].Ysize = 1;
+    ledLine[13].Xsize = 92;
+    
+    ledLine[14].dev = &device[7];
+    ledLine[14].src = &pixels;
+    ledLine[14].address = "/1";
+    ledLine[14].nbPix = 92;
+    ledLine[14].Yoffset = 14;
+    ledLine[14].Ysize = 1;
+    ledLine[14].Xsize = 92;
+    
+    ledLine[15].dev = &device[7];
+    ledLine[15].src = &pixels;
+    ledLine[15].address = "/2";
+    ledLine[15].nbPix = 92;
+    ledLine[15].Yoffset = 15;
+    ledLine[15].Ysize = 1;
+    ledLine[15].Xsize = 92;
+    
+    ledLine[16].dev = &device[8];
+    ledLine[16].src = &pixels;
+    ledLine[16].address = "/1";
+    ledLine[16].nbPix = 92;
+    ledLine[16].Yoffset = 16;
+    ledLine[16].Ysize = 1;
+    ledLine[16].Xsize = 92;
+    
+    ledLine[17].dev = &device[8];
+    ledLine[17].src = &pixels;
+    ledLine[17].address = "/2";
+    ledLine[17].nbPix = 92;
+    ledLine[17].Yoffset = 17;
+    ledLine[17].Ysize = 1;
+    ledLine[17].Xsize = 92;
     
     // Calculate our drawing size
     
@@ -131,7 +241,7 @@ void ofApp::update(){
         // get the next message
         ofxOscMessage m;
         receiver.getNextMessage(m);
-        
+        /*
         if(m.getAddress() == "/b"){
             ofLog() << "b" << m.getArgAsInt32(0);
             for (int i=0; i<NUM_LEDLINES; i++){
@@ -144,7 +254,7 @@ void ofApp::update(){
             }
             ofLog() << "d" << m.getArgAsInt32(0);
         }
-        else if(m.getAddress() == "/play"){
+        else */if(m.getAddress() == "/play"){
             ofLog() << "play" << m.getArgAsInt32(0);
             if(m.getArgAsBool(0)){trame.play(); playing = 1;}
             else if(!m.getArgAsBool(0)){trame.stop(); playing = 0;}
@@ -202,17 +312,20 @@ void ofApp::update(){
     // Temporary hack to get the brightnesses from the video
     /// TODO: turn this into (a) proper class(es)
     
-    pixels.cropTo(BrightPix, 0, 23, 2, 1);
+    pixels.cropTo(BrightPix, 0, 11, 2, 1);
     Brights = BrightPix.getData();
     
     for (int i=0; i<NUM_LEDLINES; i++){
-        ledLine[i].setDither(int(Brights[0]));
+        ledLine[i].setDither(int(Brights[1]));
     }
+    //cout << "D" << int(Brights[1]) << endl;
     
-    for (int i=0; i<6; i++){
-        ledLine[i].setBrightness(int(Brights[3]/8));
+    for (int i=0; i<NUM_LEDLINES; i++){
+        ledLine[i].setBrightness(int(Brights[4]/8));
     }
-  
+
+    //cout << "B" << int(Brights[4]) << endl;
+    
     // Send the whole thing to the LED/DMX lines:
     
     for (int i=0; i<NUM_LEDLINES; i++) {
@@ -239,6 +352,7 @@ void ofApp::draw(){
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    /*
     if(playing){
         
         trame.draw(20, 20, 450, 450);
@@ -248,6 +362,11 @@ void ofApp::draw(){
         fbo.draw(20, 20, 450, 450);
         
     }
+     */
+    
+    ofImage img;
+    img.setFromPixels(pixels);
+    img.draw(20, 20, 450, 450);
     
     // LED lines display
     for (int i=0; i<NUM_LEDLINES; i++) {
@@ -264,7 +383,7 @@ void ofApp::draw(){
     }
     
     // dither + brightness display
-    ofImage img;
+    //ofImage img;
     img.setFromPixels(BrightPix);
     img.draw(500, dmxLine[NUM_DMXLINES-1].Yoffset*15+80+ledLine[NUM_LEDLINES-1].Ysize*10, 450, 50);
     
