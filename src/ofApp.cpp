@@ -216,7 +216,7 @@ void ofApp::setup(){
     dmxLine[0].nbPix = 12;
     dmxLine[0].Yoffset = 18;
     dmxLine[0].Ysize = 1;
-    dmxLine[0].Xsize = 1;
+    dmxLine[0].Xsize = 3;
     
     // Calculate our drawing size
     
@@ -305,7 +305,7 @@ void ofApp::update(){
             fbo.allocate(sourceXsize, sourceYsize, GL_RGB);
             fbo.begin();
             ofDisableAlphaBlending();
-            ofClear(0,0,0, 0);
+            ofClear(0,0,0);
             fbo.end();
         }
         
