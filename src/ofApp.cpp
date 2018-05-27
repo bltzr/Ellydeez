@@ -352,7 +352,6 @@ void ofApp::draw(){
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    /*
     if(playing){
         
         trame.draw(20, 20, 450, 450);
@@ -362,11 +361,6 @@ void ofApp::draw(){
         fbo.draw(20, 20, 450, 450);
         
     }
-     */
-    
-    ofImage img;
-    img.setFromPixels(pixels);
-    img.draw(20, 20, 450, 450);
     
     // LED lines display
     for (int i=0; i<NUM_LEDLINES; i++) {
@@ -383,7 +377,7 @@ void ofApp::draw(){
     }
     
     // dither + brightness display
-    //ofImage img;
+    ofImage img;
     img.setFromPixels(BrightPix);
     img.draw(500, dmxLine[NUM_DMXLINES-1].Yoffset*15+80+ledLine[NUM_LEDLINES-1].Ysize*10, 450, 50);
     
