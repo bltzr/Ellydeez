@@ -12,9 +12,8 @@
 #include "ofxIO.h"
 #include "ofxXmlPoco.h"
 
-
 //--------------------------------------------------------------
-//      Our utility classes
+//     
 
 class SerialMessage
 {

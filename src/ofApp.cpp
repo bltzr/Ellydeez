@@ -1,12 +1,13 @@
 #include "ofApp.h"
 
 
+
 //--------------------------------------------------------------
 void ofApp::setup(){
 
     // display
     ofSetWindowTitle("AdAstra");
-    ofSetFrameRate(60); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
+    ofSetFrameRate(30); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
     
     // OSC
     receiver.setup(PORTIN);
@@ -30,27 +31,28 @@ void ofApp::setup(){
     // Serial
     bool printDevices = true;        // Set this to true to display the list of devices in the Log Window
     int devNumb = 0;
-    if (printDevices){
-        std::vector<ofx::IO::SerialDeviceInfo> devicesInfo = ofx::IO::SerialDeviceUtils::listDevices();
-        ofLogNotice("ofApp::setup") << "Connected Devices: ";
-        for (ofx::IO::SerialDeviceInfo d : devicesInfo){
-            ofLogNotice("  ") << devNumb << ": " << d;
-            ++devNumb;
-        }
+    //if (printDevices){
+    devicesInfo = ofx::IO::SerialDeviceUtils::listDevices();
+    
+    ofLogNotice("ofApp::setup") << "Connected Devices: ";
+    for (ofx::IO::SerialDeviceInfo d : devicesInfo){
+        ofLogNotice("  ") << devNumb << ": " << d;
+        ++devNumb;
     }
+    //}
     
     ofLog() << "Opening serial devices:";
     
     // Verticaux
     device[0].name = "/dev/cu.usbmodem3767281";
     device[1].name = "/dev/cu.usbmodem1382271";
-    device[2].name = "/dev/cu.usbmodem4115751";
+    device[2].name = portName(4115750);    //"/dev/cu.usbmodem4115751";
     //Plafond
     device[3].name = "/dev/cu.usbmodem4115531";
     device[4].name = "/dev/cu.usbmodem4115541";
     device[5].name = "/dev/cu.usbmodem3960031";
-    device[6].name = "/dev/cu.usbmodem3962841";
-    device[7].name = "/dev/cu.usbmodem3884291";
+    device[6].name = "/dev/cu.usbmodem1180";    //"/dev/cu.usbmodem3962841";
+    device[7].name = "/dev/cu.usbmodem1179";    //"/dev/cu.usbmodem3884291";
     device[8].name = "/dev/cu.usbmodem4115521"; // + DMX
     
     
