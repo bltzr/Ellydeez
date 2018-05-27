@@ -15,7 +15,7 @@ class OutLine
 {
 public:
     ofPixels * src;      // source
-    string address;      // OSC address
+    std::string address; // OSC address
     int nbPix;           // number of pixels
     int Xoffset = 0;
     int Yoffset = 0;     // how many lines to offset from
@@ -29,8 +29,8 @@ public:
     virtual void sendLine() = 0;
     
 protected:
-    void sendValueAsIntMessage(string addr, int v);
-    void sendPixelsAsBlobMessage(string addr, ofPixels pix, int nBytes);
+    void sendValueAsIntMessage(std::string addr, int v);
+    void sendPixelsAsBlobMessage(std::string addr, ofPixels pix, int nBytes);
     
 private:
     void sendOSCMessage( ofxOscMessage& message);

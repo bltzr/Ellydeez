@@ -16,7 +16,7 @@
 #define NUM_LEDLINES 18          // How many physical LED lines ?
 #define NUM_DMXLINES 1
 #define NUM_SYPHON 1            // How many Syphon clients ?
-#define PORTIN 66666              // for incoming OSC messages
+#define PORTIN 66666            // for incoming OSC messages
 
 
 

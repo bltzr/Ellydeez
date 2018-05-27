@@ -10,6 +10,7 @@
 
 #include "ofxSerial.h"
 #include "ofxIO.h"
+#include "ofxXmlPoco.h"
 
 
 //--------------------------------------------------------------
@@ -38,7 +39,7 @@ class OSC2APA102
 {
 public:
     ofx::IO::PacketSerialDevice_<ofx::IO::SLIPEncoding, ofx::IO::SLIPEncoding::END, 16384> dev;
-    string name;
+    std::string name;
     
     void setup(){
         if (name == "") {
