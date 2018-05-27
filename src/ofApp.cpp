@@ -210,6 +210,14 @@ void ofApp::setup(){
     ledLine[17].Ysize = 1;
     ledLine[17].Xsize = 92;
     
+    dmxLine[0].dev = &device[8];
+    dmxLine[0].src = &pixels;
+    dmxLine[0].address = "/DMX";
+    dmxLine[0].nbPix = 12;
+    dmxLine[0].Yoffset = 18;
+    dmxLine[0].Ysize = 1;
+    dmxLine[0].Xsize = 6;
+    
     // Calculate our drawing size
     
     if (drawXsize == 0 && drawYsize == 0){
