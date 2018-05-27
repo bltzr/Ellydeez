@@ -5,7 +5,7 @@
 void ofApp::setup(){
 
     // display
-    ofSetWindowTitle("ledMapper");
+    ofSetWindowTitle("Ellydeez");
     ofSetFrameRate(60); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
     
     // OSC
@@ -202,7 +202,7 @@ void ofApp::update(){
     // Temporary hack to get the brightnesses from the video
     /// TODO: turn this into (a) proper class(es)
     
-    pixels.cropTo(BrightPix, 0, 23, 2, 1);
+    pixels.cropTo(BrightPix, 0, 11, 2, 1);
     Brights = BrightPix.getData();
     
     for (int i=0; i<NUM_LEDLINES; i++){

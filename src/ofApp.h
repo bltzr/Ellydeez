@@ -46,7 +46,7 @@ public:
     LedLine ledLine[NUM_LEDLINES];
     DMXLine dmxLine[NUM_DMXLINES];
     
-    int playing = 1;
+    int playing = 0;
     
     
     
