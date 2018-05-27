@@ -117,6 +117,7 @@ void ofApp::setup(){
     
     cout << "sizes: " << drawXsize << " / " << drawYsize << endl;
     fbo.allocate(drawXsize, drawYsize, GL_RGB);
+    ofDisableAlphaBlending();
     fbo.begin();
     ofClear(0,0,0);
     fbo.end();
@@ -194,6 +195,7 @@ void ofApp::update(){
         // FBO operations:
         
         fbo.begin();
+        ofDisableAlphaBlending();
         mClient.draw(0, 0, drawXsize, drawYsize);
         fbo.end();
         
