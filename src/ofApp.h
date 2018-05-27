@@ -35,7 +35,7 @@ public:
 
     ofxSyphonClient mClient ;
     int sourceXsize = 0, sourceYsize = 0;
-    int drawXsize = 0, drawYsize = 0;
+    int drawXsize = 132, drawYsize = 19;
 
     ofVideoPlayer trame;
 
