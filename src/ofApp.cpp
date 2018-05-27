@@ -90,10 +90,10 @@ void ofApp::setup(){
     ledLine[3].dev = &device[1];
     ledLine[3].src = &pixels;
     ledLine[3].address = "/2";
-    ledLine[3].nbPix = 264;
-    ledLine[3].Yoffset = 12;
-    ledLine[3].Ysize = 4 ;
-    ledLine[3].Xsize = 66;
+    ledLine[3].nbPix = 134;
+    ledLine[3].Yoffset = 3;
+    ledLine[3].Ysize = 1 ;
+    ledLine[3].Xsize = 134;
     
     ledLine[4].dev = &device[2];
     ledLine[4].src = &pixels;
@@ -236,7 +236,7 @@ void ofApp::setup(){
     cout << "sizes: " << drawXsize << " / " << drawYsize << endl;
     fbo.allocate(drawXsize, drawYsize, GL_RGB);
     fbo.begin();
-    ofClear(0,0,0);
+    ofClear(0,0,0,0);
     fbo.end();
 }
 
@@ -304,7 +304,8 @@ void ofApp::update(){
             sourceYsize=mClient.getTexture().getHeight();
             fbo.allocate(sourceXsize, sourceYsize, GL_RGB);
             fbo.begin();
-            ofClear(0,0,0);
+            ofDisableAlphaBlending();
+            ofClear(0,0,0, 0);
             fbo.end();
         }
         
@@ -312,6 +313,7 @@ void ofApp::update(){
         // FBO operations:
         
         fbo.begin();
+        ofDisableAlphaBlending();
         mClient.draw(0, 0, drawXsize, drawYsize);
         fbo.end();
         
@@ -322,18 +324,17 @@ void ofApp::update(){
     // Temporary hack to get the brightnesses from the video
     /// TODO: turn this into (a) proper class(es)
     
-    pixels.cropTo(BrightPix, 0, 12, 2, 1);
+    pixels.cropTo(BrightPix, 130, 18, 2, 1);
     Brights = BrightPix.getData();
     
     for (int i=0; i<NUM_LEDLINES; i++){
-        ledLine[i].setDither(int(Brights[1]));
+        ledLine[i].setDither(int(Brights[0]));
     }
     //cout << "D" << int(Brights[1]) << endl;
     
     for (int i=0; i<NUM_LEDLINES; i++){
-        ledLine[i].setBrightness(int(Brights[4]/8));
+        ledLine[i].setBrightness(int(Brights[3]/8));
     }
-
     //cout << "B" << int(Brights[4]) << endl;
     
     // Send the whole thing to the LED/DMX lines:
@@ -369,7 +370,7 @@ void ofApp::draw(){
         
     } else {
     
-        fbo.draw(20, 20, 450, 450);
+        mClient.draw(20, 20, 450, 450);
         
     }
   
@@ -378,20 +379,20 @@ void ofApp::draw(){
     for (int i=0; i<NUM_LEDLINES; i++) {
         ofImage img;
         img.setFromPixels(ledLine[i].pixelCrop);
-        img.draw(500, ledLine[i].Yoffset*15+20, 450, ledLine[i].Ysize*10);
+        img.draw(500, ledLine[i].Yoffset*10+20, 450, ledLine[i].Ysize*8);
     }
     
     // DMX display
     for (int i=0; i<NUM_DMXLINES; i++) {
         ofImage img;
         img.setFromPixels(dmxLine[i].pixelCrop);
-        img.draw(500, dmxLine[i].Yoffset*15+50, 450, dmxLine[i].Ysize*50);
+        img.draw(500, dmxLine[i].Yoffset*10+50, 450, dmxLine[i].Ysize*8);
     }
     
     // dither + brightness display
     ofImage img;
     img.setFromPixels(BrightPix);
-    img.draw(500, dmxLine[NUM_DMXLINES-1].Yoffset*15+80+ledLine[NUM_LEDLINES-1].Ysize*10, 450, 50);
+    img.draw(500, dmxLine[NUM_DMXLINES-1].Yoffset*10+80+ledLine[NUM_LEDLINES-1].Ysize*18, 450, 50);
     
     
     #endif
