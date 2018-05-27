@@ -16,7 +16,7 @@
 #define NUM_LEDLINES 5          // How many physical LED lines ?
 #define NUM_DMXLINES 1
 #define NUM_SYPHON 1            // How many Syphon clients ?
-#define PORTIN 66666              // for incoming OSC messages
+#define PORTIN 66666            // for incoming OSC messages
 
 
 
@@ -35,7 +35,7 @@ public:
 
     ofxSyphonClient mClient ;
     int sourceXsize = 0, sourceYsize = 0;
-    int drawXsize = 0, drawYsize = 0;
+    int drawXsize = 66, drawYsize = 24;
 
     ofVideoPlayer trame;
 
@@ -46,7 +46,7 @@ public:
     LedLine ledLine[NUM_LEDLINES];
     DMXLine dmxLine[NUM_DMXLINES];
     
-    int playing = 1;
+    int playing = 0;
     
     
     

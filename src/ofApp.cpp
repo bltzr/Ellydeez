@@ -7,6 +7,7 @@ void ofApp::setup(){
     // display
     ofSetWindowTitle("ledMapper");
     ofSetFrameRate(60); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
+    //ofDisableSmoothing();
     
     // OSC
     receiver.setup(PORTIN);
@@ -81,7 +82,7 @@ void ofApp::setup(){
     ledLine[3].address = "/2";
     ledLine[3].nbPix = 264;
     ledLine[3].Yoffset = 12;
-    ledLine[3].Ysize = 2;
+    ledLine[3].Ysize = 4 ;
     ledLine[3].Xsize = 66;
     
     ledLine[4].dev = &device[2];
@@ -98,7 +99,7 @@ void ofApp::setup(){
     dmxLine[0].nbPix = 12;
     dmxLine[0].Yoffset = 20;
     dmxLine[0].Ysize = 1;
-    dmxLine[0].Xsize = 6;
+    dmxLine[0].Xsize = 1;
     
     // Calculate our drawing size
     
@@ -115,6 +116,7 @@ void ofApp::setup(){
     
     //Initial FBO allocation and cleanup
     
+    cout << "sizes: " << drawXsize << " / " << drawYsize << endl;
     fbo.allocate(drawXsize, drawYsize, GL_RGB);
     fbo.begin();
     ofClear(0,0,0);
@@ -176,8 +178,9 @@ void ofApp::update(){
     } else {                            // Data from Syphon
         
         // If the source dimensions change, we reallocate the FBO to the right sizes
-        if (sourceXsize!=mClient.getTexture().getWidth() ||
-            sourceYsize!=mClient.getTexture().getHeight()){
+        if ((mClient.getTexture().getWidth()!=0&&mClient.getTexture().getHeight()!=0)
+         &&(sourceXsize!=mClient.getTexture().getWidth() ||
+            sourceYsize!=mClient.getTexture().getHeight())){
             
             cout << "Syphon Input: width/height: " << mClient.getTexture().getWidth() << " " << mClient.getTexture().getHeight() << endl;
             sourceXsize=mClient.getTexture().getWidth();
@@ -202,16 +205,18 @@ void ofApp::update(){
     // Temporary hack to get the brightnesses from the video
     /// TODO: turn this into (a) proper class(es)
     
-    pixels.cropTo(BrightPix, 0, 23, 2, 1);
+    pixels.cropTo(BrightPix, 0, 12, 2, 1);
     Brights = BrightPix.getData();
     
     for (int i=0; i<NUM_LEDLINES; i++){
         ledLine[i].setDither(int(Brights[0]));
     }
+    //cout << "d: " << int(Brights[0]) << endl;
     
     for (int i=0; i<6; i++){
         ledLine[i].setBrightness(int(Brights[3]/8));
     }
+    //cout << "b: " << int(int(Brights[3]/8)) << endl;
   
     // Send the whole thing to the LED/DMX lines:
     
@@ -239,6 +244,7 @@ void ofApp::draw(){
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    
     if(playing){
         
         trame.draw(20, 20, 450, 450);
@@ -248,6 +254,7 @@ void ofApp::draw(){
         fbo.draw(20, 20, 450, 450);
         
     }
+  
     
     // LED lines display
     for (int i=0; i<NUM_LEDLINES; i++) {
