@@ -44,16 +44,17 @@ void ofApp::setup(){
     ofLog() << "Opening serial devices:";
     
     // Verticaux
-    device[0].name = "/dev/cu.usbmodem3767281";
-    device[1].name = "/dev/cu.usbmodem1382271";
-    device[2].name = portName(4115750);    //"/dev/cu.usbmodem4115751";
+    device[0].name = portName(3767280); //"/dev/cu.usbmodem3767281";
+    device[1].name = portName(1382270); //"/dev/cu.usbmodem1382271";
+    device[2].name = portName(4115750); //"/dev/cu.usbmodem4115751";
     //Plafond
-    device[3].name = "/dev/cu.usbmodem4115531";
-    device[4].name = "/dev/cu.usbmodem4115541";
-    device[5].name = "/dev/cu.usbmodem3960031";
-    device[6].name = "/dev/cu.usbmodem1180";    //"/dev/cu.usbmodem3962841";
-    device[7].name = "/dev/cu.usbmodem1179";    //"/dev/cu.usbmodem3884291";
-    device[8].name = "/dev/cu.usbmodem4115521"; // + DMX
+    device[3].name = portName(4115530); //"/dev/cu.usbmodem4115531";
+    device[4].name = portName(4115540); //"/dev/cu.usbmodem4115541";
+    device[5].name = portName(3960030); //"/dev/cu.usbmodem3960031";
+    device[6].name = portName(3962840); //"/dev/cu.usbmodem3962841";
+    device[7].name = portName(3884290); //"/dev/cu.usbmodem3884291";
+    device[8].name = portName(4115520); //"/dev/cu.usbmodem4115521"; // + DMX
+    
     
     
     for (int i = 0; i< NUM_TEENSIES; ++i){
@@ -372,7 +373,7 @@ void ofApp::draw(){
         
     } else {
     
-        mClient.draw(20, 20, 450, 450);
+        fbo.draw(20, 20, 450, 450);
         
     }
   
