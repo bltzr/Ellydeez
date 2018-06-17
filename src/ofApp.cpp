@@ -327,7 +327,7 @@ void ofApp::update(){
     // Temporary hack to get the brightnesses from the video
     /// TODO: turn this into (a) proper class(es)
     
-    pixels.cropTo(BrightPix, 130, 18, 2, 1);
+    pixels.cropTo(BrightPix, 129, 0, 3, 1);
     Brights = BrightPix.getData();
     
     for (int i=0; i<NUM_LEDLINES; i++){
@@ -336,9 +336,10 @@ void ofApp::update(){
     //cout << "D" << int(Brights[1]) << endl;
     
     for (int i=0; i<NUM_LEDLINES; i++){
-        ledLine[i].setBrightness(int(Brights[3]/8));
+        ledLine[i].setBrightness(int(Brights[(i+1)*3]));
+        // cout << "B " << i << ": " << int(Brights[(i+1)*3]) << endl;
     }
-    //cout << "B" << int(Brights[4]) << endl;
+    
     
     // Send the whole thing to the LED/DMX lines:
     
