@@ -3,3 +3,4 @@ ofxOsc
 ofxPoco
 ofxSerial
 ofxSyphon
+ofxTime

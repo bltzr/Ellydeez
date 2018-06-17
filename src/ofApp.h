@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxTime.h"
 
 #include "ofxSyphon.h"
 
@@ -12,9 +13,9 @@
 
 
 // project-specific numbers:
-#define NUM_TEENSIES 9          // How many Teensies to use ?
-#define NUM_LEDLINES 18          // How many physical LED lines ?
-#define NUM_DMXLINES 1
+#define NUM_TEENSIES 1          // How many Teensies to use ?
+#define NUM_LEDLINES 2          // How many physical LED lines ?
+#define NUM_DMXLINES 0
 #define NUM_SYPHON 1            // How many Syphon clients ?
 #define PORTIN 66666            // for incoming OSC messages
 
@@ -35,7 +36,7 @@ public:
 
     ofxSyphonClient mClient ;
     int sourceXsize = 0, sourceYsize = 0;
-    int drawXsize = 132, drawYsize = 19;
+    int drawXsize = 132, drawYsize = 2;
 
     ofVideoPlayer trame;
 
@@ -56,14 +57,23 @@ public:
     }
     // ^
     
+    
+    int playing{0};
+    int drawing{1};
+    
+    int timeCounter{0};
+    int currentTime{0};
+    bool timeToPlay{false};
+    bool live{false};
+    
+    
     OSC2APA102 device[NUM_TEENSIES] ;
 
     LedLine ledLine[NUM_LEDLINES];
     DMXLine dmxLine[NUM_DMXLINES];
     
-    int playing = 0;
     
-    
+
     
     // temporary way to deal with brightness info from the video:
     ofPixels BrightPix;
