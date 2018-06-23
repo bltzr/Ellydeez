@@ -13,7 +13,7 @@
 //
 
 
-void OutLine::sendValueAsIntMessage(string addr, int v)
+void OutLine::sendValueAsIntMessage(std::string addr, int v)
 {
     
     ofxOscMessage n;
@@ -23,7 +23,7 @@ void OutLine::sendValueAsIntMessage(string addr, int v)
     
 }
 
-void OutLine::sendPixelsAsBlobMessage(string addr, ofPixels pix, int nBytes)
+void OutLine::sendPixelsAsBlobMessage(std::string addr, ofPixels pix, int nBytes)
 {
     
     ofBuffer imgAsBuffer;
@@ -64,8 +64,8 @@ void OutLine::sendOSCMessage( ofxOscMessage& message)
                 p << message.getArgAsString( i ).c_str();
             else if ( message.getArgType( i ) == OFXOSC_TYPE_CHAR )
                 p << message.getArgAsChar( i );
-            else if ( message.getArgType( i ) == OFXOSC_TYPE_MIDI_MESSAGE )
-                p << message.getArgAsMidiMessage( i );
+            //else if ( message.getArgType( i ) == OFXOSC_TYPE_MIDI_MESSAGE )
+              //  p << message.getArgAsMidiMessage( i );
             else if ( message.getArgType( i ) == OFXOSC_TYPE_TRUE || message.getArgType( i ) == OFXOSC_TYPE_FALSE )
                 p << message.getArgAsBool( i );
             else if ( message.getArgType( i ) == OFXOSC_TYPE_TRIGGER )
@@ -73,7 +73,7 @@ void OutLine::sendOSCMessage( ofxOscMessage& message)
             else if ( message.getArgType( i ) == OFXOSC_TYPE_TIMETAG )
                 p << (osc::int64)message.getArgAsTimetag( i );
             //else if ( message.getArgType( i ) == OFXOSC_TYPE_RGBA_COLOR )
-            //    p << message.getArgAsRgbaColor( i );
+              //  p << message.getArgAsRgbaColor( i );
             else if ( message.getArgType( i ) == OFXOSC_TYPE_BLOB ){
                 ofBuffer buff = message.getArgAsBlob(i);
                 osc::Blob b(buff.getData(), (unsigned long)buff.size());

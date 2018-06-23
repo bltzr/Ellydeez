@@ -39,8 +39,8 @@ public:
     virtual void sendLine() = 0;
     
 protected:
-    void sendValueAsIntMessage(string addr, int v);
-    void sendPixelsAsBlobMessage(string addr, ofPixels pix, int nBytes);
+    void sendValueAsIntMessage(std::string addr, int v);
+    void sendPixelsAsBlobMessage(std::string addr, ofPixels pix, int nBytes);
     
 private:
     void sendOSCMessage( ofxOscMessage& message);

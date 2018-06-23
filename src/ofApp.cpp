@@ -1,11 +1,13 @@
 #include "ofApp.h"
 
 
+
 //--------------------------------------------------------------
 void ofApp::setup(){
 
     // display
-    ofSetWindowTitle("ledMapper");
+    ofSetWindowTitle("Canvases");
+    ofSetVerticalSync(false);
     ofSetFrameRate(60); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
     
     // Try to load XML config file
@@ -23,20 +25,27 @@ void ofApp::setup(){
     
     // Syphon
     mClient.setup();
-    mClient.set("","Simple Server"); // Use Syphon Simple Server to test this, change arguments at will
+    mClient.set("Canvases","Max"); // Use Syphon Simple Server to test this, change arguments at will
 
     // Video Player
     trame.setPixelFormat(OF_PIXELS_RGB);
-    trame.load("test.mov");
-    trame.setLoopState(OF_LOOP_NORMAL);
+    trame.load("testld.mov");
     
-    if(playing) trame.play();
+    
+    if(playing){
+        trame.play();
+        trame.setSpeed(1);
+        trame.setLoopState(OF_LOOP_NORMAL);
+    }
 
-
+    //trame.setPaused(1);
+    
     // Serial
     // printDevices(); // Set this to true to display the list of devices in the Log Window
     
     ofLog() << "Opening serial devices:";
+
+    device[0].name = portName(3262750); //"/dev/cu.usbmodem3767281"; //
     
     int numOSC2APA102 = XML.getNumTags("OSC2APA102");
     if(numOSC2APA102 > 0){
@@ -66,53 +75,24 @@ void ofApp::setup(){
     
     // LED lines assignments
     
+    // Verticaux:
+    
     ledLine[0].dev = &device[0];
     ledLine[0].source = &pixels;
     ledLine[0].address = "/1";
-    ledLine[0].nbPix = 264;
+    ledLine[0].nbPix = 128;
     ledLine[0].Yoffset = 0;
-    ledLine[0].Ysize = 4;
-    ledLine[0].Xsize = 66;
+    ledLine[0].Ysize = 1;
+    ledLine[0].Xsize = 128;
     
     ledLine[1].dev = &device[0];
     ledLine[1].source = &pixels;
     ledLine[1].address = "/2";
-    ledLine[1].nbPix = 264;
-    ledLine[1].Yoffset = 4;
-    ledLine[1].Ysize = 4;
-    ledLine[1].Xsize = 66;
-
-    ledLine[2].dev = &device[1];
-    ledLine[2].source = &pixels;
-    ledLine[2].address = "/1";
-    ledLine[2].nbPix = 81;
-    ledLine[2].Yoffset = 8;
-    ledLine[2].Ysize = 4;
-    ledLine[2].Xsize = 66;
-
-    ledLine[3].dev = &device[1];
-    ledLine[3].source = &pixels;
-    ledLine[3].address = "/2";
-    ledLine[3].nbPix = 264;
-    ledLine[3].Yoffset = 12;
-    ledLine[3].Ysize = 2;
-    ledLine[3].Xsize = 66;
+    ledLine[1].nbPix = 132;
+    ledLine[1].Yoffset = 1;
+    ledLine[1].Ysize = 1;
+    ledLine[1].Xsize = 132;
     
-    ledLine[4].dev = &device[2];
-    ledLine[4].source = &pixels;
-    ledLine[4].address = "/1";
-    ledLine[4].nbPix = 264;
-    ledLine[4].Yoffset = 16;
-    ledLine[4].Ysize = 4;
-    ledLine[4].Xsize = 66;
-    
-    dmxLine[0].dev = &device[2];
-    dmxLine[0].source = &pixels;
-    dmxLine[0].address = "/DMX";
-    dmxLine[0].nbPix = 12;
-    dmxLine[0].Yoffset = 20;
-    dmxLine[0].Ysize = 1;
-    dmxLine[0].Xsize = 6;
     
     // Calculate our drawing size
     
@@ -129,9 +109,11 @@ void ofApp::setup(){
     
     //Initial FBO allocation and cleanup
     
+    cout << "sizes: " << drawXsize << " / " << drawYsize << endl;
     fbo.allocate(drawXsize, drawYsize, GL_RGB);
     fbo.begin();
-    ofClear(0,0,0);
+    ofDisableAlphaBlending();
+    ofClear(0,0,0,0);
     fbo.end();
 }
 
@@ -139,13 +121,29 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 
+    // Time management
+    
+    ++timeCounter;
+    if (timeCounter>100){
+        Poco::Timestamp now;
+        Poco::LocalDateTime nowLocal(now);
+        std::string fmt = Poco::DateTimeFormat::SORTABLE_FORMAT;
+        std::string timeNow = ofxTime::Utils::format(ofxTime::Utils::floor(nowLocal, Poco::Timespan::MINUTES), fmt);
+        currentTime = (int(timeNow[11])-48)*10+int(timeNow[12])-48;
+        bool previousTime = timeToPlay;
+        timeToPlay = (currentTime > 10 && currentTime < 19);
+        //if(timeToPlay!=previousTime){playing=timeToPlay; cout << "play: " << playing << endl; }
+        timeCounter=0;
+    }
+    
+    
     // Treat incoming OSC Messages:
     
     while(receiver.hasWaitingMessages()){
         // get the next message
         ofxOscMessage m;
         receiver.getNextMessage(m);
-        
+        /*
         if(m.getAddress() == "/b"){
             ofLog() << "b" << m.getArgAsInt32(0);
             for (int i=0; i<NUM_LEDLINES; i++){
@@ -158,16 +156,20 @@ void ofApp::update(){
             }
             ofLog() << "d" << m.getArgAsInt32(0);
         }
-        else if(m.getAddress() == "/play"){
+        else */if(m.getAddress() == "/play"){
             ofLog() << "play" << m.getArgAsInt32(0);
-            if(m.getArgAsBool(0)){trame.play(); playing = 1;}
+            if(m.getArgAsBool(0)){trame.play(); trame.setLoopState(OF_LOOP_NORMAL); playing = 1;}
             else if(!m.getArgAsBool(0)){trame.stop(); playing = 0;}
         }
         else if(m.getAddress() == "/pause"){
             ofLog() << "pause" << m.getArgAsInt32(0);
             if(m.getArgAsBool(0)){trame.setPaused(1);}
             
-            else if(!m.getArgAsBool(0)){trame.setPaused(1);}
+            else if(!m.getArgAsBool(0)){trame.setPaused(0);}
+        }
+        else if(m.getAddress() == "/draw"){
+            ofLog() << "draw" << m.getArgAsInt32(0);
+            drawing = m.getArgAsBool(0);
         }
         else if(m.getAddress() == "/position"){
             ofLog() << "position" << m.getArgAsFloat(0);
@@ -190,14 +192,16 @@ void ofApp::update(){
     } else {                            // Data from Syphon
         
         // If the source dimensions change, we reallocate the FBO to the right sizes
-        if (sourceXsize!=mClient.getTexture().getWidth() ||
-            sourceYsize!=mClient.getTexture().getHeight()){
+        if ((mClient.getTexture().getWidth()!=0&&mClient.getTexture().getHeight()!=0)
+         &&(sourceXsize!=mClient.getTexture().getWidth() ||
+            sourceYsize!=mClient.getTexture().getHeight())){
             
             cout << "Syphon Input: width/height: " << mClient.getTexture().getWidth() << " " << mClient.getTexture().getHeight() << endl;
             sourceXsize=mClient.getTexture().getWidth();
             sourceYsize=mClient.getTexture().getHeight();
             fbo.allocate(sourceXsize, sourceYsize, GL_RGB);
             fbo.begin();
+            ofDisableAlphaBlending();
             ofClear(0,0,0);
             fbo.end();
         }
@@ -206,6 +210,7 @@ void ofApp::update(){
         // FBO operations:
         
         fbo.begin();
+        ofDisableAlphaBlending();
         mClient.draw(0, 0, drawXsize, drawYsize);
         fbo.end();
         
@@ -216,17 +221,20 @@ void ofApp::update(){
     // Temporary hack to get the brightnesses from the video
     /// TODO: turn this into (a) proper class(es)
     
-    pixels.cropTo(BrightPix, 0, 23, 2, 1);
+    pixels.cropTo(BrightPix, 129, 0, 3, 1);
     Brights = BrightPix.getData();
     
     for (int i=0; i<NUM_LEDLINES; i++){
         ledLine[i].setDither(int(Brights[0]));
     }
+    //cout << "D" << int(Brights[1]) << endl;
     
-    for (int i=0; i<6; i++){
-        ledLine[i].setBrightness(int(Brights[3]/8));
+    for (int i=0; i<NUM_LEDLINES; i++){
+        ledLine[i].setBrightness(int(Brights[(i+1)*3]));
+        // cout << "B " << i << ": " << int(Brights[(i+1)*3]) << endl;
     }
-  
+    
+    
     // Send the whole thing to the LED/DMX lines:
     
     for (int i=0; i<NUM_LEDLINES; i++) {
@@ -247,10 +255,13 @@ void ofApp::draw(){
   
     #ifdef __APPLE__
   
+    if (drawing){
+        
     // Clear with alpha, so we can capture via syphon and composite elsewhere should we want.
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    
     if(playing){
         
         trame.draw(20, 20, 450, 450);
@@ -260,26 +271,28 @@ void ofApp::draw(){
         fbo.draw(20, 20, 450, 450);
         
     }
+  
     
     // LED lines display
     for (int i=0; i<NUM_LEDLINES; i++) {
         ofImage img;
         img.setFromPixels(ledLine[i].pixelCrop);
-        img.draw(500, ledLine[i].Yoffset*15+20, 450, ledLine[i].Ysize*10);
+        img.draw(500, ledLine[i].Yoffset*10+20, 450, ledLine[i].Ysize*8);
     }
     
     // DMX display
     for (int i=0; i<NUM_DMXLINES; i++) {
         ofImage img;
         img.setFromPixels(dmxLine[i].pixelCrop);
-        img.draw(500, dmxLine[i].Yoffset*15+50, 450, dmxLine[i].Ysize*50);
+        img.draw(500, dmxLine[i].Yoffset*10+50, 450, dmxLine[i].Ysize*8);
     }
     
     // dither + brightness display
     ofImage img;
     img.setFromPixels(BrightPix);
-    img.draw(500, dmxLine[NUM_DMXLINES-1].Yoffset*15+80+ledLine[NUM_LEDLINES-1].Ysize*10, 450, 50);
+    img.draw(500, dmxLine[NUM_DMXLINES-1].Yoffset*10+80+ledLine[NUM_LEDLINES-1].Ysize*18, 450, 50);
     
+    }
     
     #endif
 

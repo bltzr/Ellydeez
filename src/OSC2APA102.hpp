@@ -10,7 +10,7 @@
 
 #include "ofxSerial.h"
 #include "ofxIO.h"
-
+#include "ofxXmlPoco.h"
 
 
 

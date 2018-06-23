@@ -1,6 +1,6 @@
 //
 //  ledLine.cpp
-//  Ellydee
+//  Ellydeez
 //
 //  Created by Pascal Baltazar on 19/05/2018.
 //
@@ -12,7 +12,14 @@
 //
 void LedLine::sendLine() {
     
-    source->cropTo(pixelCrop, Xoffset, Yoffset, Xsize, Ysize);
+    src->cropTo(pixelCrop, Xoffset, Yoffset, Xsize, Ysize);
+    for (int i = 0; i < Xsize; ++i){
+        for (int j = 0; j < Ysize; ++j){
+            pixelCrop[(j*Xsize+i)*3+0] = pixelCrop[(j*Xsize+i)*3+0]*mapCol[bright]/255;
+            pixelCrop[(j*Xsize+i)*3+1] = pixelCrop[(j*Xsize+i)*3+1]*mapCol[bright]/255;
+            pixelCrop[(j*Xsize+i)*3+2] = pixelCrop[(j*Xsize+i)*3+2]*mapCol[bright]/255;
+        }
+    }
     
     sendPixelsAsBlobMessage(address, pixelCrop, nbPix*3);
     
@@ -23,9 +30,8 @@ void LedLine::sendLine() {
 // Set APA102 Brightness for each LED line:
 //
 void LedLine::setBrightness(int brightness) {
-
-    sendValueAsIntMessage(address, brightness);
-    
+    bright = uint8_t(brightness);
+    sendValueAsIntMessage(address, mapBright[uint8_t(bright)]);
 }
 
 //--------------------------------------------------------------

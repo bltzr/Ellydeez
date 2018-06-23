@@ -1,5 +1,6 @@
 ofxIO
 ofxOsc
+ofxPoco
 ofxSerial
 ofxSyphon
-ofxXmlSettings
+ofxTime

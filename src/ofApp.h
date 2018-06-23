@@ -1,8 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-
-#include "ofxXmlSettings.h"
+#include "ofxTime.h"
 
 #include "ofxSyphon.h"
 
@@ -14,9 +13,9 @@
 
 
 // project-specific numbers:
-#define NUM_TEENSIES 3          // How many Teensies to use ?
-#define NUM_LEDLINES 5          // How many physical LED lines ?
-#define NUM_DMXLINES 1
+#define NUM_TEENSIES 1          // How many Teensies to use ?
+#define NUM_LEDLINES 2          // How many physical LED lines ?
+#define NUM_DMXLINES 0
 #define NUM_SYPHON 1            // How many Syphon clients ?
 #define PORTIN 66666            // for incoming OSC messages
 
@@ -35,8 +34,9 @@ public:
     ofxXmlSettings XML;
 
     ofxSyphonClient mClient ;
-    ofFbo fbo ;
-    
+    int sourceXsize = 0, sourceYsize = 0;
+    int drawXsize = 132, drawYsize = 2;
+
     ofVideoPlayer trame;
 
     ofxOscReceiver receiver;
