@@ -10,13 +10,18 @@ void ofApp::setup(){
     ofSetVerticalSync(false);
     ofSetFrameRate(60); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
     
-    // Try to load XML config file
-    
-    if( XML.loadFile("mySettings.xml") ){
-        ofLog() << "mySettings.xml loaded!";
-    }else{
-        ofLog() << "unable to load mySettings.xml check data/ folder";
-        ofApp::exit();
+    // Try to load JSON config file
+    ofFile file("config.json");
+    if(file.exists()){
+        file >> js;
+        for(auto & stroke: js){
+            if(!stroke.empty()){
+                path.moveTo(stroke[0]["x"], stroke[0]["y"]);
+                for(auto & p: stroke){
+                    path.lineTo(p["x"], p["y"]);
+                }
+            }
+        }
     }
     
     // OSC

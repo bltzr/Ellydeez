@@ -30,8 +30,9 @@ public:
     void setup();
     void update();
     void draw();
-
-    ofxXmlSettings XML;
+    
+    ofJson js;
+    ofPath path;
 
     ofxSyphonClient mClient ;
     int sourceXsize = 0, sourceYsize = 0;
@@ -51,8 +52,6 @@ public:
     
     
     ofPixels pixels ;
-    int sourceXsize = 0, sourceYsize = 0;
-    int drawXsize = 0, drawYsize = 0;
     
     
     
