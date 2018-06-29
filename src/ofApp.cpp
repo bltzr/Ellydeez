@@ -7,7 +7,8 @@ void ofApp::setup(){
 
     // display
     ofSetWindowTitle("AdAstra");
-    ofSetFrameRate(30); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
+    ofSetFrameRate(60); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
+    ofSetVerticalSync(false);
     
     // OSC
     receiver.setup(PORTIN);
@@ -20,11 +21,11 @@ void ofApp::setup(){
     // Video Player
     trame.setPixelFormat(OF_PIXELS_RGB);
     trame.load("test.mov");
-    trame.setLoopState(OF_LOOP_NORMAL);
     
     if(playing){
         trame.play();
         trame.setSpeed(1);
+        trame.setLoopState(OF_LOOP_NORMAL);
     }
 
     
@@ -239,6 +240,7 @@ void ofApp::setup(){
     cout << "sizes: " << drawXsize << " / " << drawYsize << endl;
     fbo.allocate(drawXsize, drawYsize, GL_RGB);
     fbo.begin();
+    ofDisableAlphaBlending();
     ofClear(0,0,0,0);
     fbo.end();
 }
@@ -246,6 +248,21 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    // Time management
+    
+    ++timeCounter;
+    if (timeCounter>100){
+        Poco::Timestamp now;
+        Poco::LocalDateTime nowLocal(now);
+        std::string fmt = Poco::DateTimeFormat::SORTABLE_FORMAT;
+        std::string timeNow = ofxTime::Utils::format(ofxTime::Utils::floor(nowLocal, Poco::Timespan::MINUTES), fmt);
+        currentTime = (int(timeNow[11])-48)*10+int(timeNow[12])-48;
+        bool previousTime = timeToPlay;
+        timeToPlay = (currentTime > 10 && currentTime < 19);
+        //if(timeToPlay!=previousTime){playing=timeToPlay; cout << "play: " << playing << endl; }
+        timeCounter=0;
+    }
 
     // Treat incoming OSC Messages:
     
@@ -268,14 +285,18 @@ void ofApp::update(){
         }
         else */if(m.getAddress() == "/play"){
             ofLog() << "play" << m.getArgAsInt32(0);
-            if(m.getArgAsBool(0)){trame.play(); playing = 1;}
+            if(m.getArgAsBool(0)){trame.play(); trame.setLoopState(OF_LOOP_NORMAL); playing = 1;}
             else if(!m.getArgAsBool(0)){trame.stop(); playing = 0;}
         }
         else if(m.getAddress() == "/pause"){
             ofLog() << "pause" << m.getArgAsInt32(0);
             if(m.getArgAsBool(0)){trame.setPaused(1);}
             
-            else if(!m.getArgAsBool(0)){trame.setPaused(1);}
+            else if(!m.getArgAsBool(0)){trame.setPaused(0);}
+        }
+        else if(m.getAddress() == "/draw"){
+            ofLog() << "draw" << m.getArgAsInt32(0);
+            drawing = m.getArgAsBool(0);
         }
         else if(m.getAddress() == "/position"){
             ofLog() << "position" << m.getArgAsFloat(0);
@@ -361,6 +382,8 @@ void ofApp::update(){
 void ofApp::draw(){
   
     #ifdef __APPLE__
+    
+  if (drawing){
   
     // Clear with alpha, so we can capture via syphon and composite elsewhere should we want.
     glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -397,6 +420,7 @@ void ofApp::draw(){
     img.setFromPixels(BrightPix);
     img.draw(500, dmxLine[NUM_DMXLINES-1].Yoffset*10+80+ledLine[NUM_LEDLINES-1].Ysize*18, 450, 50);
     
+  }
     
     #endif
 

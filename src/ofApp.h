@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxTime.h"
 
 #include "ofxSyphon.h"
 
@@ -56,13 +57,20 @@ public:
     }
     // ^
     
+    
+    int playing{0};
+    int drawing{1};
+    
+    int timeCounter{0};
+    int currentTime{0};
+    bool timeToPlay{false};
+    bool live{false};
+    
+    
     OSC2APA102 device[NUM_TEENSIES] ;
 
     LedLine ledLine[NUM_LEDLINES];
     DMXLine dmxLine[NUM_DMXLINES];
-    
-    int playing = 0;
-    
     
     
     // temporary way to deal with brightness info from the video:
