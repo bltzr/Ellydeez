@@ -1,6 +1,6 @@
 //
 //  outLine.hpp
-//  ledMapper
+//  Ellydeez
 //
 //  Created by Pascal Baltazar on 22/05/2018.
 //

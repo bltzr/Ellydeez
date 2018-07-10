@@ -50,8 +50,9 @@ void ofApp::setup(){
     
     ofLog() << "Opening serial devices:";
 
-    device[0].name = portName(3262750); //"/dev/cu.usbmodem3767281"; //
+    //device[0].name = portName(3262750); //"/dev/cu.usbmodem3767281"; //
     
+    /*
     int numOSC2APA102 = XML.getNumTags("OSC2APA102");
     if(numOSC2APA102 > 0){
         for (int i=0; i< numOSC2APA102; ++i){
@@ -66,6 +67,7 @@ void ofApp::setup(){
                 
         }
     }
+    */
     
     /*
     device[0].name = "/dev/cu.usbmodem1369841";
