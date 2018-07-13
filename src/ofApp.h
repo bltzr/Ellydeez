@@ -3,8 +3,6 @@
 #include "ofMain.h"
 #include "ofxTime.h"
 
-#include "ofxSyphon.h"
-
 #include "ledLine.hpp"
 #include "DMXLine.hpp"
 
@@ -34,7 +32,6 @@ public:
     ofJson js;
     ofPath path;
 
-    ofxSyphonClient mClient ;
     int sourceXsize = 0, sourceYsize = 0;
     int drawXsize = 132, drawYsize = 2;
 
@@ -61,7 +58,7 @@ public:
 
     
 
-/// TODO: check that we really need this:
+    /// TODO: check that we really need this:
 
     void onSerialBuffer(const ofx::IO::SerialBufferEventArgs& args);
     void onSerialError(const ofx::IO::SerialBufferErrorEventArgs& args);
