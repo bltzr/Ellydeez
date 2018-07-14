@@ -3,3 +3,5 @@
 /bin/NebulaLEDs.app
 /bin/NebulaLEDsDebug.app
 *.app
+/Project.xcconfig
+/Ellydeez.xcodeproj

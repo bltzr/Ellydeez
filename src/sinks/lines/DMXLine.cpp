@@ -7,6 +7,9 @@
 
 #include "DMXLine.hpp"
 
+namespace Sinks {
+
+
 //--------------------------------------------------------------
 // Send the whole thing to the DMX line:
 //
@@ -17,3 +20,5 @@ void DMXLine::sendLine() {
     sendPixelsAsBlobMessage(address, pixelCrop, nbPix);
     
 }
+
+} // namespace Sinks

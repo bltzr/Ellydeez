@@ -10,6 +10,8 @@
 
 #include "outLine.hpp"
 
+namespace Sinks {
+
 class LedLine : public OutLine
 {
 public:
@@ -25,6 +27,7 @@ private:
 
     
 };
-//--------------------------------------------------------------
+
+} // namespace Sinks
 
 #endif /* ledLine_hpp */

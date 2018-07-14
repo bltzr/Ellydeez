@@ -10,7 +10,6 @@
 
 #include <stdio.h>
 #include "ofMain.h"
-//#include "SourcePool.hpp"
 #include "Group.hpp"
 
 class SourcePool;
@@ -20,16 +19,22 @@ class Source {
     
 public:
     
-    void init();
-    void update();
-    void draw();
-    void exit();
+    Source(Group* sourceGroup):
+    group{sourceGroup}
+    {}
+    
+    virtual ~Source() = 0;
+    
+    virtual void setup() = 0;
+    virtual void update() = 0;
+    virtual void draw() = 0;
+    virtual void exit() = 0;
     
 protected:
     
     int Xsize{1};
     int Ysize{0};
-    Group group;
+    Group* group;
     
 private:
     

@@ -21,6 +21,8 @@ namespace Sources {
         
     private:
         
+        ofVideoPlayer player;
+        
         ofPath path;
         bool autoplay{0};
         bool loop{1};

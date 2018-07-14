@@ -1,6 +1,6 @@
 //
 //  OSC2APA102.hpp
-//  Ellydee
+//  Ellydeez
 //
 //  Created by Pascal Baltazar on 19/05/2018.
 //
@@ -9,24 +9,23 @@
 #define OSC2APA102_hpp
 
 #include <list>
-#include "ofxSerial.h"
-#include "Serial.hpp"
+#include "OSCDevice.hpp"
 #include "ledLine.hpp"
 #include "DMXLine.hpp"
 
 
 namespace Sinks {
     
-    class OSC2APA102 : public Sinks::Serial {
+    class OSC2APA102 : public OSCDevice {
         
     public:
         
         OSC2APA102(std::string addr):
-            Serial(addr)
+            OSCDevice(addr)
             {}
         
         OSC2APA102(int SN):
-            Serial(SN)
+            OSCDevice(SN)
             {}
         
     protected:
@@ -38,16 +37,8 @@ namespace Sinks {
         
         std::list<OutLine*> outLines;
         
-        
         int brightPixX{-1};
         int brightPixY{-1};
-                
-        void sendOSCBundle();
-        
-        void appendOSCMessage(osc::OutboundPacketStream& packet,
-                              ofxOscMessage& message);
-        
-        friend class OutLine;
         
 };
 

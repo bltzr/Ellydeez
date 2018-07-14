@@ -11,15 +11,29 @@
 #include <stdio.h>
 #include <map>
 #include <list>
-#include "SourceBase.hpp"
-#include "Syphon.hpp"
+
 #include "Group.hpp"
+
+#include "Syphon.hpp"
+#include "Player.hpp"
+#include "Network.hpp"
+#include "Generator.hpp"
 
 class SourcePool {
     
 public:
     
-    void init();
+    SourcePool() = default;
+    ~SourcePool() = default;
+    
+    void setup()
+        {groups.emplace( "default" , Group("default") );}
+    void setup(std::string defaultGroupName)
+        {groups.emplace( defaultGroupName , Group(defaultGroupName) );}
+    
+    // Setup the Source Pool with a json file
+    void setup(ofJson& config);
+    
     void update();
     void draw();
     void exit();
@@ -32,16 +46,14 @@ protected:
     
 private:
     
-    std::map<std::string, Source*> sources;
-    std::map<std::string, Group*>  groups;
+    std::map<std::string, Source*>  sources;
+    std::map<std::string, Group>    groups;
     
-    std::list<Sources::Syphon> syphons;
-    std::list<Sources::Player> players;
-//    std::list<Sources::Network> netIns;
-//    std::list<Sources::Generator> generators;
+    std::list<Sources::Syphon>      syphons;
+    std::list<Sources::Player>      players;
+    std::list<Sources::Network>     networkIns;
+    std::list<Sources::Generator>   generators;
 
-    
-    
 };
 
 #endif /* SourcePool_hpp */

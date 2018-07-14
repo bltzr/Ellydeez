@@ -18,10 +18,14 @@ class Sink {
     
 public:
     
-    void init();
-    void update();
-    void draw();
-    void exit();
+    Sink() = default;
+    
+    virtual ~Sink() = 0;
+    
+    virtual void setup() = 0;
+    virtual void update() = 0;
+    virtual void draw() = 0;
+    virtual void exit() = 0 ;
     
 protected:
     

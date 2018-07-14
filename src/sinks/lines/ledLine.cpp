@@ -7,6 +7,8 @@
 
 #include "ledLine.hpp"
 
+namespace Sinks {
+
 //--------------------------------------------------------------
 // Send the whole thing to the LED line:
 //
@@ -45,6 +47,6 @@ void LedLine::setDither(int dither) {
     
 }
 
-
+} // namespace Sinks
 
 

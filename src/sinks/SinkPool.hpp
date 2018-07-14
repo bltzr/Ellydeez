@@ -9,14 +9,13 @@
 #define SinkPool_hpp
 
 #include <stdio.h>
-#include "SinkBase.hpp"
 #include "OSC2APA102.hpp"
 
 class SinkPool {
     
 public:
     
-    void init();
+    void setup();
     void update();
     void draw();
     void exit();
@@ -30,14 +29,10 @@ protected:
 private:
     
     std::map<std::string, Sink*> sinks;
-    //    std::map<std::string, Group*>  groups;
+    // std::map<std::string, Group*>  groups; // ????
     
     std::list<Sinks::OSC2APA102> osc2apa102s;
-    //    std::list<Sinks::Player> players;
-    //    std::list<Sinks::Network> netIns;
-    //    std::list<Sinks::Generator> generators;
-    
-    
+
     
 };
 

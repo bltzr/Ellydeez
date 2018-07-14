@@ -10,12 +10,16 @@
 
 #include "outLine.hpp"
 
+namespace Sinks {
+
+
 class DMXLine : public OutLine
 {
 public:
     void sendLine();
     
 };
-//--------------------------------------------------------------
+
+} // namespace Sinks
 
 #endif /* DMXLine_hpp */

@@ -9,6 +9,8 @@
 #define Group_hpp
 
 #include <stdio.h>
+#include <list>
+#include "ofMain.h"
 //#include "SourceBase.hpp"
 //#include "SourcePool.hpp"
 
@@ -23,7 +25,13 @@ public:
         groupName{name}{}
     
     ofPixels& getPixels() {return pixels;}
+    
+    // if we want to be able to change the name, we must update it
+    // in all registered Sources and all client Sinks
     std::string getName() {return groupName;}
+    
+    void setActiveSource(Source* src) {activeSource = src;}
+    Source* getActiveSource() {return activeSource;}
     
 protected:
     
@@ -33,8 +41,13 @@ protected:
     
 private:
     
-    std::string groupName;
-    ofPixels pixels;
+    std::string         groupName;
+    
+    std::list<Source*>  sources;
+    Source*             activeSource;
+    
+    ofPixels            pixels;
+    
     
     friend class SourcePool;
 

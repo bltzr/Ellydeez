@@ -8,52 +8,47 @@
 #ifndef outLine_hpp
 #define outLine_hpp
 
-
 #include <vector>
-#include "ofxOsc.h"
-#include "ofMain.h"
-#include "OSC2APA102.hpp"
+#include "Group.hpp"
 
-//class Sinks::OSC2APA102;
+class Sink;
 
-class OutLine
-{
-public:
-    
-    OutLine(//OSC2APA102 * dev, ofPixels * src,
-            int Xsize = 1, int Ysize = 0,
-            int XOffset = 0, int Yoffset = 0
-            )
-    //device{dev},
-    //source{src}
-    {}
-    
-    //OSC2APA102 * device; // serial device
-    
-    ofPixels * source;      // source
-    std::string address;      // OSC address
-    int nbPix;           // number of pixels
-    int Xoffset = 0;
-    int Yoffset = 0;     // how many lines to offset from
-    int Xsize = 0;       // X length of the line
-    int Ysize = 0;       // how many lines to include
+namespace Sinks {
+ 
+    class OutLine {
+        
+    public:
+        
+        OutLine(Group* group,
+                int sizeX = 1, int sizeY = 0,
+                int OffsetX = 0, int offsetY = 0,
+                int nPixels = 0):
+        source{group},
+        Xsize{sizeX},
+        Ysize{sizeY},
+        Xoffset{OffsetX},
+        Yoffset{offsetY},
+        nbPix{nPixels}
+        { if (nbPix==0) nbPix = Xsize*Ysize; }
 
-    ofPixels pixelCrop;
-
-    virtual void sendLine() = 0;
+        virtual void sendLine() = 0;
+        
+    protected:
+        
+        Group * source;      // source
+        std::string address;      // OSC address
+        int Xsize = 1;       // X length of the line
+        int Ysize = 0;       // how many lines to include
+        int Xoffset = 0;     // how many pixels to offset from (X)
+        int Yoffset = 0;     // how many lines to offset from
+        int nbPix;           // number of pixels
+        
+        ofPixels pixelCrop;
+        
+        friend class ::Sink;
+        
+    };
     
-protected:
-    void sendValueAsIntMessage(std::string addr, int v);
-    void sendPixelsAsBlobMessage(std::string addr, ofPixels pix, int nBytes);
-    
-    std::vector<ofxOscMessage> OSCmessages;
-    
-private:
-    void sendOSCMessage( ofxOscMessage& message);
-    
-    friend class Sinks::OSC2APA102;
-
-    
-};
+} // namespace Sinks
 
 #endif /* outLine_hpp */

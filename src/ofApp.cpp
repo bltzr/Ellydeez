@@ -1,28 +1,29 @@
 #include "ofApp.h"
 
 
-
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-    // display
-    ofSetWindowTitle("Canvases");
-    ofSetVerticalSync(false);
-    ofSetFrameRate(60); // if vertical sync is off, we can go a bit fast... this caps the framerate at 60fps.
-    
     // Try to load JSON config file
     ofFile file("config.json");
     if(file.exists()){
         file >> js;
-        for(auto & stroke: js){
-            if(!stroke.empty()){
-                path.moveTo(stroke[0]["x"], stroke[0]["y"]);
-                for(auto & p: stroke){
+        for(auto & field : js){
+            if(!field.empty()){
+                path.moveTo(field[0]["x"], field[0]["y"]);
+                for(auto & p: field){
                     path.lineTo(p["x"], p["y"]);
                 }
             }
         }
     }
+    
+    // display
+    ofSetWindowTitle("windowName");
+    ofSetVerticalSync(false);
+    ofSetFrameRate(fps); 
+    
+  
     
     // OSC
     receiver.setup(PORTIN);
@@ -46,28 +47,15 @@ void ofApp::setup(){
     //trame.setPaused(1);
     
     // Serial
-    // printDevices(); // Set this to true to display the list of devices in the Log Window
+    
+    ofLog() << "List of connected serial devices:";
+    
+    Sinks::printSerialDevices(); // display the list of devices in the Log Window
     
     ofLog() << "Opening serial devices:";
 
-    //device[0].name = portName(3262750); //"/dev/cu.usbmodem3767281"; //
+    device[0].name = portName(3262750); //"/dev/cu.usbmodem3767281"; //
     
-    /*
-    int numOSC2APA102 = XML.getNumTags("OSC2APA102");
-    if(numOSC2APA102 > 0){
-        for (int i=0; i< numOSC2APA102; ++i){
-            XML.pushTag("OSC2APA102", i);
-            device.emplace_back(XML.getValue("name", ""));
-            int numLedLines = XML.getNumTags("LedLine");
-            if(numLedLines > 0){
-                for (int i=0; i< numLedLines; ++i){
-                    
-                }
-            }
-                
-        }
-    }
-    */
     
     /*
     device[0].name = "/dev/cu.usbmodem1369841";
@@ -307,45 +295,5 @@ void ofApp::draw(){
 
 
 
-//------------------------------------------------------------------------
-
-void ofApp::printDevices(){
-    
-    int devNumb = 0;
-    
-    std::vector<ofx::IO::SerialDeviceInfo> devicesInfo = ofx::IO::SerialDeviceUtils::listDevices();
-    ofLogNotice("ofApp::setup") << "Connected Devices: ";
-    for (ofx::IO::SerialDeviceInfo d : devicesInfo){
-        ofLogNotice("  ") << devNumb << ": " << d;
-        ++devNumb;
-    }
-}
-
-
-    /// TODO: check that we really need this:
-
-//------------------------------------------------------------------------
-// Serial messages management
-//
-void ofApp::onSerialBuffer(const ofx::IO::SerialBufferEventArgs& args)
-{
-    // Decoded serial packets will show up here.
-    SerialMessage message(args.getBuffer().toString(), "", 255);
-    serialMessages.push_back(message);
-    
-    // ofLogNotice("onSerialBuffer") << "got serial buffer : " << message.message;
-}
-
-
-void ofApp::onSerialError(const ofx::IO::SerialBufferErrorEventArgs& args)
-{
-    // Errors and their corresponding buffer (if any) will show up here.
-    SerialMessage message(args.getBuffer().toString(),
-                          args.getException().displayText(),
-                          500);
-    
-    serialMessages.push_back(message);
-    ofLogNotice("onSerialError") << "got serial error : " << message.exception;
-}
 
 
