@@ -19,16 +19,25 @@ class Syphon : public Source {
 public:
     
     void setup();
+    void update();
+    void draw();
+    void exit();
     
+protected:
     
+    ofPixels& getPixels();
     
 private:
     
-    ofxSyphonClient mClient ;
-    ofFbo fbo ;
+    ofxSyphonClient     mClient ;
+    ofFbo               fbo ;
+    ofPixels            pixels;
     
-    std::string name{""};
-    std::string app{"Simple Server"};
+    int                 GLFormat{GL_RGB};
+    bool                disableAlpha{1};
+    
+    std::string         name{""};
+    std::string         app{"Simple Server"};
     
 };
 

@@ -19,6 +19,14 @@ namespace Sources {
         
         void setup();
         
+        void update() { player.update(); }
+        
+    protected:
+        
+        ofPixels& getPixels() { return player.getPixels(); }
+        
+        void setLoopMode(int mode);
+        
     private:
         
         ofVideoPlayer   player;
@@ -26,8 +34,6 @@ namespace Sources {
         std::string     filePath;
         bool            autoplay{0};
         int             loop{1};
-        std::string     format{"RGB"}; // other choices: RGBA, BW, BWA
-        ofPixelFormat   pixelFormat{OF_PIXELS_RGB};
         
         float           speed{1.0};
         bool            paused{false};

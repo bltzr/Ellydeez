@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 #include "ofMain.h"
-#include "ofxTime.h"
 
 #include "SinkPool.hpp"
 #include "SourcePool.hpp"

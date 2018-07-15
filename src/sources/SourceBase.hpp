@@ -19,9 +19,9 @@ class Source {
     
 public:
     
-    Source(Group* sourceGroup):
+    Source(Group* sourceGroup, std::string pixel_format = "RGB"):
     group{sourceGroup}
-    {}
+    {setPixelFormat(pixel_format);}
     
     virtual ~Source() = 0;
     
@@ -32,9 +32,17 @@ public:
     
 protected:
     
+    virtual ofPixels& getPixels()  = 0;
+    
+    void setPixelFormat(ofPixelFormat fmt) {pixelFormat = fmt;}
+    void setPixelFormat(std::string fmt);
+    
+    Group* group;
     int Xsize{1};
     int Ysize{0};
-    Group* group;
+    
+    std::string     format{"RGB"}; // other choices: RGBA, BW, BWA
+    ofPixelFormat   pixelFormat{OF_PIXELS_RGB};
     
 private:
     

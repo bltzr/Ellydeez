@@ -6,3 +6,11 @@
 //
 
 #include "SourceBase.hpp"
+
+void Source::setPixelFormat(std::string fmt){
+    if (fmt=="RGBA")     pixelFormat=OF_PIXELS_RGBA;
+    else if (fmt=="BW")  pixelFormat=OF_PIXELS_GRAY;
+    else if (fmt=="BWA") pixelFormat=OF_PIXELS_GRAY_ALPHA;
+    else                 pixelFormat=OF_PIXELS_RGB;
+    
+}
