@@ -13,10 +13,9 @@
 namespace Sinks {
 
 
-class DMXLine : public OutLine
-{
+class DMXLine : public OutLine {
 public:
-    void sendLine();
+    void send();
     
 };
 

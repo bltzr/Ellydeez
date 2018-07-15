@@ -48,8 +48,8 @@ private:
     
     ofPixels            pixels;
     
-    
     friend class SourcePool;
+    friend class OutLine;
 
 };
 

@@ -13,11 +13,11 @@ namespace Sinks {
 //--------------------------------------------------------------
 // Send the whole thing to the DMX line:
 //
-void DMXLine::sendLine() {
+void DMXLine::send() {
     
-    source->cropTo(pixelCrop, Xoffset, Yoffset, Xsize, Ysize);
+    source->getPixels().cropTo(pixelCrop, Xoffset, Yoffset, Xsize, Ysize);
     
-    sendPixelsAsBlobMessage(address, pixelCrop, nbPix);
+    sendPixelsAsBlobMessage(address, pixelCrop, nPix);
     
 }
 

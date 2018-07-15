@@ -16,5 +16,7 @@ void SourcePool::setup(ofJson& config){
     // if not, then create a group named default
     else groups.emplace( "default" , Group("default") );
     
+    // Then create all Sources
+    
     
 }

@@ -28,7 +28,7 @@ namespace Sinks {
         
     protected:
         
-        void sendValueAsIntMessage(std::string addr, int v);
+        void sendValueAsIntMessage  (std::string addr, int value);
         void sendPixelsAsBlobMessage(std::string addr, ofPixels& pix, int nBytes);
         
         std::vector<ofxOscMessage> OSCmessages;

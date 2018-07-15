@@ -17,6 +17,11 @@ void ofApp::setup(){
         }
     }
     
+    // Sources and Sinks
+    
+    sources.setup();
+    sinks.setup();
+    
     // display
     ofSetWindowTitle(windowName);
     ofSetVerticalSync(false);
@@ -29,10 +34,7 @@ void ofApp::setup(){
     Sinks::printSerialDevices(); // display the list of devices in the Log Window
     ofLog() << "Opening serial devices:";
 
-    // Sources and Sinks
-    
-    sources.setup();
-    sinks.setup();
+   
     
     
 }

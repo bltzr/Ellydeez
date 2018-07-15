@@ -10,8 +10,9 @@
 
 #include <list>
 #include "OSCDevice.hpp"
-#include "ledLine.hpp"
+#include "APA102Line.hpp"
 #include "DMXLine.hpp"
+#include "brightPixel.hpp"
 
 
 namespace Sinks {
@@ -30,15 +31,21 @@ namespace Sinks {
         
     protected:
         
+        Group * source;
+        
         uint8_t brightness{255};
         
-        std::list<LedLine> ledLines;
+        std::list<APA102Line> ledLines;
         std::list<DMXLine> dmxLines;
         
         std::list<OutLine*> outLines;
         
         int brightPixX{-1};
         int brightPixY{-1};
+        
+    private:
+        
+        BrightPixel brightPix{source, brightPixX, brightPixY};
         
 };
 

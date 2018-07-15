@@ -29,13 +29,17 @@ namespace Sources {
     
     void Syphon::update(){
     
-    // If the source dimensions change, we reallocate the FBO to the right sizes
+    // If the source dimensions change,
     if ((mClient.getTexture().getWidth()!=0&&mClient.getTexture().getHeight()!=0)
         &&(Xsize!=mClient.getTexture().getWidth() ||
-           Ysize!=mClient.getTexture().getHeight())){
+           Ysize!=mClient.getTexture().getHeight()))
+        
+        // We get the new size
+        {
             cout << "Syphon Input: width/height: " << mClient.getTexture().getWidth() << " " << mClient.getTexture().getHeight() << endl;
             Xsize=mClient.getTexture().getWidth();
             Ysize=mClient.getTexture().getHeight();
+            
             fbo.allocate(Xsize, Ysize, GLFormat);
             fbo.begin();
             if (disableAlpha) ofDisableAlphaBlending();
@@ -43,6 +47,7 @@ namespace Sources {
             fbo.end();
         }
         
+        // and  we reallocate the FBO to the right sizes
         fbo.begin();
         if (disableAlpha) ofDisableAlphaBlending();
         mClient.draw(0, 0, Xsize, Ysize);
