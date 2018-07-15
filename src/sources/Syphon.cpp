@@ -7,3 +7,13 @@
 
 #include "Syphon.hpp"
 
+namespace Sources {
+    
+    void Syphon::setup(){
+
+        mClient.setup();
+        mClient.set( name , app );
+        
+    }
+
+} // namespace Sources

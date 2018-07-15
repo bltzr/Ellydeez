@@ -17,19 +17,20 @@ namespace Sources {
         
     public:
         
-        
+        void setup();
         
     private:
         
-        ofVideoPlayer player;
+        ofVideoPlayer   player;
         
-        ofPath path;
-        bool autoplay{0};
-        bool loop{1};
-        ofPixelFormat pixelFormat{OF_PIXELS_RGB};
+        std::string     filePath;
+        bool            autoplay{0};
+        int             loop{1};
+        std::string     format{"RGB"}; // other choices: RGBA, BW, BWA
+        ofPixelFormat   pixelFormat{OF_PIXELS_RGB};
         
-        float speed{1};
-        bool paused{0};
+        float           speed{1.0};
+        bool            paused{false};
         
     };
     

@@ -46,7 +46,6 @@ protected:
     
 private:
     
-    std::map<std::string, Source*>  sources;
     std::map<std::string, Group>    groups;
     
     std::list<Sources::Syphon>      syphons;
@@ -54,6 +53,8 @@ private:
     std::list<Sources::Network>     networkIns;
     std::list<Sources::Generator>   generators;
 
+    std::map<std::string, Source*>  sources;
+    
 };
 
 #endif /* SourcePool_hpp */

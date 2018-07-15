@@ -7,4 +7,14 @@
 
 #include "SourcePool.hpp"
 
-
+void SourcePool::setup(ofJson& config){
+    
+    // Find if there is one or more group names in the json config
+    if (false) {
+        ;
+    }
+    // if not, then create a group named default
+    else groups.emplace( "default" , Group("default") );
+    
+    
+}

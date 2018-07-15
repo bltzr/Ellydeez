@@ -18,6 +18,8 @@ class Syphon : public Source {
     
 public:
     
+    void setup();
+    
     
     
 private:
@@ -25,8 +27,8 @@ private:
     ofxSyphonClient mClient ;
     ofFbo fbo ;
     
-    std::string name;
-    std::string app;
+    std::string name{""};
+    std::string app{"Simple Server"};
     
 };
 

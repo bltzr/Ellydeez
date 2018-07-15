@@ -10,48 +10,23 @@ void ofApp::setup(){
         file >> js;
         for(auto & field : js){
             if(!field.empty()){
-                path.moveTo(field[0]["x"], field[0]["y"]);
-                for(auto & p: field){
-                    path.lineTo(p["x"], p["y"]);
+                for(auto & src: field){
+                    std::cout<<src;
                 }
             }
         }
     }
     
     // display
-    ofSetWindowTitle("windowName");
+    ofSetWindowTitle(windowName);
     ofSetVerticalSync(false);
-    ofSetFrameRate(fps); 
+    ofSetFrameRate(fps);
     
-  
-    
-    // OSC
-    receiver.setup(PORTIN);
-    ofLog() << "Opened OSC Receiver";
-    
-    // Syphon
-    mClient.setup();
-    mClient.set("Canvases","Max"); // Use Syphon Simple Server to test this, change arguments at will
-
-    // Video Player
-    trame.setPixelFormat(OF_PIXELS_RGB);
-    trame.load("testld.mov");
-    
-    
-    if(playing){
-        trame.play();
-        trame.setSpeed(1);
-        trame.setLoopState(OF_LOOP_NORMAL);
-    }
-
-    //trame.setPaused(1);
     
     // Serial
     
     ofLog() << "List of connected serial devices:";
-    
     Sinks::printSerialDevices(); // display the list of devices in the Log Window
-    
     ofLog() << "Opening serial devices:";
 
     device[0].name = portName(3262750); //"/dev/cu.usbmodem3767281"; //
