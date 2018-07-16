@@ -21,18 +21,19 @@ class Source {
     
 public:
     
-    Source(Group* sourceGroup, string pixel_format = "RGB"):
-    group{sourceGroup}
-    {setPixelFormat(pixel_format);}
-    
-    virtual ~Source() = 0;
-    
     virtual void setup() = 0;
     virtual void update() = 0;
     virtual void draw() = 0;
     virtual void exit() = 0;
     
 protected:
+    
+    Source(Group* sourceGroup,
+           string pixel_format = "RGB"):
+        group{sourceGroup}
+        {setPixelFormat(pixel_format);}
+    
+    virtual ~Source() = 0;
     
     virtual ofPixels& getPixels()  = 0;
     

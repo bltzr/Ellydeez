@@ -9,17 +9,17 @@
 #define APA102Line_hpp
 
 #include <stdio.h>
-#include "ledLine.hpp"
+#include "LineBase.hpp"
+#include "PixelBase.hpp"
 
 namespace Sinks {
     
-class APA102Line : public LedLine {
+class APA102Line : public LineBase, PixelBase {
     
 public:
     
     void setBrightness(int brightness);
     void setDither(int dither);
-    void send();
     
     void setup();
     void update();

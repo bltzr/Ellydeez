@@ -1,19 +1,19 @@
 //
-//  Serial.cpp
+//  SerialDevice.cpp
 //  Ellydeez
 //
 //  Created by Pascal Baltazar on 13/07/2018.
 //
 
-#include "Serial.hpp"
+#include "SerialDevice.hpp"
 
 namespace Sinks {
 
-string Serial::portName(int SN)
+string SerialDevice::portName( int SN )
 {
     vector<ofx::IO::SerialDeviceInfo> devicesInfo = ofx::IO::SerialDeviceUtils::listDevices();
     for (const ofx::IO::SerialDeviceInfo& devInfo : devicesInfo){
-        ofLog() << "for " << devInfo.getHardwareId() << ": " << (to_string(SN)) << " -> find: " << devInfo.getHardwareId().find((to_string(SN))) << endl;
+        // ofLog() << "for " << devInfo.getHardwareId() << ": " << (to_string(SN)) << " -> find: " << devInfo.getHardwareId().find((to_string(SN))) << endl;
         if ((devInfo.getHardwareId().find((to_string(SN))))<60){
             ofLog() << "found: " << devInfo.getPort() << endl;
             return devInfo.getPort();
@@ -22,7 +22,7 @@ string Serial::portName(int SN)
     return "";
 }
 
-void Serial::sendPacket(ofx::IO::ByteBuffer& packet){
+void SerialDevice::sendPacket( const ofx::IO::ByteBuffer& packet ){
     
     try {
         send(packet);

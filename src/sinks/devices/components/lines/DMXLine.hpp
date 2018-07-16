@@ -8,12 +8,13 @@
 #ifndef DMXLine_hpp
 #define DMXLine_hpp
 
-#include "outLine.hpp"
+#include "LineBase.hpp"
 
 namespace Sinks {
 
 
-class DMXLine : public OutLine {
+class DMXLine : public LineBase {
+    
 public:
     void send();
     

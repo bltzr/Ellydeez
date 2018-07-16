@@ -9,11 +9,6 @@
 
 namespace Sinks {
 
-void LedLine::update() {
-    
-    source->getPixels().cropTo(pixelCrop, Xoffset, Yoffset, Xsize, Ysize);
-    
-}
 
 } // namespace Sinks
 

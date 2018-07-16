@@ -25,16 +25,17 @@ class SourceFactory {
     
 public:
     
-    SourceFactory() = default;
-    ~SourceFactory() = default;
+    SourceFactory()     = default;
+    ~SourceFactory()    = default;
     
+    // Setup the Source Factory with a json file
+    void setup(ofJson& config);
+    
+    // Or manually
     void setup()
         { addGroup( "default" ); }
     void setup(const string& defaultGroupName)
         { addGroup( defaultGroupName ); }
-    
-    // Setup the Source Pool with a json file
-    void setup(ofJson& config);
     
     void update();
     void draw();
@@ -42,23 +43,27 @@ public:
     
 protected:
     
-    void add(const string& srcName, ...);
-    void remove(const string& srcName);
-    void remove(Source*);
+    template<typename... Args>
+    void add( const string& srcName, Args&&... args )
+    {}
+    
+    void remove( const string& srcName );
+    void remove( Source* );
     
 private:
     
-    Group* addGroup(const string& groupName)
+    Group* addGroup( const string& groupName )
         {groups.emplace( groupName , Group(groupName) );}
     
-    map<string, Group>    groups;
     
-    list<Sources::Syphon>      syphons;
-    list<Sources::Player>      players;
-    list<Sources::Network>     networkIns;
-    list<Sources::Generator>   generators;
+    map<string, Group>          groups;
+    
+    list<Sources::Syphon>       syphons;
+    list<Sources::Player>       players;
+    list<Sources::Network>      networkIns;
+    list<Sources::Generator>    generators;
 
-    map<string, Source*>  sources;
+    map<string, Source*>        sources;
     
 };
 

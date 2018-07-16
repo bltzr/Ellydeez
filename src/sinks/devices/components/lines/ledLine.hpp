@@ -12,14 +12,11 @@
 
 namespace Sinks {
 
-class LedLine : public OutLine {
+class LedLine : public LineBase {
     
 public:
     
-    void setup();
-    void update();
-    void draw();
-    void exit();
+
     
 private:
     

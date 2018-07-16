@@ -9,7 +9,9 @@
 #define OSC2APA102_hpp
 
 #include <list>
-#include "OSCDevice.hpp"
+#include "outputs/SerialDevice.hpp"
+#include "protocols/OSCDevice.hpp"
+
 #include "APA102Line.hpp"
 #include "DMXLine.hpp"
 #include "brightPixel.hpp"
@@ -18,35 +20,42 @@ using namespace std;
 
 namespace Sinks {
     
-class OSC2APA102 : public OSCDevice {
+class OSC2APA102 : public SerialDevice, OSCDevice {
     
 public:
     
     OSC2APA102(string addr):
-        OSCDevice(addr)
+        SerialDevice(addr),
+        OSCDevice()
         {}
     
     OSC2APA102(int SN):
-        OSCDevice(SN)
+        SerialDevice(SN),
+        OSCDevice()
         {}
+    
+    void setup();
+    void update()
+        { sendPacket( OSCBundle2ByteBuffer( fetchBundle() ) ); }
     
 protected:
     
-    Group *             source;
+    Group *                     source;
     
-    uint8_t             brightness{255};
+    uint8_t                     brightness{255};
     
-    list<APA102Line>    ledLines;
-    list<DMXLine>       dmxLines;
+    map<string, APA102Line>     ledLines; // string is the OSC address
+    map<string, DMXLine>        dmxLines; // string is the OSC address
     
-    list<OutLine*>      outLines;
+    list<LineBase*>             allLines;
     
-    int                 brightPixX{-1};
-    int                 brightPixY{-1};
+    int                         brightPixX {-1};
+    int                         brightPixY {-1};
+    int                         pixChannel  {0};
     
 private:
     
-    BrightPixel         brightPix{source, brightPixX, brightPixY};
+    BrightPixel         brightPix{ source, brightPixX, brightPixY, pixChannel };
         
 };
 

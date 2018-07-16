@@ -24,7 +24,8 @@ class Group {
 public:
 
     Group(string name):
-        groupName{name}{}
+        groupName{name}
+        {}
     
     ofPixels& getPixels()           {return pixels;}
     
@@ -34,6 +35,9 @@ public:
     
     void setActiveSource(Source* src) {activeSource = src;}
     Source* getActiveSource() const {return activeSource;}
+    
+    int getXsize() { return Xsize; }
+    int getYsize() { return Ysize; }
     
 protected:
     
@@ -49,6 +53,10 @@ private:
     Source*             activeSource;
     
     ofPixels            pixels;
+    
+    int                 Xsize {0};
+    int                 Ysize {0};
+    
     
     friend class        SourceFactory;
     friend class        OutLine;

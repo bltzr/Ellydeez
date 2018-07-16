@@ -9,13 +9,17 @@
 
 namespace Sinks {
 
-void LedLine::update() {
+void APA102Line::update() {
+    
+    bright = brightPix.getValue();
+    
+    ofPixels& pix = getPixels();
 
     for (int i = 0; i < Xsize; ++i){
         for (int j = 0; j < Ysize; ++j){
-            pixelCrop[(j*Xsize+i)*3+0] = pixelCrop[(j*Xsize+i)*3+0]*mapCol[bright]/255;
-            pixelCrop[(j*Xsize+i)*3+1] = pixelCrop[(j*Xsize+i)*3+1]*mapCol[bright]/255;
-            pixelCrop[(j*Xsize+i)*3+2] = pixelCrop[(j*Xsize+i)*3+2]*mapCol[bright]/255;
+            pix[(j*Xsize+i)*3+0] = pix[(j*Xsize+i)*3+0]*mapCol[bright]/255;
+            pix[(j*Xsize+i)*3+1] = pix[(j*Xsize+i)*3+1]*mapCol[bright]/255;
+            pix[(j*Xsize+i)*3+2] = pix[(j*Xsize+i)*3+2]*mapCol[bright]/255;
         }
     }
 

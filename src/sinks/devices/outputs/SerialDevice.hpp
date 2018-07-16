@@ -1,5 +1,5 @@
 //
-//  Serial.hpp
+//  SerialDevice.hpp
 //  Ellydeez
 //
 //  Created by Pascal Baltazar on 13/07/2018.
@@ -13,25 +13,26 @@
 #include "ofxIO.h"
 #include "ofxXmlPoco.h"
 #include "ofxSerial.h"
+
 #include "SinkBase.hpp"
 
 using namespace std;
 
 namespace Sinks {
     
-class Serial : public Sink {
+class SerialDevice : public Sink {
     
 public:
     
-    Serial(string addr):
+    SerialDevice(string addr):
         name{addr}
         {setup();}
     
-    Serial(int SN):
+    SerialDevice(int SN):
         name{portName(SN)}
         {setup();}
     
-    ~Serial() = default;
+    ~SerialDevice() = default;
     
     void setup(){
         if (name == "") {
@@ -50,13 +51,12 @@ public:
 
 protected:
     
-    void sendPacket(ofx::IO::ByteBuffer& packet);
+    void sendPacket(const ofx::IO::ByteBuffer& packet);
     
     ofx::IO::PacketSerialDevice_<ofx::IO::SLIPEncoding, ofx::IO::SLIPEncoding::END, 16384>      dev;
     
     string      name;
     string      portName(int SN);
-    
     
     
 private:

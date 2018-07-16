@@ -75,29 +75,37 @@ void OSCDevice::appendOSCMessage(osc::OutboundPacketStream& packet, ofxOscMessag
     
 }
 
-void OSCDevice::sendOSCBundle() {
+osc::OutboundPacketStream OSCDevice::fetchBundle() {
     
     // this code comes from ofxOscSender::sendMessage in ofxOscSender.cpp
     static const int OUTPUT_BUFFER_SIZE = 16384;
     char buffer[OUTPUT_BUFFER_SIZE];
     osc::OutboundPacketStream packet ( buffer, OUTPUT_BUFFER_SIZE );
-    
+
     // serialise the message
     packet << osc::BeginBundleImmediate;
     
     // Add all OSC messages here:
     for (auto m : OSCmessages){
         appendOSCMessage(packet, m);
-    }
-
+    } // Then clear them
+    OSCmessages.clear();
+    
     // close the bundle
     packet << osc::EndBundle;
     
-    ofx::IO::ByteBuffer toEncode(packet.Data(),packet.Size());
-    
-    sendPacket(toEncode);
+    return packet;
     
 }
+    
+    
+////////////// Helper Functions: //////////////
+
+ofx::IO::ByteBuffer OSCBundle2ByteBuffer (const osc::OutboundPacketStream& packet ) {
+    ofx::IO::ByteBuffer res( packet.Data(), packet.Size() );
+    return res;
+}
+    
     
 
     
