@@ -13,21 +13,21 @@
 
 namespace Controls {
     
-    class Timer {
-        
-    public:
-        
-        void setup();
-        void update();
-        void draw();
-        
-    private:
-        
-        int currentTime{0};
-        int timeToPlay{0};
-        int timeCounter{0};
-        
-    };
+class Timer {
+    
+public:
+    
+    void setup();
+    void update();
+    void draw();
+    
+private:
+    
+    int currentTime{0};
+    int timeToPlay{0};
+    int timeCounter{0};
+    
+};
 }
 
 #endif /* Timer_hpp */
