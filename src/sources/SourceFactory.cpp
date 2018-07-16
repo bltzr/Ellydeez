@@ -1,13 +1,13 @@
 //
-//  SourcePool.cpp
+//  SourceFactory.cpp
 //  Ellydeez
 //
 //  Created by Pascal Baltazar on 11/07/2018.
 //
 
-#include "SourcePool.hpp"
+#include "SourceFactory.hpp"
 
-void SourcePool::setup(ofJson& config){
+void SourceFactory::setup(ofJson& config){
     
     // If there is no group names in the json config, create a group named default
     if (config.find("group") == config.end())

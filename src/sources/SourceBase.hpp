@@ -12,14 +12,16 @@
 #include "ofMain.h"
 #include "Group.hpp"
 
-class SourcePool;
+using namespace std;
+
+class SourceFactory;
 class Group;
 
 class Source {
     
 public:
     
-    Source(Group* sourceGroup, std::string pixel_format = "RGB"):
+    Source(Group* sourceGroup, string pixel_format = "RGB"):
     group{sourceGroup}
     {setPixelFormat(pixel_format);}
     
@@ -37,16 +39,16 @@ protected:
     void setPixelFormat(ofPixelFormat fmt) {pixelFormat = fmt;}
     void setPixelFormat(std::string fmt);
     
-    Group* group;
-    int Xsize{1};
-    int Ysize{0};
+    Group*          group;
+    int             Xsize{1};
+    int             Ysize{0};
     
-    std::string     format{"RGB"}; // other choices: RGBA, BW, BWA
+    string          format{"RGB"}; // other choices: RGBA, BW, BWA
     ofPixelFormat   pixelFormat{OF_PIXELS_RGB};
     
 private:
     
-    friend class SourcePool;
+    friend class    SourceFactory;
     
 };
     

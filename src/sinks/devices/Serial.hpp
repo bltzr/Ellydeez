@@ -52,10 +52,10 @@ protected:
     
     void sendPacket(ofx::IO::ByteBuffer& packet);
     
-    ofx::IO::PacketSerialDevice_<ofx::IO::SLIPEncoding, ofx::IO::SLIPEncoding::END, 16384> dev;
+    ofx::IO::PacketSerialDevice_<ofx::IO::SLIPEncoding, ofx::IO::SLIPEncoding::END, 16384>      dev;
     
-    string name;
-    string portName(int SN);
+    string      name;
+    string      portName(int SN);
     
     
     

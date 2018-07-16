@@ -38,8 +38,8 @@ private:
     int                 GLFormat{GL_RGB};
     bool                disableAlpha{1};
     
-    string         name{""};
-    string         app{"Simple Server"};
+    string              name{""};
+    string              app{"Simple Server"};
     
 };
 

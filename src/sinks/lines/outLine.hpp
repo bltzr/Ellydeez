@@ -51,21 +51,23 @@ protected:
     void setPixelFormat(ofPixelFormat fmt) {pixelFormat = fmt;}
     void setPixelFormat(std::string fmt);
     
-    Group * source;      // source
-
-    int Xsize = 1;       // X length of the line
-    int Ysize = 0;       // how many lines to include
-    int Xoffset = 0;     // how many pixels to offset from (X)
-    int Yoffset = 0;     // how many lines to offset from
-    int nPix;           // number of pixels
-    int nBytes;          // number of pixels
     
-    ofPixels pixelCrop;
+    Group *     source;      // source
+
+    int             Xsize = 1;       // X length of the line
+    int             Ysize = 0;       // how many lines to include
+    int             Xoffset = 0;     // how many pixels to offset from (X)
+    int             Yoffset = 0;     // how many lines to offset from
+    int             nPix;           // number of pixels
+    int             nBytes;          // number of pixels
+    
+    ofPixels        pixelCrop;
     
     std::string     format{"RGB"}; // other choices: RGBA, BW, BWA
     ofPixelFormat   pixelFormat{OF_PIXELS_RGB};
     
-    friend class ::Sink;
+    
+    friend class    ::Sink;
     
 };
     

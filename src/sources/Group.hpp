@@ -12,11 +12,11 @@
 #include <list>
 #include "ofMain.h"
 //#include "SourceBase.hpp"
-//#include "SourcePool.hpp"
+//#include "SourceFactory.hpp"
 
 using namespace std;
 
-class SourcePool;
+class SourceFactory;
 class Source;
 
 class Group {
@@ -30,7 +30,7 @@ public:
     
     // if we want to be able to change the name, we must update it
     // in all registered Sources and all client Sinks
-    std::string getName() cosnt     {return groupName;}
+    string getName() const          {return groupName;}
     
     void setActiveSource(Source* src) {activeSource = src;}
     Source* getActiveSource() const {return activeSource;}
@@ -50,7 +50,7 @@ private:
     
     ofPixels            pixels;
     
-    friend class        SourcePool;
+    friend class        SourceFactory;
     friend class        OutLine;
 
 };

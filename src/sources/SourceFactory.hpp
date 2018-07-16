@@ -1,5 +1,5 @@
 //
-//  SourcePool.hpp
+//  SourceFactory.hpp
 //  Ellydeez
 //
 //  Created by Pascal Baltazar on 11/07/2018.
@@ -21,12 +21,12 @@
 
 using namespace std;
 
-class SourcePool {
+class SourceFactory {
     
 public:
     
-    SourcePool() = default;
-    ~SourcePool() = default;
+    SourceFactory() = default;
+    ~SourceFactory() = default;
     
     void setup()
         { addGroup( "default" ); }

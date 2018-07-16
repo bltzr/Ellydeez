@@ -38,14 +38,15 @@ protected:
     
     virtual void send();
     
-    int brightness{255};
     
-    Group * source;      // source
-    string address;      // OSC address
-    int Xpos = 0;
-    int Ypos = 0;
+    int             brightness{255};
     
-    friend class ::Sink;
+    Group *         source;      // source
+    string          address;      // OSC address
+    int             Xpos = 0;
+    int             Ypos = 0;
+    
+    friend class    ::Sink;
     
 };
     

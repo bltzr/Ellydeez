@@ -4,8 +4,8 @@
 
 #include "ofMain.h"
 
-#include "SinkPool.hpp"
-#include "SourcePool.hpp"
+#include "SinkFactory.hpp"
+#include "SourceFactory.hpp"
 
 
 //--------------------------------------------------------------
@@ -24,8 +24,8 @@ public:
     std::string windowName {"Ellydeez"};
     int         fps{60};
     
-    SourcePool  sources;
-    SinkPool    sinks;
+    SourceFactory  sources;
+    SinkFactory    sinks;
     
     int playing = 1;
     

@@ -9,7 +9,7 @@
 
 namespace Sinks {
     
-void OSCDevice::sendValueAsIntMessage(std::string addr, int v)
+void OSCDevice::sendValueAsIntMessage(string addr, int v)
 {
     
     ofxOscMessage n;
@@ -19,7 +19,7 @@ void OSCDevice::sendValueAsIntMessage(std::string addr, int v)
     
 }
 
-void OSCDevice::sendPixelsAsBlobMessage(std::string addr, ofPixels& pix, int nBytes)
+void OSCDevice::sendPixelsAsBlobMessage(string addr, ofPixels& pix, int nBytes)
 {
     
     ofBuffer imgAsBuffer;

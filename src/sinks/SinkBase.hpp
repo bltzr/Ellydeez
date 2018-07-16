@@ -12,7 +12,9 @@
 #include "ofMain.h"
 //#include "SinkPool.hpp"
 
-class SinkPool;
+using namespace std;
+
+class SinkFactory;
 
 class Sink {
     
@@ -33,7 +35,7 @@ protected:
     
 private:
     
-    friend class SinkPool;
+    friend class SinkFactory;
     
 };
 

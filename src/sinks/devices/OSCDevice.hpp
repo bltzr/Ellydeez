@@ -12,13 +12,15 @@
 #include "ofxOsc.h"
 #include "Serial.hpp"
 
+using namespace std;
+
 namespace Sinks {
     
 class OSCDevice : public Sinks::Serial {
    
 public:
     
-    OSCDevice(std::string addr):
+    OSCDevice(string addr):
     Serial(addr)
     {}
     
@@ -31,7 +33,7 @@ protected:
     void sendValueAsIntMessage  (std::string addr, int value);
     void sendPixelsAsBlobMessage(std::string addr, ofPixels& pix, int nBytes);
     
-    std::vector<ofxOscMessage> OSCmessages;
+    vector<ofxOscMessage> OSCmessages;
     
     void appendOSCMessage(osc::OutboundPacketStream& packet,
                           ofxOscMessage& message);
