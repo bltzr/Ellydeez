@@ -19,6 +19,8 @@
 #include "Network.hpp"
 #include "Generator.hpp"
 
+using namespace std;
+
 class SourcePool {
     
 public:
@@ -27,9 +29,9 @@ public:
     ~SourcePool() = default;
     
     void setup()
-        {groups.emplace( "default" , Group("default") );}
-    void setup(std::string defaultGroupName)
-        {groups.emplace( defaultGroupName , Group(defaultGroupName) );}
+        { addGroup( "default" ); }
+    void setup(const string& defaultGroupName)
+        { addGroup( defaultGroupName ); }
     
     // Setup the Source Pool with a json file
     void setup(ofJson& config);
@@ -40,20 +42,23 @@ public:
     
 protected:
     
-    void add(std::string srcName, ...);
-    void remove(std::string srcName);
+    void add(const string& srcName, ...);
+    void remove(const string& srcName);
     void remove(Source*);
     
 private:
     
-    std::map<std::string, Group>    groups;
+    Group* addGroup(const string& groupName)
+        {groups.emplace( groupName , Group(groupName) );}
     
-    std::list<Sources::Syphon>      syphons;
-    std::list<Sources::Player>      players;
-    std::list<Sources::Network>     networkIns;
-    std::list<Sources::Generator>   generators;
+    map<string, Group>    groups;
+    
+    list<Sources::Syphon>      syphons;
+    list<Sources::Player>      players;
+    list<Sources::Network>     networkIns;
+    list<Sources::Generator>   generators;
 
-    std::map<std::string, Source*>  sources;
+    map<string, Source*>  sources;
     
 };
 

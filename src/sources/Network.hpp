@@ -11,20 +11,22 @@
 #include <stdio.h>
 #include "SourceBase.hpp"
 
+using namespace std;
+
 namespace Sources {
+
+class Network : public Source {
     
-    class Network : public Source {
-        
-    public:
-        
-        
-        
-    private:
-        
-        int port;
-        
-        
-    };
+public:
+    
+    
+    
+private:
+    
+    int port;
+    
+    
+};
     
 } //namespace Source
 

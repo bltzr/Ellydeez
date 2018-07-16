@@ -11,35 +11,37 @@
 #include <stdio.h>
 #include "SourceBase.hpp"
 
+using namespace std;
+
 namespace Sources {
     
-    class Player : public Source {
-        
-    public:
-        
-        void setup();
-        
-        void update() { player.update(); }
-        
-    protected:
-        
-        ofPixels& getPixels() { return player.getPixels(); }
-        
-        void setLoopMode(int mode);
-        
-    private:
-        
-        ofVideoPlayer   player;
-        
-        std::string     filePath;
-        bool            autoplay{0};
-        int             loop{1};
-        
-        float           speed{1.0};
-        bool            paused{false};
-        
-    };
+class Player : public Source {
     
+public:
+    
+    void setup();
+    
+    void update() { player.update(); }
+    
+protected:
+    
+    ofPixels& getPixels() { return player.getPixels(); }
+    
+    void setLoopMode(int mode);
+    
+private:
+    
+    ofVideoPlayer   player;
+    
+    string          filePath;
+    bool            autoplay{0};
+    int             loop{1};
+    
+    float           speed{1.0};
+    bool            paused{false};
+    
+};
+
 } //namespace Source
 
 

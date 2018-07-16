@@ -9,12 +9,16 @@
 
 void SourcePool::setup(ofJson& config){
     
-    // Find if there is one or more group names in the json config
-    if (false) {
-        ;
+    // If there is no group names in the json config, create a group named default
+    if (config.find("group") == config.end())
+        { addGroup( "default" );}
+    else {  // Create a group for each new group name
+        for (auto src : config){
+            if (src.count("group"))
+                if (!groups.count( src["group"] ))
+                    { addGroup( src["group"] );}
+        }
     }
-    // if not, then create a group named default
-    else groups.emplace( "default" , Group("default") );
     
     // Then create all Sources
     

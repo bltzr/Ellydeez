@@ -15,58 +15,60 @@
 #include "ofxSerial.h"
 #include "SinkBase.hpp"
 
+using namespace std;
+
 namespace Sinks {
     
-    class Serial : public Sink {
-        
-    public:
-        
-        Serial(std::string addr):
-            name{addr}
-            {setup();}
-        
-        Serial(int SN):
-            name{portName(SN)}
-            {setup();}
-        
-        ~Serial() = default;
-        
-        void setup(){
-            if (name == "") {
-                ofLogError("Serial device") << "please set dev name before setup()";
-                return;
-            }
-            if ( !dev.setup(name) )
-                ofLogError("Serial device") << "Can't connect to " << name;
+class Serial : public Sink {
+    
+public:
+    
+    Serial(string addr):
+        name{addr}
+        {setup();}
+    
+    Serial(int SN):
+        name{portName(SN)}
+        {setup();}
+    
+    ~Serial() = default;
+    
+    void setup(){
+        if (name == "") {
+            ofLogError("Serial device") << "please set dev name before setup()";
+            return;
         }
-        
-        void reconnect(){
-            if ( !dev.setup(name) )
-                ofLogError("Serial device") << "Can't connect to " << name;
-        }
-        
+        if ( !dev.setup(name) )
+            ofLogError("Serial device") << "Can't connect to " << name;
+    }
+    
+    void reconnect(){
+        if ( !dev.setup(name) )
+            ofLogError("Serial device") << "Can't connect to " << name;
+    }
+    
 
-    protected:
-        
-        void sendPacket(ofx::IO::ByteBuffer& packet);
-        
-        ofx::IO::PacketSerialDevice_<ofx::IO::SLIPEncoding, ofx::IO::SLIPEncoding::END, 16384> dev;
-        
-        std::string name;
-        std::string portName(int SN);
-        
-        
-                        
-    private:
-                        
-        void send(ofx::IO::ByteBuffer m) {dev.send(m);}
+protected:
+    
+    void sendPacket(ofx::IO::ByteBuffer& packet);
+    
+    ofx::IO::PacketSerialDevice_<ofx::IO::SLIPEncoding, ofx::IO::SLIPEncoding::END, 16384> dev;
+    
+    string name;
+    string portName(int SN);
+    
+    
+    
+private:
+    
+    void send(ofx::IO::ByteBuffer m) {dev.send(m);}
 
-    };
-    
-    // Helper functions:
-    
-    void printSerialDevices();
-    
+};
+
+// Helper functions:
+
+void printSerialDevices();
+
 
     
 } // namespace Sink

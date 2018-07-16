@@ -11,19 +11,21 @@
 #include <stdio.h>
 #include "SourceBase.hpp"
 
+using namespace std;
+
 namespace Sources {
     
-    class Generator : public Source {
-        
-    public:
-        
-        
-        
-    private:
-        
-        
-        
-    };
+class Generator : public Source {
+    
+public:
+    
+    
+    
+private:
+    
+    
+    
+};
     
 } //namespace Source
 

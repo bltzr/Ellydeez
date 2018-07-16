@@ -14,6 +14,8 @@
 //#include "SourceBase.hpp"
 //#include "SourcePool.hpp"
 
+using namespace std;
+
 class SourcePool;
 class Source;
 
@@ -21,17 +23,17 @@ class Group {
     
 public:
 
-    Group(std::string name):
+    Group(string name):
         groupName{name}{}
     
-    ofPixels& getPixels() {return pixels;}
+    ofPixels& getPixels()           {return pixels;}
     
     // if we want to be able to change the name, we must update it
     // in all registered Sources and all client Sinks
-    std::string getName() {return groupName;}
+    std::string getName() cosnt     {return groupName;}
     
     void setActiveSource(Source* src) {activeSource = src;}
-    Source* getActiveSource() {return activeSource;}
+    Source* getActiveSource() const {return activeSource;}
     
 protected:
     
@@ -41,15 +43,15 @@ protected:
     
 private:
     
-    std::string         groupName;
+    string              groupName;
     
-    std::list<Source*>  sources;
+    list<Source*>       sources;
     Source*             activeSource;
     
     ofPixels            pixels;
     
-    friend class SourcePool;
-    friend class OutLine;
+    friend class        SourcePool;
+    friend class        OutLine;
 
 };
 

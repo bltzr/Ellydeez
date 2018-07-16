@@ -11,8 +11,8 @@ namespace Sources {
     
     void Syphon::setup(){
 
-        mClient.setup();
-        mClient.set( name , app );
+        client.setup();
+        client.set( name , app );
         
         if (pixelFormat == OF_PIXELS_RGB || pixelFormat == OF_PIXELS_GRAY)
              {GLFormat = GL_RGB;  disableAlpha = 1;}
@@ -30,15 +30,15 @@ namespace Sources {
     void Syphon::update(){
     
     // If the source dimensions change,
-    if ((mClient.getTexture().getWidth()!=0&&mClient.getTexture().getHeight()!=0)
-        &&(Xsize!=mClient.getTexture().getWidth() ||
-           Ysize!=mClient.getTexture().getHeight()))
+    if ((client.getTexture().getWidth()!=0&&client.getTexture().getHeight()!=0)
+        &&(Xsize!=client.getTexture().getWidth() ||
+           Ysize!=client.getTexture().getHeight()))
         
         // We get the new size
         {
-            cout << "Syphon Input: width/height: " << mClient.getTexture().getWidth() << " " << mClient.getTexture().getHeight() << endl;
-            Xsize=mClient.getTexture().getWidth();
-            Ysize=mClient.getTexture().getHeight();
+            cout << "Syphon Input: width/height: " << client.getTexture().getWidth() << " " << client.getTexture().getHeight() << endl;
+            Xsize=client.getTexture().getWidth();
+            Ysize=client.getTexture().getHeight();
             
             fbo.allocate(Xsize, Ysize, GLFormat);
             fbo.begin();
@@ -50,7 +50,7 @@ namespace Sources {
         // and  we reallocate the FBO to the right sizes
         fbo.begin();
         if (disableAlpha) ofDisableAlphaBlending();
-        mClient.draw(0, 0, Xsize, Ysize);
+        client.draw(0, 0, Xsize, Ysize);
         fbo.end();
         
     }

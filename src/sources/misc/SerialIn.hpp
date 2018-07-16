@@ -15,11 +15,12 @@
 #include <stdio.h>
 #include "ofMain.h"
 
+ using namespace std;
 
 class SerialIn {
 
     int current_msg_string;
-    std::string msg_strings[NUM_MSG_STRINGS];
+    string msg_strings[NUM_MSG_STRINGS];
     float timers[NUM_MSG_STRINGS];
     
     void onSerialBuffer(const ofx::IO::SerialBufferEventArgs& args);
@@ -35,15 +36,15 @@ public:
      SerialMessage():
      fade(0) {}
      
-     SerialMessage(const std::string& _message,
+     SerialMessage(const string& _message,
      const std::string& _exception,
      int _fade):
      message(_message),
      exception(_exception),
      fade(_fade) {}
      
-     std::string message;
-     std::string exception;
+     string message;
+     string exception;
      int fade;
 };
 */

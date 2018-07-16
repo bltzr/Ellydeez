@@ -12,6 +12,8 @@
 #include "ofxSyphon.h"
 #include "SourceBase.hpp"
 
+using namespace std;
+
 namespace Sources {
     
 class Syphon : public Source {
@@ -29,15 +31,15 @@ protected:
     
 private:
     
-    ofxSyphonClient     mClient ;
+    ofxSyphonClient     client ;
     ofFbo               fbo ;
     ofPixels            pixels;
     
     int                 GLFormat{GL_RGB};
     bool                disableAlpha{1};
     
-    std::string         name{""};
-    std::string         app{"Simple Server"};
+    string         name{""};
+    string         app{"Simple Server"};
     
 };
 
