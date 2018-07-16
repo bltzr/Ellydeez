@@ -11,12 +11,17 @@
 #include "LineBase.hpp"
 
 namespace Sinks {
-
+    
+class SinkBase;
 
 class DMXLine : public LineBase {
     
 public:
-    void send();
+
+    
+private:
+    
+    friend class SinkBase;
     
 };
 

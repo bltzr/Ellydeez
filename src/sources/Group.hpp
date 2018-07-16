@@ -18,32 +18,42 @@ using namespace std;
 
 class SourceFactory;
 class Source;
+class LineBase;
 
 class Group {
     
 public:
 
-    Group(string name):
-        groupName{name}
-        {}
+    Group(string name,
+          string pixelFormat = "RGB"):
+        groupName{name},
+        format{pixelFormat}
+        { if (format!="RGB") setPixelFormat(format); }
     
-    ofPixels& getPixels()           {return pixels;}
+    ofPixels& getPixels()                   { return pixels; }
     
-    // if we want to be able to change the name, we must update it
-    // in all registered Sources and all client Sinks
-    string getName() const          {return groupName;}
+    uint8_t getPixelChannelValue(int Xpos, int Ypos = 0, int pixPos = 0);
+    int     getPixelSummedValue (int Xpos, int Ypos = 0);
+
+    string  getName() const                 { return groupName; }
     
-    void setActiveSource(Source* src) {activeSource = src;}
-    Source* getActiveSource() const {return activeSource;}
+    void    setActiveSource(Source* src)    { activeSource = src; }
+    Source* getActiveSource() const         { return activeSource; }
     
-    int getXsize() { return Xsize; }
-    int getYsize() { return Ysize; }
+    int     getXsize()                      { return Xsize; }
+    int     getYsize()                      { return Ysize; }
+    string  getPixelFormat()                { return format; }
     
 protected:
     
-    void add(Source*);
-    void remove(Source*);
-    void moveTo(Source*, Group*);
+    void    add(Source*);
+    void    remove(Source*);
+    void    moveTo(Source*, Group*);
+    
+    void    setPixelFormat( std::string fmt );
+    
+    // if we want to be able to change the name, we must update it
+    // in all registered Sources and all client Sinks
     
 private:
     
@@ -54,12 +64,16 @@ private:
     
     ofPixels            pixels;
     
+    string              format{"RGB"}; // other choices: RGBA, BW, BWA
+    int                 nChannels{3};
+    ofPixelFormat       pixFormat{OF_PIXELS_RGB};
+    
     int                 Xsize {0};
     int                 Ysize {0};
     
     
     friend class        SourceFactory;
-    friend class        OutLine;
+    friend class        LineBase;
 
 };
 

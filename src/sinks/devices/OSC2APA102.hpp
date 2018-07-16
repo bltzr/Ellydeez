@@ -35,12 +35,13 @@ public:
         {}
     
     void setup();
-    void update()
-        { sendPacket( OSCBundle2ByteBuffer( fetchBundle() ) ); }
+    void update();
     
 protected:
     
     Group *                     source;
+    
+private:
     
     uint8_t                     brightness{255};
     
@@ -49,13 +50,9 @@ protected:
     
     list<LineBase*>             allLines;
     
-    int                         brightPixX {-1};
-    int                         brightPixY {-1};
-    int                         pixChannel  {0};
-    
-private:
-    
-    BrightPixel         brightPix{ source, brightPixX, brightPixY, pixChannel };
+    int                         brightXpos {-1};
+    int                         brightYpos {-1};
+    int                         brightChan  {0};
         
 };
 

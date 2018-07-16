@@ -23,23 +23,25 @@ class LineBase {
 public:
     
     virtual void setup();
-    virtual void udpate();
+    virtual void udpate() { fetchPixelsfromSource(); }
     virtual void draw();
     virtual void exit();
+    
+    const ofPixels& getPixels();
     
 protected:
     
     LineBase(Group* group,
              int sizeX = 1, int sizeY = 0,
              int OffsetX = 0, int offsetY = 0,
-             string pixel_format = "RGB",
+             string pixelFormat = "RGB",
              int nPixels = 0):
     source{group},
     Xsize{sizeX},
     Ysize{sizeY},
     Xoffset{OffsetX},
     Yoffset{offsetY},
-    format{pixel_format},
+    format{pixelFormat},
     nPix{nPixels}
     {
         if (format!="RGB") setPixelFormat(format);
@@ -49,13 +51,15 @@ protected:
             }
     }
     
-    ofPixels& getPixels();
+    virtual void fetchPixelsfromSource();
     
-    void setPixelFormat(ofPixelFormat fmt) {pixelFormat = fmt;}
-    void setPixelFormat(std::string fmt);
+    void    setPixelFormat( string fmt );
+    string  getPixelFormat() { return format; }
     
-    int  getNumberOfPixels()    { return nPix;}
-    int  getNumberOfBytes()     { return nBytes;}
+    int     getNumChannels() { return nChannels; }
+    
+    int     getNumberOfPixels()    { return nPix;}
+    int     getNumberOfBytes()     { return nBytes;}
     
     
     Group *         source;         // source group
@@ -65,12 +69,13 @@ protected:
     int             Xoffset = 0;     // how many pixels to offset from (X)
     int             Yoffset = 0;     // how many lines to offset from
     
+    ofPixels        pixels;         
+    
 private:
     
-    ofPixels        pixels;
-    
     string          format{"RGB"}; // other choices: RGBA, BW, BWA
-    ofPixelFormat   pixelFormat{OF_PIXELS_RGB};
+    ofPixelFormat   pixFormat{OF_PIXELS_RGB};
+    int             nChannels{3};
     
     int             nPix;           // number of pixels
     int             nBytes;          // number of pixels

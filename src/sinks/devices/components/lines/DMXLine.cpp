@@ -10,15 +10,4 @@
 namespace Sinks {
 
 
-//--------------------------------------------------------------
-// Send the whole thing to the DMX line:
-//
-void DMXLine::send() {
-    
-    source->getPixels().cropTo(pixelCrop, Xoffset, Yoffset, Xsize, Ysize);
-    
-    sendPixelsAsBlobMessage(address, pixelCrop, nPix);
-    
-}
-
 } // namespace Sinks
