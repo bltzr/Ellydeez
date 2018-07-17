@@ -19,7 +19,17 @@ class Generator : public Source {
     
 public:
     
+    Generator(Group* sourceGroup,
+              string pixel_format = "RGB"):
+    Source(sourceGroup, pixel_format)
+    {}
     
+    ~Generator() = default;
+    
+    void setup()  {}
+    void update() {}
+    void draw() {}
+    void exit() {}
     
 private:
     

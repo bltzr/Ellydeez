@@ -19,7 +19,17 @@ class Network : public Source {
     
 public:
     
+    Network(Group* sourceGroup,
+            string pixel_format = "RGB"):
+    Source(sourceGroup, pixel_format)
+    {}
     
+    ~Network() = default;
+    
+    void setup()    {}
+    void update()   {}
+    void draw()     {}
+    void exit()     {}
     
 private:
     

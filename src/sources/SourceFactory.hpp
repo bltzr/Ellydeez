@@ -16,8 +16,8 @@
 
 #include "Syphon.hpp"
 #include "Player.hpp"
-#include "Network.hpp"
-#include "Generator.hpp"
+//#include "Network.hpp"
+//#include "Generator.hpp"
 
 using namespace std;
 
@@ -60,8 +60,8 @@ private:
     
     list<Sources::Syphon>       syphons;
     list<Sources::Player>       players;
-    list<Sources::Network>      networkIns;
-    list<Sources::Generator>    generators;
+    //list<Sources::Network>      networkIns;
+    //list<Sources::Generator>    generators;
 
     map<string, Source*>        sources;
     

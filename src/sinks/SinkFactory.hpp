@@ -17,6 +17,9 @@ class SinkFactory {
     
 public:
     
+    // Setup the Source Factory with a json file
+    void setup(ofJson& config);
+    
     void setup();
     void update();
     void draw();

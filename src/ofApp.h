@@ -7,41 +7,28 @@
 #include "SinkFactory.hpp"
 #include "SourceFactory.hpp"
 
-
-//--------------------------------------------------------------
-//    Our App
+using namespace std;
 
 class ofApp : public ofBaseApp {
 
 public:
+    
     void setup();
     void update();
     void draw();
     void exit();
     
-    ofJson js;
     
-    std::string windowName {"Ellydeez"};
-    int         fps{60};
+    ofJson          js;
     
-    SourceFactory  sources;
-    SinkFactory    sinks;
+    string          name {"Ellydeez"};
+    int             fps{60};
     
-    int playing = 1;
+    SourceFactory   sources;
+    SinkFactory     sinks;
     
+    bool            running {true};
+    bool            drawing {true};
     
-    // v move this in the appropriate classes
-
-
-    int sourceXsize = 0, sourceYsize = 0;
-    int drawXsize = 132, drawYsize = 2;
-
-    
-    // temporary way to deal with brightness info from the video:
-    ofPixels BrightPix;
-    unsigned char * Brights;
-
-    
-
 
 };

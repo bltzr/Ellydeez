@@ -24,3 +24,8 @@ void SourceFactory::setup(ofJson& config){
     
     
 }
+
+void SourceFactory::update(){
+
+}
+

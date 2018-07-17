@@ -23,9 +23,8 @@ public:
                int brightnessChannel = 0,
                int sizeX = 1,   int sizeY = 0,
                int OffsetX = 0, int offsetY = 0,
-               string pixelFormat = "RGB",
                int nPixels = 0):
-    LineBase{group, sizeX, sizeY, OffsetX, offsetY, pixelFormat, nPixels},
+    LineBase{group, sizeX, sizeY, OffsetX, offsetY, "RGB", nPixels},
     brightXpos{0},
     brightYpos{0},
     brightChan{0}

@@ -42,6 +42,7 @@ public:
     
     int     getXsize()                      { return Xsize; }
     int     getYsize()                      { return Ysize; }
+    
     string  getPixelFormat()                { return format; }
     
 protected:

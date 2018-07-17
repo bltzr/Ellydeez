@@ -13,7 +13,8 @@ namespace Sinks{
     void OSC2APA102::update() {
         
         // Get the global brightness (aka FastLED "dither")
-        brightness = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan);
+        if ( brightXpos >= 0 && brightXpos >= 0 )
+            brightness = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan);
         sendValueAsIntMessage("/b", brightness);
         
         for ( auto l : allLines ) { l->udpate(); }

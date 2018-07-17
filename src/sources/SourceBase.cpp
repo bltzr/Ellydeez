@@ -8,9 +8,9 @@
 #include "SourceBase.hpp"
 
 void Source::setPixelFormat(string fmt){
-    if (fmt=="RGBA")     pixelFormat=OF_PIXELS_RGBA;
-    else if (fmt=="BW")  pixelFormat=OF_PIXELS_GRAY;
-    else if (fmt=="BWA") pixelFormat=OF_PIXELS_GRAY_ALPHA;
-    else                 pixelFormat=OF_PIXELS_RGB;
+    if (fmt=="RGBA")     pixFormat=OF_PIXELS_RGBA;
+    else if (fmt=="BW")  pixFormat=OF_PIXELS_GRAY;
+    else if (fmt=="BWA") pixFormat=OF_PIXELS_GRAY_ALPHA;
+    else                 pixFormat=OF_PIXELS_RGB;
     
 }

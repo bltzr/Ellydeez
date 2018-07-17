@@ -29,23 +29,23 @@ public:
 protected:
     
     Source(Group* sourceGroup,
-           string pixel_format = "RGB"):
+           string pixelFormat = "RGB"):
         group{sourceGroup}
-        {setPixelFormat(pixel_format);}
+        {setPixelFormat(pixelFormat);}
     
     virtual ~Source() = 0;
     
     virtual ofPixels& getPixels()  = 0;
     
-    void setPixelFormat(ofPixelFormat fmt) {pixelFormat = fmt;}
     void setPixelFormat(std::string fmt);
     
     Group*          group;
+    
     int             Xsize{1};
     int             Ysize{0};
     
     string          format{"RGB"}; // other choices: RGBA, BW, BWA
-    ofPixelFormat   pixelFormat{OF_PIXELS_RGB};
+    ofPixelFormat   pixFormat{OF_PIXELS_RGB};
     
 private:
     

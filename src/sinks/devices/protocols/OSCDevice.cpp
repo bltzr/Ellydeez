@@ -19,7 +19,7 @@ void OSCDevice::sendValueAsIntMessage(string addr, int v)
     
 }
 
-void OSCDevice::sendPixelsAsBlobMessage(string addr, ofPixels& pix, int nBytes)
+void OSCDevice::sendPixelsAsBlobMessage(string addr, const ofPixels& pix, int nBytes)
 {
     
     ofBuffer imgAsBuffer;

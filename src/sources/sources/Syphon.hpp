@@ -20,10 +20,17 @@ class Syphon : public Source {
     
 public:
     
+    Syphon(Group* sourceGroup,
+           string pixel_format = "RGB"):
+    Source(sourceGroup, pixel_format)
+    {}
+    
+    ~Syphon() = default;
+    
     void setup();
     void update();
-    void draw();
-    void exit();
+    void draw() {}
+    void exit() {}
     
 protected:
     

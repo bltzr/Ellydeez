@@ -19,9 +19,17 @@ class Player : public Source {
     
 public:
     
-    void setup();
+    Player(Group* sourceGroup,
+           string pixelFormat = "RGB"):
+    Source(sourceGroup, pixelFormat)
+    {}
     
+    ~Player() = default;
+    
+    void setup();
     void update() { player.update(); }
+    void draw(){}
+    void exit(){}
     
 protected:
     

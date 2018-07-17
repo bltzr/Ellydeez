@@ -8,11 +8,14 @@ void ofApp::setup(){
     ofFile file("config.json");
     if(file.exists()){
         file >> js;
-        for(auto & field : js){
-            if(!field.empty()){
-                for(auto & src: field){
-                    std::cout<<src;
-                }
+        for(auto field = js.begin(); field != js.end(); ++field ){
+            //if(!field.empty()){
+            cout << "name: " << field.key() << endl;
+            auto& fw = field.value();
+            for(auto src = fw.begin(); src!= fw.end(); ++src ){
+                cout << "name: " << src.key() << endl;
+                cout << "content: " << endl << setw(4) << src.value() << endl;
+               // }
             }
         }
     }
@@ -23,7 +26,7 @@ void ofApp::setup(){
     sinks.setup();
     
     // display
-    ofSetWindowTitle(windowName);
+    ofSetWindowTitle(name);
     ofSetVerticalSync(false);
     ofSetFrameRate(fps);
     
@@ -43,35 +46,12 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 
+    if (running){
 
-    
-    // Temporary hack to get the brightnesses from the video
-    /// TODO: turn this into (a) proper class(es)
-    
-    pixels.cropTo(BrightPix, 129, 0, 3, 1);
-    Brights = BrightPix.getData();
-    
-    for (int i=0; i<NUM_LEDLINES; i++){
-        ledLine[i].setDither(int(Brights[0]));
+        sources.update();
+        sinks.update();
+        
     }
-    //cout << "D" << int(Brights[1]) << endl;
-    
-    for (int i=0; i<NUM_LEDLINES; i++){
-        ledLine[i].setBrightness(int(Brights[(i+1)*3]));
-        // cout << "B " << i << ": " << int(Brights[(i+1)*3]) << endl;
-    }
-    
-    
-    // Send the whole thing to the LED/DMX lines:
-    
-    for (int i=0; i<NUM_LEDLINES; i++) {
-        ledLine[i].sendLine();
-    }
-    for (int i=0; i<NUM_DMXLINES; i++) {
-        dmxLine[i].sendLine();
-    }
-
-    
 }
 
 
@@ -88,7 +68,7 @@ void ofApp::draw(){
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    
+    /*
     if(playing){
         
         trame.draw(20, 20, 450, 450);
@@ -118,6 +98,8 @@ void ofApp::draw(){
     ofImage img;
     img.setFromPixels(BrightPix);
     img.draw(500, dmxLine[NUM_DMXLINES-1].Yoffset*10+80+ledLine[NUM_LEDLINES-1].Ysize*18, 450, 50);
+     
+     */
     
     }
     
@@ -125,7 +107,9 @@ void ofApp::draw(){
 
 }
 
+void ofApp::exit(){
 
+}
 
 
 

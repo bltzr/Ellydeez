@@ -7,4 +7,15 @@
 
 #include "SinkFactory.hpp"
 
+void SinkFactory::setup(ofJson& config){
+    
+}
+
+void SinkFactory::setup(){
+    
+}
+
+void SinkFactory::update(){
+    
+}
 

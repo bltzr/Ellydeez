@@ -25,4 +25,5 @@ void Group::setPixelFormat(std::string fmt){
     else if (fmt==  "BW") {pixFormat=OF_PIXELS_GRAY;       nChannels = 1;}
     else if (fmt== "BWA") {pixFormat=OF_PIXELS_GRAY_ALPHA; nChannels = 2;}
     else                  {pixFormat=OF_PIXELS_RGB; ;      nChannels = 3;}
+    
 }

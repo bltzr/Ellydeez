@@ -32,7 +32,7 @@ protected:
     
     // For components:
     void sendValueAsIntMessage  ( string addr, int value );
-    void sendPixelsAsBlobMessage( string addr, ofPixels& pix, int nBytes );
+    void sendPixelsAsBlobMessage( string addr, const ofPixels& pix, int nBytes );
 
 private:
     

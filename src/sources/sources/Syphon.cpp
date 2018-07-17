@@ -14,7 +14,7 @@ namespace Sources {
         client.setup();
         client.set( name , app );
         
-        if (pixelFormat == OF_PIXELS_RGB || pixelFormat == OF_PIXELS_GRAY)
+        if (pixFormat == OF_PIXELS_RGB || pixFormat == OF_PIXELS_GRAY)
              {GLFormat = GL_RGB;  disableAlpha = 1;}
         else {GLFormat = GL_RGBA; disableAlpha = 0;}
         

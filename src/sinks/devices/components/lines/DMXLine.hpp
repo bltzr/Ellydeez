@@ -17,11 +17,14 @@ class SinkBase;
 class DMXLine : public LineBase {
     
 public:
-
     
-private:
-    
-    friend class SinkBase;
+    DMXLine(Group* group,
+            int sizeX = 1,   int sizeY = 0,
+            int OffsetX = 0, int offsetY = 0,
+            string pixelFormat = "RGB",
+            int nPixels = 0):
+    LineBase{group, sizeX, sizeY, OffsetX, offsetY, pixelFormat, nPixels}
+    {}
     
 };
 

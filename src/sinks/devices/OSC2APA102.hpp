@@ -34,8 +34,11 @@ public:
         OSCDevice()
         {}
     
-    void setup();
+    void setup()    {}
     void update();
+    void draw()     {}
+    void exit()     {}
+    
     
 protected:
     

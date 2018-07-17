@@ -11,9 +11,11 @@ namespace Sources {
     
 void Player::setup(){
     
-    player.setPixelFormat(pixelFormat);
+    player.setPixelFormat(pixFormat);
     
     player.load(filePath);
+    Xsize = player.getWidth();
+    Ysize = player.getHeight();
     
     setLoopMode(loop);
     

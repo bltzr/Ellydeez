@@ -29,6 +29,13 @@ public:
     
     const ofPixels& getPixels();
     
+    string  getPixelFormat() { return format; }
+    
+    int     getNumChannels() { return nChannels; }
+    
+    int     getNumberOfPixels()    { return nPix;}
+    int     getNumberOfBytes()     { return nBytes;}
+    
 protected:
     
     LineBase(Group* group,
@@ -51,16 +58,11 @@ protected:
             }
     }
     
-    virtual void fetchPixelsfromSource();
+    ~LineBase() = default;
     
-    void    setPixelFormat( string fmt );
-    string  getPixelFormat() { return format; }
+    void            setPixelFormat( string fmt );
     
-    int     getNumChannels() { return nChannels; }
-    
-    int     getNumberOfPixels()    { return nPix;}
-    int     getNumberOfBytes()     { return nBytes;}
-    
+    virtual void    fetchPixelsfromSource();
     
     Group *         source;         // source group
 
