@@ -18,6 +18,9 @@ public:
     void draw();
     void exit();
     
+private:
+    
+    void config(ofJson jsConfig);
     
     ofJson          js;
     

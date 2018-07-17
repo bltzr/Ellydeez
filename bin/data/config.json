@@ -1,34 +1,48 @@
 {
-    "Ellydeez": 
-        {
-        "sources": {
-            "syphon.bololo": {
-                "name": "toto",
-                "app": "Max",
-                "Xsize": 20,
-                "Ysize": 40,
-                "destination": "pixels"
-            },
-            "player.hophophop": {
-                "filePath": "~/Documents/aFile",
-                "Xsize": 20,
-                "Ysize": 40,
-                "alpha": true,
-                "autoplay": false,
-                "destination": "pixels"
-            }
+    "config": {
+        "name": "TestConfig",
+        "fps": 60,
+        "dummy": "param"
+    },
+    "sources": {
+        "syphon.bololo": {
+            "name": "toto",
+            "app": "Max",
+            "Xsize": 20,
+            "Ysize": 40,
+            "destination": "pixels",
+            "group": "Metallica"
         },
-        "sinks": {
-            "osc2apa102.1": {
-                "LEDline.1": {
-                    "source": "pixels",
-                    "address": "/1",
-                    "Xsoffset": 0,
-                    "Yoffset": 0,
-                    "Xsize": 100,
-                    "Ysize": 2
-                }
+        "player.hophophop": {
+            "filePath": "~/Documents/aFile",
+            "Xsize": 20,
+            "Ysize": 40,
+            "alpha": true,
+            "autoplay": false,
+            "destination": "pixels",
+            "group": "Slayer"
+        },
+        "player.oihac": {
+            "filePath": "~/Documents/aFile",
+            "Xsize": 20,
+            "Ysize": 40,
+            "alpha": true,
+            "autoplay": false,
+            "destination": "pixels",
+            "group": "Metallica"
+        }
+    },
+    "sinks": {
+        "osc2apa102.1": {
+            "LEDline.1": {
+                "source": "pixels",
+                "address": "/1",
+                "Xsoffset": 0,
+                "Yoffset": 0,
+                "Xsize": 100,
+                "Ysize": 2
             }
         }
     }
+
 }

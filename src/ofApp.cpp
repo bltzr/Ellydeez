@@ -8,15 +8,12 @@ void ofApp::setup(){
     ofFile file("config.json");
     if(file.exists()){
         file >> js;
-        for(auto field = js.begin(); field != js.end(); ++field ){
-            //if(!field.empty()){
-            cout << "name: " << field.key() << endl;
-            auto& fw = field.value();
-            for(auto src = fw.begin(); src!= fw.end(); ++src ){
-                cout << "name: " << src.key() << endl;
-                cout << "content: " << endl << setw(4) << src.value() << endl;
-               // }
-            }
+        for(auto base = js.begin(); base != js.end(); ++base ){
+            string b = base.key();
+            if      (b == "config")     config( base.value() );
+            else if (b == "sources")      sources.setup( base.value() );
+            else if (b == "sinks")    sinks.setup( base.value() );
+            else ofLogError() << "unknown field in json Config";
         }
     }
     
@@ -108,8 +105,18 @@ void ofApp::draw(){
 }
 
 void ofApp::exit(){
-
 }
 
+void ofApp::config( ofJson c ) {
+
+    for(auto src = c.begin(); src!= c.end(); ++src ){
+        if      (src.key() == "name") name = src.value();
+        else if (src.key() == "fps")  fps = src.value();
+        else ofLogError("config")
+            << "extra field for config: " << src.key()
+            << " with value: " << src.value() << endl;
+    }
+    
+}
 
 
