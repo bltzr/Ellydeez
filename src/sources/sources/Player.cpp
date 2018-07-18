@@ -9,13 +9,22 @@
 
 namespace Sources {
     
+    Player::Player( ofJson& params ):
+    Source( params )
+    {
+        filePath = ( params.count( "filePath" ) ) ? params[ "filePath" ] : "" ;
+        width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;
+        height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
+        format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ;
+    }
+    
 void Player::setup(){
     
     player.setPixelFormat(pixFormat);
     
     player.load(filePath);
-    Xsize = player.getWidth();
-    Ysize = player.getHeight();
+    width = player.getWidth();
+    height = player.getHeight();
     
     setLoopMode(loop);
     

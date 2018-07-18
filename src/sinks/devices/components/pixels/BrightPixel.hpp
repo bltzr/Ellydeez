@@ -19,12 +19,12 @@ namespace Sinks {
         
     public:
         
-        BrightPixel(Group* group,
+        BrightPixel(Pool* pool,
                     int positionX = 0,
                     int positionY = 0,
                     int pixelChannel = 0,
                     string pixelFormat = "RGB"):
-        PixelBase{ group, positionX, positionY, pixelChannel, pixelFormat}
+        PixelBase{ pool, positionX, positionY, pixelChannel, pixelFormat}
         {}
         
     protected:

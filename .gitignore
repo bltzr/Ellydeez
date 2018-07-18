@@ -5,3 +5,5 @@
 *.app
 /Project.xcconfig
 /Ellydeez.xcodeproj
+/bin/data/Nebula.mov
+/bin/data/test2.mov

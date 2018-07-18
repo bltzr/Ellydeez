@@ -18,12 +18,12 @@ class DMXLine : public LineBase {
     
 public:
     
-    DMXLine(Group* group,
+    DMXLine(Pool* pool,
             int sizeX = 1,   int sizeY = 0,
             int OffsetX = 0, int offsetY = 0,
             string pixelFormat = "RGB",
             int nPixels = 0):
-    LineBase{group, sizeX, sizeY, OffsetX, offsetY, pixelFormat, nPixels}
+    LineBase{pool, sizeX, sizeY, OffsetX, offsetY, pixelFormat, nPixels}
     {}
     
 };

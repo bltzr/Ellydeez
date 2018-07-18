@@ -7,6 +7,8 @@
 
 #include "SourceBase.hpp"
 
+
+
 void Source::setPixelFormat(string fmt){
     if (fmt=="RGBA")     pixFormat=OF_PIXELS_RGBA;
     else if (fmt=="BW")  pixFormat=OF_PIXELS_GRAY;

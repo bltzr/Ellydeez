@@ -19,9 +19,10 @@ class Player : public Source {
     
 public:
     
-    Player(Group* sourceGroup,
-           string pixelFormat = "RGB"):
-    Source(sourceGroup, pixelFormat)
+    Player( ofJson& params );
+    
+    Player( const string& pixelFormat = "RGB" ):
+    Source( pixelFormat )
     {}
     
     ~Player() = default;

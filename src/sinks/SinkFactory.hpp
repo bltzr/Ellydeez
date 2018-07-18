@@ -34,7 +34,7 @@ protected:
 private:
     
     map<string, Sink*> sinks;
-    // map<string, Group*>  groups; // ????
+    // map<string, Pool*>  pools; // ????
     
     list<Sinks::OSC2APA102> osc2apa102s;
 

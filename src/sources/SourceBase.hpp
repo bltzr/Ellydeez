@@ -10,12 +10,10 @@
 
 #include <stdio.h>
 #include "ofMain.h"
-#include "Group.hpp"
 
 using namespace std;
 
 class SourceFactory;
-class Group;
 
 class Source {
     
@@ -28,21 +26,24 @@ public:
     
 protected:
     
-    Source(Group* sourceGroup,
-           string pixelFormat = "RGB"):
-        group{sourceGroup}
-        {setPixelFormat(pixelFormat);}
+    Source()
+    {}
     
-    virtual ~Source() = 0;
+    Source( ofJson& params )
+    {}
+    
+    Source( const string& pixelFormat = "RGB" )
+    {setPixelFormat(pixelFormat);}
+    
+    virtual ~Source() = default ;
     
     virtual ofPixels& getPixels()  = 0;
     
     void setPixelFormat(std::string fmt);
     
-    Group*          group;
     
-    int             Xsize{1};
-    int             Ysize{0};
+    int             width{1};
+    int             height{0};
     
     string          format{"RGB"}; // other choices: RGBA, BW, BWA
     ofPixelFormat   pixFormat{OF_PIXELS_RGB};

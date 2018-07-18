@@ -15,10 +15,10 @@ void APA102Line::update() {
     
     fetchPixelsfromSource();
 
-    for (int i = 0; i < Xsize; ++i){
-        for (int j = 0; j < Ysize; ++j){
+    for (int i = 0; i < width; ++i){
+        for (int j = 0; j < height; ++j){
             for (int c = 0; c < getNumChannels(); ++c ){
-                int pos = ( j* Xsize + i ) * getNumChannels() + c ;
+                int pos = ( j* width + i ) * getNumChannels() + c ;
                 pixels[ pos ] = pixels[ pos ] * mapCol[ bright ] / 255;
             }
         }

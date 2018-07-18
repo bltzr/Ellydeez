@@ -7,24 +7,28 @@
 
 #include "SourceFactory.hpp"
 
+void SourceFactory::update(){
+    
+}
+
+
 void SourceFactory::setup(ofJson& c){
     
     cout << endl << "Building sources!" << endl << endl;
     
-    cout << "Creating Groups:" << endl;
+    cout << "Creating Pools:" << endl;
     
-    // If there is no group names in any of the sources, create a group named default
-    bool foundGroups{false};
-    for (auto& src : c)
-        if (src.find("group") != src.end()) foundGroups = true;
-    if ( ! foundGroups ) { addGroup( "default" ); cout << "No group found in sources, adding default group" << endl;}
+    // If there is no pool name in any of the sources, create a pool named default
+    bool foundPools{false};
+    for ( auto& src : c )
+        if ( src.find("pool" ) != src.end()) foundPools = true;
+    if ( ! foundPools ) { addPool( "default" ); cout << "No pool found in sources, adding default pool" << endl;}
     
-    else {  // Create a group for each new group name
-        for (auto& src : c){
-            if (src.count("group")){
-                foundGroups = true;
-                if (!groups.count( src["group"] ))
-                { addGroup( src["group"] ); cout << "Adding group:" << src["group"] << endl;}
+    else {  // Create a pool for each new pool name
+        for ( auto& src : c ){
+            if ( src.count("pool") ){
+                if ( ! pools.count( src["pool"] ) )
+                { addPool( src[ "pool" ] ); cout << "Adding pool:" << src[ "pool" ] << endl;}
             }
         }
     }
@@ -32,12 +36,27 @@ void SourceFactory::setup(ofJson& c){
     // Then create all Sources
     cout << endl << "Creating Sources:" << endl;
     for(auto src = c.begin(); src!= c.end(); ++src ){
-        cout << "name: " << src.key() << endl;
-        cout << "content: " << endl << setw(4) << src.value() << endl;
+        add( src.key(), src.value() );
     }
 }
 
-void SourceFactory::update(){
 
+
+void SourceFactory::add( string srcName, ofJson& params ) {
+    
+    string name = srcName;
+    if ( srcName.find( "syphon." ) == 0) {
+        name.erase( 0, 7 );
+        syphons.emplace( name, Sources::Syphon( params ) );
+        sources.emplace( name, &syphons[ name ] );
+        cout << endl << "Syphon: " << name << endl << setw(4) << params << endl;
+        
+    } else if ( srcName.find( "player." ) == 0) {
+        name.erase( 0, 7 );
+        players.emplace( name, Sources::Player( params ) );
+        sources.emplace( name, &players[ name ] );
+        cout << endl << "Player: " << name << endl << setw(4) << params << endl;
+        
+    } else {ofLogError("Config: ") << "unknown source type: " << name;}
+    
 }
-

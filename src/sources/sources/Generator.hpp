@@ -19,9 +19,8 @@ class Generator : public Source {
     
 public:
     
-    Generator(Group* sourceGroup,
-              string pixel_format = "RGB"):
-    Source(sourceGroup, pixel_format)
+    Generator( const string& pixelFormat = "RGB"):
+    Source( pixelFormat )
     {}
     
     ~Generator() = default;

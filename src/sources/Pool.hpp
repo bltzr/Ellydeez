@@ -1,12 +1,12 @@
 //
-//  Group.hpp
+//  Pool.hpp
 //  Ellydeez
 //
 //  Created by Pascal Baltazar on 11/07/2018.
 //
 
-#ifndef Group_hpp
-#define Group_hpp
+#ifndef Pool_hpp
+#define Pool_hpp
 
 #include <stdio.h>
 #include <list>
@@ -20,13 +20,13 @@ class SourceFactory;
 class Source;
 class LineBase;
 
-class Group {
+class Pool {
     
 public:
 
-    Group(string name,
+    Pool(string name,
           string pixelFormat = "RGB"):
-        groupName{name},
+        poolName{name},
         format{pixelFormat}
         { if (format!="RGB") setPixelFormat(format); }
     
@@ -35,7 +35,7 @@ public:
     uint8_t getPixelChannelValue(int Xpos, int Ypos = 0, int pixPos = 0);
     int     getPixelSummedValue (int Xpos, int Ypos = 0);
 
-    string  getName() const                 { return groupName; }
+    string  getName() const                 { return poolName; }
     
     void    setActiveSource(Source* src)    { activeSource = src; }
     Source* getActiveSource() const         { return activeSource; }
@@ -49,7 +49,7 @@ protected:
     
     void    add(Source*);
     void    remove(Source*);
-    void    moveTo(Source*, Group*);
+    void    moveTo(Source*, Pool*);
     
     void    setPixelFormat( std::string fmt );
     
@@ -58,7 +58,7 @@ protected:
     
 private:
     
-    string              groupName;
+    string              poolName;
     
     list<Source*>       sources;
     Source*             activeSource;
@@ -78,4 +78,4 @@ private:
 
 };
 
-#endif /* Group_hpp */
+#endif /* Pool_hpp */

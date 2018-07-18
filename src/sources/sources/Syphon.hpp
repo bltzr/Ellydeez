@@ -20,12 +20,13 @@ class Syphon : public Source {
     
 public:
     
-    Syphon(Group* sourceGroup,
-           string pixel_format = "RGB"):
-    Source(sourceGroup, pixel_format)
+    Syphon( ofJson& params );
+    
+    Syphon( const string& pixelFormat = "RGB"):
+    Source( pixelFormat )
     {}
     
-    ~Syphon() = default;
+    ~Syphon() = default ;
     
     void setup();
     void update();
@@ -38,8 +39,8 @@ protected:
     
 private:
     
-    ofxSyphonClient     client ;
-    ofFbo               fbo ;
+    ofxSyphonClient     syphon;
+    ofFbo               fbo;
     ofPixels            pixels;
     
     int                 GLFormat{GL_RGB};

@@ -42,7 +42,7 @@ public:
     
 protected:
     
-    Group *                     source;
+    Pool *                     source;
     
 private:
     

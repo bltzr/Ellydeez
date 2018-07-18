@@ -9,7 +9,7 @@
 #define PixelBase_hpp
 
 #include <stdio.h>
-#include "Group.hpp"
+#include "Pool.hpp"
 
 using namespace std;
 
@@ -28,12 +28,12 @@ public:
     
 protected:
     
-    PixelBase(Group* group,
+    PixelBase(Pool* pool,
               int positionX = 0,
               int positionY = 0,
               int pixelChannel = 0,
               string pixelFormat = "RGB"):
-    source{group},
+    source{pool},
     Xpos{positionX},
     Ypos{positionY},
     pixPos{pixelChannel},
@@ -45,7 +45,7 @@ protected:
     void setPixelFormat(ofPixelFormat fmt) {pixFormat = fmt;}
     void setPixelFormat(std::string fmt);
     
-    Group *         source;      // source
+    Pool *         source;      // source
     
     string          format{"RGB"}; // other choices: RGBA, BW, BWA
     ofPixelFormat   pixFormat{OF_PIXELS_RGB};

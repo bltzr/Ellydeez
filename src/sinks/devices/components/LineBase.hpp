@@ -10,7 +10,7 @@
 
 #include <vector>
 #include "ofMain.h"
-#include "Group.hpp"
+#include "Pool.hpp"
 
 using namespace std;
 
@@ -38,14 +38,14 @@ public:
     
 protected:
     
-    LineBase(Group* group,
+    LineBase(Pool* pool,
              int sizeX = 1, int sizeY = 0,
              int OffsetX = 0, int offsetY = 0,
              string pixelFormat = "RGB",
              int nPixels = 0):
-    source{group},
-    Xsize{sizeX},
-    Ysize{sizeY},
+    source{pool},
+    width{sizeX},
+    height{sizeY},
     Xoffset{OffsetX},
     Yoffset{offsetY},
     format{pixelFormat},
@@ -53,7 +53,7 @@ protected:
     {
         if (format!="RGB") setPixelFormat(format);
             if (nPix==0) {
-                nPix = Xsize*Ysize;
+                nPix = width*height;
                 nBytes = nPix*3;
             }
     }
@@ -64,10 +64,10 @@ protected:
     
     virtual void    fetchPixelsfromSource();
     
-    Group *         source;         // source group
+    Pool *         source;         // source pool
 
-    int             Xsize = 1;       // X length of the line
-    int             Ysize = 0;       // how many lines to include
+    int             width = 1;       // X length of the line
+    int             height = 0;       // how many lines to include
     int             Xoffset = 0;     // how many pixels to offset from (X)
     int             Yoffset = 0;     // how many lines to offset from
     

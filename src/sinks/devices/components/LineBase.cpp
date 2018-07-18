@@ -11,7 +11,7 @@
 namespace Sinks {
     
 void LineBase::fetchPixelsfromSource(){
-    source -> getPixels().cropTo( pixels, Xoffset, Yoffset, Xsize, Ysize );
+    source -> getPixels().cropTo( pixels, Xoffset, Yoffset, width, height );
 }
 
 const ofPixels& LineBase::getPixels(){

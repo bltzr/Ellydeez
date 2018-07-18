@@ -8,28 +8,30 @@
         "syphon.bololo": {
             "name": "toto",
             "app": "Max",
-            "Xsize": 20,
-            "Ysize": 40,
-            "destination": "pixels",
-            "group": "Metallica"
+            "width": 20,
+            "height": 40,
+            "pool": "Metallica"
         },
-        "player.hophophop": {
-            "filePath": "~/Documents/aFile",
-            "Xsize": 20,
-            "Ysize": 40,
-            "alpha": true,
-            "autoplay": false,
-            "destination": "pixels",
-            "group": "Slayer"
+        "syphon.pipai": {
+            "app": "Simple Server",
+            "width": 20,
+            "height": 40,
+            "pool": "Metallica"
         },
-        "player.oihac": {
-            "filePath": "~/Documents/aFile",
-            "Xsize": 20,
-            "Ysize": 40,
-            "alpha": true,
+        "player.Nebula": {
+            "filePath": "Nebula.mov",
+            "width": 45,
+            "height": 45,
+            "alpha": false,
             "autoplay": false,
-            "destination": "pixels",
-            "group": "Metallica"
+            "pool": "The Beatles"
+        },
+        "player.test": {
+            "filePath": "test2.mov",
+            "width": 132,
+            "height": 19,
+            "alpha": false,
+            "autoplay": true
         }
     },
     "sinks": {
@@ -37,10 +39,10 @@
             "LEDline.1": {
                 "source": "pixels",
                 "address": "/1",
-                "Xsoffset": 0,
+                "Xoffset": 0,
                 "Yoffset": 0,
-                "Xsize": 100,
-                "Ysize": 2
+                "width": 100,
+                "height": 2
             }
         }
     }

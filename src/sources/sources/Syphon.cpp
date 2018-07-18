@@ -9,17 +9,28 @@
 
 namespace Sources {
     
+    Syphon::Syphon( ofJson& params ):
+    Source( params )
+    {
+        name = ( params.count( "name" ) ) ? params[ "name" ] : "" ;
+        app = ( params.count( "app" ) ) ? params[ "app" ] : "Simple Server" ;
+        width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;
+        height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
+        format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ;
+    }
+    
+    
     void Syphon::setup(){
 
-        client.setup();
-        client.set( name , app );
+        syphon.setup();
+        syphon.set( name , app );
         
         if (pixFormat == OF_PIXELS_RGB || pixFormat == OF_PIXELS_GRAY)
              {GLFormat = GL_RGB;  disableAlpha = 1;}
         else {GLFormat = GL_RGBA; disableAlpha = 0;}
         
         // FBO init
-        fbo.allocate(Xsize, Ysize, GLFormat);
+        fbo.allocate(width, height, GLFormat);
         fbo.begin();
         if (disableAlpha) ofDisableAlphaBlending();
         ofClear(0,0,0,0);
@@ -30,17 +41,16 @@ namespace Sources {
     void Syphon::update(){
     
     // If the source dimensions change,
-    if ((client.getTexture().getWidth()!=0&&client.getTexture().getHeight()!=0)
-        &&(Xsize!=client.getTexture().getWidth() ||
-           Ysize!=client.getTexture().getHeight()))
+    if ( ( syphon.getTexture().getWidth() != 0 && syphon.getTexture().getHeight() != 0)
+         && ( width != syphon.getTexture().getWidth() || height != syphon.getTexture().getHeight() ) )
         
         // We get the new size
         {
-            cout << "Syphon Input: width/height: " << client.getTexture().getWidth() << " " << client.getTexture().getHeight() << endl;
-            Xsize=client.getTexture().getWidth();
-            Ysize=client.getTexture().getHeight();
+            cout << "Syphon Input: width/height: " << syphon.getTexture().getWidth() << " " << syphon.getTexture().getHeight() << endl;
+            width=syphon.getTexture().getWidth();
+            height=syphon.getTexture().getHeight();
             
-            fbo.allocate(Xsize, Ysize, GLFormat);
+            fbo.allocate(width, height, GLFormat);
             fbo.begin();
             if (disableAlpha) ofDisableAlphaBlending();
             ofClear(0,0,0);
@@ -50,7 +60,7 @@ namespace Sources {
         // and  we reallocate the FBO to the right sizes
         fbo.begin();
         if (disableAlpha) ofDisableAlphaBlending();
-        client.draw(0, 0, Xsize, Ysize);
+        syphon.draw(0, 0, width, height);
         fbo.end();
         
     }

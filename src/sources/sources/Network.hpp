@@ -19,9 +19,8 @@ class Network : public Source {
     
 public:
     
-    Network(Group* sourceGroup,
-            string pixel_format = "RGB"):
-    Source(sourceGroup, pixel_format)
+    Network( const string& pixelFormat = "RGB"):
+    Source( pixelFormat )
     {}
     
     ~Network() = default;

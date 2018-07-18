@@ -5,14 +5,14 @@
 //  Created by Pascal Baltazar on 11/07/2018.
 //
 
-#ifndef SourcePool_hpp
-#define SourcePool_hpp
+#ifndef SourceFactory_hpp
+#define SourceFactory_hpp
 
 #include <stdio.h>
 #include <map>
 #include <list>
 
-#include "Group.hpp"
+#include "Pool.hpp"
 
 #include "Syphon.hpp"
 #include "Player.hpp"
@@ -33,9 +33,9 @@ public:
     
     // Or manually
     void setup()
-        { addGroup( "default" ); }
-    void setup(const string& defaultGroupName)
-        { addGroup( defaultGroupName ); }
+        { addPool( "default" ); }
+    void setup(const string& defaultPoolName)
+        { addPool( defaultPoolName ); }
     
     void update();
     void draw();
@@ -43,28 +43,26 @@ public:
     
 protected:
     
-    template<typename... Args>
-    void add( const string& srcName, Args&&... args )
-    {}
+    void add( string srcName, ofJson& params );
     
     void remove( const string& srcName );
     void remove( Source* );
     
 private:
     
-    Group* addGroup( const string& groupName )
-        {groups.emplace( groupName , Group(groupName) );}
+    Pool* addPool( const string& poolName )
+        {pools.emplace( poolName , Pool(poolName) );}
     
     
-    map<string, Group>          groups;
+    map< string, Pool >               pools;
     
-    list<Sources::Syphon>       syphons;
-    list<Sources::Player>       players;
-    //list<Sources::Network>      networkIns;
-    //list<Sources::Generator>    generators;
+    map< string, Sources::Syphon >    syphons;
+    map< string, Sources::Player >    players;
+    //map<string,Sources::Network>        networkIns;
+    //map<string,Sources::Generator>      generators;
 
-    map<string, Source*>        sources;
+    map< string, Source* >            sources;
     
 };
 
-#endif /* SourcePool_hpp */
+#endif /* SourceFactory_hpp */
