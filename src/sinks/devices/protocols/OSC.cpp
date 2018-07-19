@@ -1,15 +1,16 @@
 //
-//  OSCDevice.cpp
+//  OSC.cpp
 //  Ellydeez
 //
 //  Created by Pascal Baltazar on 14/07/2018.
 //
 
-#include "OSCDevice.hpp"
+#include "OSC.hpp"
 
 namespace Sinks {
+namespace protocols {
     
-void OSCDevice::sendValueAsIntMessage(string addr, int v)
+void OSC::sendValueAsIntMessage(string addr, int v)
 {
     
     ofxOscMessage n;
@@ -19,7 +20,7 @@ void OSCDevice::sendValueAsIntMessage(string addr, int v)
     
 }
 
-void OSCDevice::sendPixelsAsBlobMessage(string addr, const ofPixels& pix, int nBytes)
+void OSC::sendPixelsAsBlobMessage(string addr, const ofPixels& pix, int nBytes)
 {
     
     ofBuffer imgAsBuffer;
@@ -33,7 +34,7 @@ void OSCDevice::sendPixelsAsBlobMessage(string addr, const ofPixels& pix, int nB
     
 }
 
-void OSCDevice::appendOSCMessage(osc::OutboundPacketStream& packet, ofxOscMessage& message)
+void OSC::appendOSCMessage(osc::OutboundPacketStream& packet, ofxOscMessage& message)
 {
     
     packet << osc::BeginMessage( message.getAddress().c_str() );
@@ -75,7 +76,7 @@ void OSCDevice::appendOSCMessage(osc::OutboundPacketStream& packet, ofxOscMessag
     
 }
 
-osc::OutboundPacketStream OSCDevice::fetchBundle() {
+osc::OutboundPacketStream OSC::fetchBundle() {
     
     // this code comes from ofxOscSender::sendMessage in ofxOscSender.cpp
     static const int OUTPUT_BUFFER_SIZE = 16384;
@@ -108,5 +109,5 @@ ofx::IO::ByteBuffer OSCBundle2ByteBuffer (const osc::OutboundPacketStream& packe
     
     
 
-    
+} // namespace   protocols
 } //namespace Sinks

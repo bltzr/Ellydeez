@@ -1,5 +1,5 @@
 //
-//  OSCDevice.hpp
+//  OSC.hpp
 //  Ellydeez
 //
 //  Created by Pascal Baltazar on 14/07/2018.
@@ -17,13 +17,14 @@
 using namespace std;
 
 namespace Sinks {
+namespace protocols {
     
-class OSCDevice {
+class OSC {
    
 public:
     
-    OSCDevice()     = default ;
-    ~OSCDevice()    = default ;
+    OSC()     = default ;
+    ~OSC()    = default ;
       
 protected:
     
@@ -49,7 +50,8 @@ private:
 ///@brief: Encode an OSC Bundle to a Byte Buffer with SLIP encoding
 ofx::IO::ByteBuffer OSCBundle2ByteBuffer ( const osc::OutboundPacketStream& packet );
     
-    
+} // namespace   protocols
 } //namespace Sinks
+    
 
 #endif /* OSCDevice_hpp */

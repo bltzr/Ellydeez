@@ -30,7 +30,7 @@ namespace Sinks{
         
         
         // Make an OSC bundle witt all previous messages and send it to the serial device
-        sendPacket( OSCBundle2ByteBuffer( fetchBundle() ) ); }
+        sendPacket( protocols::OSCBundle2ByteBuffer( fetchBundle() ) ); }
 
 } // namespace Sinks{
     

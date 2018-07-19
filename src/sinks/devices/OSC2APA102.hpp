@@ -10,7 +10,7 @@
 
 #include <list>
 #include "outputs/SerialDevice.hpp"
-#include "protocols/OSCDevice.hpp"
+#include "protocols/OSC.hpp"
 
 #include "APA102Line.hpp"
 #include "DMXLine.hpp"
@@ -20,18 +20,18 @@ using namespace std;
 
 namespace Sinks {
     
-class OSC2APA102 : public SerialDevice, OSCDevice {
+    class OSC2APA102 : public SerialDevice, protocols::OSC {
     
 public:
     
     OSC2APA102(string addr):
         SerialDevice(addr),
-        OSCDevice()
+        OSC()
         {}
     
     OSC2APA102(int SN):
         SerialDevice(SN),
-        OSCDevice()
+        OSC()
         {}
     
     void setup()    {}
