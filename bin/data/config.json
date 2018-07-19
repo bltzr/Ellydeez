@@ -4,33 +4,49 @@
         "fps": 60,
         "dummy": "param"
     },
+    "pools": {
+        "center": {
+            "sources": [
+                "player.Nebula",
+                "syphon.bololo"
+                
+            ],
+            "width": 45,
+            "height": 45
+        },
+        "rim": {
+            "sources": [
+                "player.test",
+                "syphon.pipai"
+            ],
+            "width": 132,
+            "height": 19
+        }
+    },
     "sources": {
         "syphon.bololo": {
             "name": "toto",
             "app": "Max",
             "width": 20,
-            "height": 40,
-            "pool": "Metallica"
+            "height": 40
         },
         "syphon.pipai": {
             "app": "Simple Server",
             "width": 20,
-            "height": 40,
-            "pool": "Metallica"
+            "height": 40
         },
         "player.Nebula": {
             "filePath": "Nebula.mov",
             "width": 45,
             "height": 45,
-            "alpha": false,
-            "autoplay": false,
-            "pool": "The Beatles"
+            "format": "RGB",
+            "autoplay": false
         },
         "player.test": {
             "filePath": "test2.mov",
             "width": 132,
             "height": 19,
-            "alpha": false,
+            "format": "RGBA",
             "autoplay": true
         }
     },

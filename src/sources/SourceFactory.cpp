@@ -14,32 +14,28 @@ void SourceFactory::update(){
 
 void SourceFactory::setup(ofJson& c){
     
-    cout << endl << "Building sources!" << endl << endl;
-    
-    cout << "Creating Pools:" << endl;
-    
-    // If there is no pool name in any of the sources, create a pool named default
-    bool foundPools{false};
-    for ( auto& src : c )
-        if ( src.find("pool" ) != src.end()) foundPools = true;
-    if ( ! foundPools ) { addPool( "default" ); cout << "No pool found in sources, adding default pool" << endl;}
-    
-    else {  // Create a pool for each new pool name
-        for ( auto& src : c ){
-            if ( src.count("pool") ){
-                if ( ! pools.count( src["pool"] ) )
-                { addPool( src[ "pool" ] ); cout << "Adding pool:" << src[ "pool" ] << endl;}
-            }
-        }
-    }
-    
-    // Then create all Sources
+    // Create all Sources
     cout << endl << "Creating Sources:" << endl;
     for(auto src = c.begin(); src!= c.end(); ++src ){
         add( src.key(), src.value() );
     }
+
 }
 
+void SourceFactory::addPools( ofJson& c ){
+    // Then create all Pools
+    cout << endl << "Creating Pools:" << endl;
+    for(auto pool = c.begin(); pool!= c.end(); ++pool ){
+        auto poolName = pool.key() ; auto& poolParams = pool.value();
+        cout << endl << poolName << endl << setw(4) << poolParams << endl;
+        pools.emplace( poolName , Pool( poolName, poolParams ) );
+        auto p = &pools[ poolName ];
+        for (string srcN : poolParams[ "sources" ])
+            if ( sources[ srcN ] )
+                p -> addSource( srcN, sources[ srcN ] ) ;
+    }
+    
+}
 
 void SourceFactory::add( string srcName, ofJson& params ) {
     
@@ -59,3 +55,4 @@ void SourceFactory::add( string srcName, ofJson& params ) {
     } else {ofLogError("Config: ") << "unknown source type: " << name;}
     
 }
+

@@ -75,7 +75,7 @@ protected:
     
 private:
     
-    string          format{"RGB"}; // other choices: RGBA, BW, BWA
+    string          format{"RGB"}; // other choices: RGBA, W, WA
     ofPixelFormat   pixFormat{OF_PIXELS_RGB};
     int             nChannels{3};
     

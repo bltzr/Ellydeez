@@ -45,7 +45,7 @@ protected:
     int             width{1};
     int             height{0};
     
-    string          format{"RGB"}; // other choices: RGBA, BW, BWA
+    string          format{"RGB"}; // other choices: RGBA, G, GA
     ofPixelFormat   pixFormat{OF_PIXELS_RGB};
     
 private:

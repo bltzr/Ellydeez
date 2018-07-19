@@ -7,20 +7,14 @@ void ofApp::setup(){
     // Try to load JSON config file
     ofFile file("config.json");
     if(file.exists()){
-        file >> js;
-        for(auto base = js.begin(); base != js.end(); ++base ){
-            string b = base.key();
-            if      (b == "config")     config( base.value() );
-            else if (b == "sources")      sources.setup( base.value() );
-            else if (b == "sinks")    sinks.setup( base.value() );
-            else ofLogError() << "unknown field in json Config";
-        }
+        file >> conf;
+        
+        config( conf["config"] );
+        sources.setup( conf["sources"] );
+        sinks.setup( conf["sinks"] );
+        sources.addPools( conf[ "pools" ] );
+        
     }
-    
-    // Sources and Sinks
-    
-    sources.setup();
-    sinks.setup();
     
     // display
     ofSetWindowTitle(name);

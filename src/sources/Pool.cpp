@@ -7,13 +7,19 @@
 
 #include "Pool.hpp"
 
+Pool::Pool(string name, ofJson& params): poolName{name} {
+    width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;
+    height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
+    setPixelFormat( format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ) ;
+}
+
 uint8_t Pool::getPixelChannelValue(int Xpos, int Ypos, int channel){
-    return pixels [ ( Xpos + Ypos * Xsize ) * nChannels + channel ] ;
+    return pixels [ ( Xpos + Ypos * width ) * nChannels + channel ] ;
 }
 
 int Pool::getPixelSummedValue(int Xpos, int Ypos){
     int res { 0 };
-    int pos = ( Xpos + Ypos * Xsize ) * nChannels;
+    int pos = ( Xpos + Ypos * width ) * nChannels;
     for (int i = 0; i < nChannels; ++i) {
         res += pixels [ pos  + i ];
     }
@@ -21,9 +27,24 @@ int Pool::getPixelSummedValue(int Xpos, int Ypos){
 }
 
 void Pool::setPixelFormat(std::string fmt){
-    if      (fmt=="RGBA") {pixFormat=OF_PIXELS_RGBA;       nChannels = 4;}
-    else if (fmt==  "BW") {pixFormat=OF_PIXELS_GRAY;       nChannels = 1;}
-    else if (fmt== "BWA") {pixFormat=OF_PIXELS_GRAY_ALPHA; nChannels = 2;}
-    else                  {pixFormat=OF_PIXELS_RGB; ;      nChannels = 3;}
+    if      ( fmt=="RGBA" )  {pixFormat=OF_PIXELS_RGBA;       nChannels = 4;}
+    else if ( fmt==  "W"  )  {pixFormat=OF_PIXELS_GRAY;       nChannels = 1;}
+    else if ( fmt== "WA"  )  {pixFormat=OF_PIXELS_GRAY_ALPHA; nChannels = 2;}
+    else                     {pixFormat=OF_PIXELS_RGB; ;      nChannels = 3;}
     
+}
+
+void Pool::addSource( string srcName, Source* src ) {
+    poolSources.push_back ( src ) ;
+}
+
+void Pool::removeSource( string srcName ) {
+    //poolSources.erase( srcName );
+}
+
+void Pool::moveSourceTo( string srcName, Pool* dstPool ){
+    //if ( poolSources[ srcName ] ) {
+      //  dstPool -> addSource ( srcName, poolSources[ srcName ] );
+        //poolSources.erase( srcName );
+    //}
 }

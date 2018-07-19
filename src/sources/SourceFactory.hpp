@@ -29,13 +29,9 @@ public:
     ~SourceFactory()    = default;
     
     // Setup the Source Factory with a json file
-    void setup(ofJson& config);
+    void setup( ofJson& config );
     
-    // Or manually
-    void setup()
-        { addPool( "default" ); }
-    void setup(const string& defaultPoolName)
-        { addPool( defaultPoolName ); }
+    void addPools( ofJson& config );
     
     void update();
     void draw();
@@ -50,11 +46,8 @@ protected:
     
 private:
     
-    Pool* addPool( const string& poolName )
-        {pools.emplace( poolName , Pool(poolName) );}
-    
-    
-    map< string, Pool >               pools;
+    // Pool name as key
+    map< string, Pool >               pools{};
     
     // only instance name as key (e.g. 1)
     map< string, Sources::Syphon >    syphons;

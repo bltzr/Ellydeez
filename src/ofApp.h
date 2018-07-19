@@ -22,7 +22,7 @@ private:
     
     void config(ofJson jsConfig);
     
-    ofJson          js;
+    ofJson          conf;
     
     string          name {"Ellydeez"};
     int             fps{60};
