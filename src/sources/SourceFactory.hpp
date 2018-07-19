@@ -56,11 +56,13 @@ private:
     
     map< string, Pool >               pools;
     
+    // only instance name as key (e.g. 1)
     map< string, Sources::Syphon >    syphons;
     map< string, Sources::Player >    players;
     //map<string,Sources::Network>        networkIns;
     //map<string,Sources::Generator>      generators;
-
+    
+    // full name as key (e.g. syphon.1)
     map< string, Source* >            sources;
     
 };

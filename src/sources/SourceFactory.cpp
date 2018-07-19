@@ -41,20 +41,19 @@ void SourceFactory::setup(ofJson& c){
 }
 
 
-
 void SourceFactory::add( string srcName, ofJson& params ) {
     
     string name = srcName;
     if ( srcName.find( "syphon." ) == 0) {
         name.erase( 0, 7 );
         syphons.emplace( name, Sources::Syphon( params ) );
-        sources.emplace( name, &syphons[ name ] );
+        sources.emplace( srcName, &syphons[ name ] );
         cout << endl << "Syphon: " << name << endl << setw(4) << params << endl;
         
     } else if ( srcName.find( "player." ) == 0) {
         name.erase( 0, 7 );
         players.emplace( name, Sources::Player( params ) );
-        sources.emplace( name, &players[ name ] );
+        sources.emplace( srcName, &players[ name ] );
         cout << endl << "Player: " << name << endl << setw(4) << params << endl;
         
     } else {ofLogError("Config: ") << "unknown source type: " << name;}
