@@ -28,7 +28,6 @@ public:
     SourceFactory()     = default;
     ~SourceFactory()    = default;
     
-    // Setup the Source Factory with a json file
     void setup( ofJson& config );
     
     void addPools( ofJson& config );

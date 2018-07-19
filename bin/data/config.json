@@ -53,10 +53,37 @@
     "sinks": {
         "osc2apa102.1": {
             "LEDline.1": {
-                "source": "pixels",
+                "source": "rim",
                 "address": "/1",
                 "Xoffset": 0,
                 "Yoffset": 0,
+                "width": 45,
+                "height": 5,
+                "format": "RGB"
+            },
+            "DMXline": {
+                "source": "rim",
+                "address": "/DMX",
+                "Xoffset": 0,
+                "Yoffset": 0,
+                "width": 45,
+                "height": 5
+            }
+        },
+        "osc2apa102.2": {
+            "LEDline.1": {
+                "source": "center",
+                "address": "/1",
+                "Xoffset": 0,
+                "Yoffset": 0,
+                "width": 100,
+                "height": 2
+            },
+            "LEDline.2": {
+                "source": "center",
+                "address": "/2",
+                "Xoffset": 0,
+                "Yoffset": 2,
                 "width": 100,
                 "height": 2
             }

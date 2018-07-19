@@ -8,8 +8,18 @@
 #include "APA102Line.hpp"
 
 namespace Sinks {
+    
+    APA102Line::APA102Line( ofJson& params  ):
+    LineBase{ params },
+    brightXpos{0},
+    brightYpos{0},
+    brightChan{0}
+    {}
 
 void APA102Line::update() {
+    
+    
+    cout << "updating APA102Line" << endl;
     
     bright = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan); 
     

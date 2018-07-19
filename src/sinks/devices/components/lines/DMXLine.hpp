@@ -1,6 +1,6 @@
 //
 //  DMXLine.hpp
-//  Ellydee
+//  Ellydeez
 //
 //  Created by Pascal Baltazar on 22/05/2018.
 //
@@ -18,13 +18,20 @@ class DMXLine : public LineBase {
     
 public:
     
-    DMXLine(Pool* pool,
-            int sizeX = 1,   int sizeY = 0,
-            int OffsetX = 0, int offsetY = 0,
-            string pixelFormat = "W",
-            int nPixels = 0):
-    LineBase{pool, sizeX, sizeY, OffsetX, offsetY, pixelFormat, nPixels}
+    DMXLine():
+    LineBase()
     {}
+    
+    DMXLine( ofJson& params ):
+    LineBase{ params }
+    {}
+    
+    ~DMXLine() = default;
+    
+    void setup()    {}
+    void update();
+    void draw()     {}
+    void exit()     {}
     
 };
 

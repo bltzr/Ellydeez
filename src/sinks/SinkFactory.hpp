@@ -17,26 +17,26 @@ class SinkFactory {
     
 public:
     
-    // Setup the Source Factory with a json file
-    void setup(ofJson& config);
+    void setup( ofJson& config );
     
-    void setup();
     void update();
     void draw();
     void exit();
     
 protected:
     
-    void add(string sinkName, ...);
-    void remove(string sinkName);
-    void remove(Sink*);
+    void add( string sinkName, ofJson& params );
+    
+    void remove( const string& sinkName );
+    void remove( Sink* );
+    
     
 private:
     
-    map<string, Sink*> sinks;
+    map<string, Sink*>              sinks;
     // map<string, Pool*>  pools; // ????
     
-    list<Sinks::OSC2APA102> osc2apa102s;
+    map<string, Sinks::OSC2APA102>  osc2apa102s;
 
     
 };

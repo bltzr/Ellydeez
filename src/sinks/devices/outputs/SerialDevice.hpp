@@ -24,6 +24,8 @@ class SerialDevice : public Sink {
     
 public:
     
+    SerialDevice() = default;
+    
     SerialDevice(string addr):
         name{addr}
         {setup();}
@@ -43,11 +45,14 @@ public:
             ofLogError("Serial device") << "Can't connect to " << name;
     }
     
+    void update()   {}
+    void draw()     {}
+    void exit()     {}
+    
     void reconnect(){
         if ( !dev.setup(name) )
             ofLogError("Serial device") << "Can't connect to " << name;
     }
-    
 
 protected:
     

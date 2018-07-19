@@ -24,16 +24,21 @@ namespace Sinks {
     
 public:
     
-    OSC2APA102(string addr):
-        SerialDevice(addr),
+        OSC2APA102() = default;
+        
+        OSC2APA102( string addr, ofJson& params ):
+        SerialDevice( addr ),
         OSC()
-        {}
-    
-    OSC2APA102(int SN):
-        SerialDevice(SN),
+        { setup ( params ); }
+        
+        OSC2APA102( int SN, ofJson& params ):
+        SerialDevice( SN ),
         OSC()
-        {}
+        { setup ( params ); }
     
+        ~OSC2APA102() = default;
+    
+    void setup( ofJson& params );
     void setup()    {}
     void update();
     void draw()     {}

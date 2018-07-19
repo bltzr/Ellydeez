@@ -8,7 +8,9 @@
 #include "SourceFactory.hpp"
 
 void SourceFactory::update(){
-    
+    //for (auto& src : sources) src->second()->update();
+    //for (auto src = sources.begin(); src!= sources.end(); ++src) src->second()->update();
+    //for (auto sink = sinks.begin(); sink!= sinks.end(); ++sink) sink->second->update();
 }
 
 
@@ -23,6 +25,7 @@ void SourceFactory::setup(ofJson& c){
 }
 
 void SourceFactory::addPools( ofJson& c ){
+    
     // Then create all Pools
     cout << endl << "Creating Pools:" << endl;
     for(auto pool = c.begin(); pool!= c.end(); ++pool ){

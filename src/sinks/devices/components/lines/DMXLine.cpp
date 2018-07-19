@@ -1,6 +1,6 @@
 //
 //  DMXLine.cpp
-//  Ellydee
+//  Ellydeez
 //
 //  Created by Pascal Baltazar on 22/05/2018.
 //
@@ -9,5 +9,10 @@
 
 namespace Sinks {
 
+    void DMXLine::update() {
+        
+        fetchPixelsfromSource();
+        
+    }
 
 } // namespace Sinks

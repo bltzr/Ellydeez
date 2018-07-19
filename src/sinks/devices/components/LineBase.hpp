@@ -22,10 +22,10 @@ class LineBase {
     
 public:
     
-    virtual void setup();
-    virtual void udpate() { fetchPixelsfromSource(); }
-    virtual void draw();
-    virtual void exit();
+    virtual void setup() {}
+    virtual void udpate() { cout << "updating LineBase" << endl; }
+    virtual void draw() {}
+    virtual void exit() {}
     
     const ofPixels& getPixels();
     
@@ -38,33 +38,17 @@ public:
     
 protected:
     
-    LineBase(Pool* pool,
-             int sizeX = 1, int sizeY = 0,
-             int OffsetX = 0, int offsetY = 0,
-             string pixelFormat = "RGB",
-             int nPixels = 0):
-    source{pool},
-    width{sizeX},
-    height{sizeY},
-    Xoffset{OffsetX},
-    Yoffset{offsetY},
-    format{pixelFormat},
-    nPix{nPixels}
-    {
-        if (format!="RGB") setPixelFormat(format);
-            if (nPix==0) {
-                nPix = width*height;
-                nBytes = nPix*3;
-            }
-    }
+    LineBase() = default;
+    LineBase( ofJson& params );
+
+    virtual ~LineBase() = default;
     
-    ~LineBase() = default;
+    void    setPixelFormat( string fmt );
     
-    void            setPixelFormat( string fmt );
+    void    fetchPixelsfromSource();
     
-    virtual void    fetchPixelsfromSource();
     
-    Pool *         source;         // source pool
+    Pool *          source;         // source pool
 
     int             width = 1;       // X length of the line
     int             height = 0;       // how many lines to include

@@ -19,17 +19,22 @@ class SinkFactory;
 class Sink {
     
 public:
+
     
     virtual void setup()    = 0;
     virtual void update()   = 0;
     virtual void draw()     = 0;
     virtual void exit()     = 0;
     
+    
+    
 protected:
     
     Sink() = default;
     
-    virtual ~Sink() = 0;
+    virtual ~Sink() = default;
+    
+    
     
 private:
     

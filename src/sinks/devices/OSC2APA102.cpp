@@ -10,6 +10,12 @@
 
 namespace Sinks{
     
+    
+    
+    void OSC2APA102::setup( ofJson& params ){
+        
+    }
+    
     void OSC2APA102::update() {
         
         // Get the global brightness (aka FastLED "dither")

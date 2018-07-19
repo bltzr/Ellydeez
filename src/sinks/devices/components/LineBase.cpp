@@ -10,6 +10,16 @@
 
 namespace Sinks {
     
+    LineBase::LineBase( ofJson& params )
+    {
+        format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ;
+        if (format!="RGB") setPixelFormat(format);
+            if (nPix==0) {
+                nPix = width*height;
+                nBytes = nPix*3;
+            }
+    }
+    
 void LineBase::fetchPixelsfromSource(){
     source -> getPixels().cropTo( pixels, Xoffset, Yoffset, width, height );
 }
