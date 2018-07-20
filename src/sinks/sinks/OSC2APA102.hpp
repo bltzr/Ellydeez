@@ -53,6 +53,11 @@ public:
 protected:
     
     Pool *                     source;
+        
+    void add( string srcName, ofJson& params );
+    
+    void remove( const string& srcName );
+    void remove( Source* );
     
 private:
     
@@ -61,7 +66,7 @@ private:
     map<string, APA102Line>     ledLines; // string is the OSC address
     map<string, DMXLine>        dmxLines; // string is the OSC address
     
-    list<LineBase*>             allLines;
+    list<Line*>             allLines;
     
     int                         brightXpos {-1};
     int                         brightYpos {-1};

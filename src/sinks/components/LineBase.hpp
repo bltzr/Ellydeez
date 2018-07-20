@@ -18,7 +18,7 @@ class Sink;
 
 namespace Sinks {
  
-class LineBase {
+class Line {
     
 public:
     
@@ -38,10 +38,10 @@ public:
     
 protected:
     
-    LineBase() = default;
-    LineBase( ofJson& params );
+    Line() = default;
+    Line( ofJson& params );
 
-    virtual ~LineBase() = default;
+    virtual ~Line() = default;
     
     void    setPixelFormat( string fmt );
     

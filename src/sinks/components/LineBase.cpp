@@ -10,7 +10,7 @@
 
 namespace Sinks {
     
-    LineBase::LineBase( ofJson& params )
+    Line::Line( ofJson& params )
     {
         format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ;
         if (format!="RGB") setPixelFormat(format);
@@ -20,15 +20,15 @@ namespace Sinks {
             }
     }
     
-void LineBase::fetchPixelsfromSource(){
+void Line::fetchPixelsfromSource(){
     source -> getPixels().cropTo( pixels, Xoffset, Yoffset, width, height );
 }
 
-const ofPixels& LineBase::getPixels(){
+const ofPixels& Line::getPixels(){
     return pixels;
 }
     
-void LineBase::setPixelFormat(std::string fmt){
+void Line::setPixelFormat(std::string fmt){
     
     if     (fmt=="RGBA") {pixFormat=OF_PIXELS_RGBA;       nChannels = 4;}
     else if  (fmt=="W")  {pixFormat=OF_PIXELS_GRAY;       nChannels = 1;}

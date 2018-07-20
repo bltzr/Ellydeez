@@ -16,6 +16,8 @@ namespace Sinks{
         if ( params[ "device" ].is_number() ) name = portName(params[ "device" ]) ;
         else if ( params[ "device" ].is_string() ) name = params[ "device" ] ;
         Serial::setup( name );
+        
+        
           
     }
     

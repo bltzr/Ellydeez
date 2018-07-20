@@ -13,12 +13,12 @@
 
 namespace Sinks {
     
-class APA102Line : public LineBase {
+class APA102Line : public Line {
     
 public:
     
     APA102Line():
-    LineBase()
+    Line()
     {}
     
     APA102Line( ofJson& params  );

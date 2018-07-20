@@ -10,7 +10,7 @@
 namespace Sinks {
     
     APA102Line::APA102Line( ofJson& params  ):
-    LineBase{ params },
+    Line{ params },
     brightXpos{0},
     brightYpos{0},
     brightChan{0}

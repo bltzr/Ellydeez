@@ -14,16 +14,16 @@ namespace Sinks {
     
 class SinkBase;
 
-class DMXLine : public LineBase {
+class DMXLine : public Line {
     
 public:
     
     DMXLine():
-    LineBase()
+    Line()
     {}
     
     DMXLine( ofJson& params ):
-    LineBase{ params }
+    Line{ params }
     {}
     
     ~DMXLine() = default;
