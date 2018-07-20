@@ -32,14 +32,13 @@ protected:
     void remove( const string& sinkName );
     void remove( Sink* );
     
-    
 private:
     
-    map<string, Sink*>              sinks;
-    map<string, Pool*>              pools; 
-    
     map<string, Sinks::OSC2APA102>  osc2apa102s;
-
+    
+    map<string, Sink*>              sinks;
+    
+    map<string, Pool*>              pools;
     
 };
 
