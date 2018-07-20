@@ -17,7 +17,7 @@
 using namespace std;
 
 namespace Sinks {
-namespace protocols {
+namespace Protocols {
     
 class OSC {
    

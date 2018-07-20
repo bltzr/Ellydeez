@@ -5,11 +5,12 @@
 //  Created by Pascal Baltazar on 13/07/2018.
 //
 
-#include "SerialDevice.hpp"
+#include "Serial.hpp"
 
 namespace Sinks {
+namespace Devices {
     
-void SerialDevice::setup() {
+void Serial::setup() {
     if (name == "") {
         ofLogError("Serial device") << "please set dev name before setup()";
         return;
@@ -18,7 +19,7 @@ void SerialDevice::setup() {
         ofLogError("Serial device") << "Can't connect to " << name;
 }
 
-string SerialDevice::portName( int SN )
+string Serial::portName( int SN )
 {
     vector<ofx::IO::SerialDeviceInfo> devicesInfo = ofx::IO::SerialDeviceUtils::listDevices();
     for (const ofx::IO::SerialDeviceInfo& devInfo : devicesInfo){
@@ -31,7 +32,7 @@ string SerialDevice::portName( int SN )
     return "";
 }
 
-void SerialDevice::sendPacket( const ofx::IO::ByteBuffer& packet ){
+void Serial::sendPacket( const ofx::IO::ByteBuffer& packet ){
     
     try {
         send(packet);
@@ -56,4 +57,5 @@ void printSerialDevices(){
     cout << endl;
 }
 
+} //namespace Devices
 } //namespace Sinks

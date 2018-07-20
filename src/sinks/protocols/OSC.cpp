@@ -8,7 +8,7 @@
 #include "OSC.hpp"
 
 namespace Sinks {
-namespace protocols {
+namespace Protocols {
     
 void OSC::sendValueAsIntMessage(string addr, int v)
 {

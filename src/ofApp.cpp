@@ -7,7 +7,7 @@ void ofApp::setup(){
     // Serial
     
     ofLog() << "List of connected serial devices:";
-    Sinks::printSerialDevices(); // display the list of devices in the Log Window
+    Sinks::Devices::printSerialDevices(); // display the list of devices in the Log Window
     
 
     // Try to load JSON config file

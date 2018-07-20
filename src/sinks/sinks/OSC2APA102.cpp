@@ -15,7 +15,7 @@ namespace Sinks{
         
         if ( params[ "device" ].is_number() ) name = portName(params[ "device" ]) ;
         else if ( params[ "device" ].is_string() ) name = params[ "device" ] ;
-        SerialDevice::setup( name );
+        Serial::setup( name );
           
     }
     
@@ -41,7 +41,7 @@ namespace Sinks{
         
         
         // Make an OSC bundle witt all previous messages and send it to the serial device
-        sendPacket( protocols::OSCBundle2ByteBuffer( fetchBundle() ) ); }
+        sendPacket( Protocols::OSCBundle2ByteBuffer( fetchBundle() ) ); }
 
 } // namespace Sinks{
     

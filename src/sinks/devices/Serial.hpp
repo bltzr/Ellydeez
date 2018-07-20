@@ -19,22 +19,23 @@
 using namespace std;
 
 namespace Sinks {
+namespace Devices {
     
-class SerialDevice : public Sink {
+class Serial : public Sink {
     
 public:
     
-    SerialDevice() = default;
+    Serial() = default;
     
-    SerialDevice(string addr):
+    Serial(string addr):
         name{addr}
         {setup();}
     
-    SerialDevice(int SN):
+    Serial(int SN):
         name{portName(SN)}
         {setup();}
     
-    ~SerialDevice() = default;
+    ~Serial() = default;
     
     void setup() override; 
     
@@ -78,7 +79,7 @@ private:
 void printSerialDevices();
 
 
-    
+} // namespace Devices
 } // namespace Sink
 
 #endif /* Serial_hpp */

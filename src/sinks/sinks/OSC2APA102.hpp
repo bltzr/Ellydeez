@@ -9,8 +9,8 @@
 #define OSC2APA102_hpp
 
 #include <list>
-#include "outputs/SerialDevice.hpp"
-#include "protocols/OSC.hpp"
+#include "../devices/Serial.hpp"
+#include "../protocols/OSC.hpp"
 
 #include "APA102Line.hpp"
 #include "DMXLine.hpp"
@@ -20,24 +20,24 @@ using namespace std;
 
 namespace Sinks {
     
-    class OSC2APA102 : public SerialDevice, protocols::OSC {
+    class OSC2APA102 : public Devices::Serial, Protocols::OSC {
     
 public:
     
         OSC2APA102() = default;
         
         OSC2APA102( ofJson& params ):
-        SerialDevice(),
+        Serial(),
         OSC()
         { setup ( params ); }
         
         OSC2APA102( string addr, ofJson& params ):
-        SerialDevice( addr ),
+        Serial( addr ),
         OSC()
         { setup ( params ); }
         
         OSC2APA102( int SN, ofJson& params ):
-        SerialDevice( SN ),
+        Serial( SN ),
         OSC()
         { setup ( params ); }
     
