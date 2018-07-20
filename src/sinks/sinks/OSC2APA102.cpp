@@ -45,12 +45,14 @@ namespace Sinks{
         
         cout << "updating OSC2APA102" << endl;
         
+        /*
         // Get the global brightness (aka FastLED "dither")
         if ( brightXpos >= 0 && brightXpos >= 0 )
             brightness = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan);
         sendValueAsIntMessage("/b", brightness);
+         */
         
-        for ( auto& l : allLines ) { cout << "updating " << l.first << endl; l.second->calculate(); }
+        for ( auto& l : allLines ) { cout << "updating " << l.first << endl; l.second->update(); }
         
         /*
         for ( auto& l : ledLines ) {
@@ -89,7 +91,7 @@ namespace Sinks{
         if ( lineName.find( "APA102line." ) == 0) {
             name = "/" + name.erase( 0, 11 );
             ledLines.emplace( name, Lines::APA102( params ) );
-            allLines.emplace( lineName, &ledLines[ name ] );
+            allLines[ lineName ] = &ledLines[ name ] ;
             cout << endl << "APA102line: " << name << endl << setw(4) << params << endl;
             allLines[ lineName ]->setPool( pools[ params[ "source" ] ] );
             cout << "setting pool: " << params[ "source" ] << endl;
@@ -97,7 +99,7 @@ namespace Sinks{
         } else if ( lineName.find( "DMXline" ) == 0) {
             name = "/DMX";
             dmxLines.emplace( name, Lines::DMX( params ) );
-            allLines.emplace( lineName, &dmxLines[ name ] );
+            allLines[ lineName ] = &dmxLines[ name ] ;
             cout << endl << "DMXline: " << name << endl << setw(4) << params << endl;
             allLines[ lineName ]->setPool( pools[ params[ "source" ] ] );
             cout << "setting pool: " << params[ "source" ] << endl;

@@ -28,7 +28,9 @@ public:
     ~DMX() = default;
     
     void setup()    override {}
-    void calculate()  override { fetchPixelsfromSource(); }
+    void update()  override {
+        //fetchPixelsfromSource();
+    }
     void draw()    override  {}
     void exit()    override  {}
     

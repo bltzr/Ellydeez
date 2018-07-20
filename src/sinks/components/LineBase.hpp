@@ -23,7 +23,7 @@ class Line {
 public:
     
     virtual void setup() {}
-    virtual void calculate() { cout << "updating LineBase" << endl; }
+    virtual void update() { cout << "updating LineBase" << endl; }
     virtual void draw() {}
     virtual void exit() {}
     
@@ -46,21 +46,8 @@ protected:
     Line()
     {}
     
-    Line( ofJson& params )
-    {
-        cout << "constructing LineBase with json " << endl;
-        width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;
-        height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
-        Xoffset = ( params.count( "Xoffset" ) ) ? int(params[ "Xoffset" ]) : 0 ;
-        Yoffset = ( params.count( "Yoffset" ) ) ? int(params[ "Yoffset" ]) : 0 ;
-        format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ;
-        if (format!="RGB") setPixelFormat(format);
-        if (nPix==0) {
-            nPix = width*height;
-            nBytes = nPix*nChannels;
-        }
-    }
-
+    Line( ofJson& params );
+    
     virtual ~Line() = default;
     
     void    setPixelFormat( string fmt );

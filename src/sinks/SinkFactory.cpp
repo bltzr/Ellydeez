@@ -31,7 +31,7 @@ void SinkFactory::add( string sinkName, ofJson& params ) {
     if ( sinkName.find( "osc2apa102." ) == 0) {
         name.erase( 0, 11 );
         osc2apa102s.emplace( name, Sinks::OSC2APA102( params ) );
-        sinks.emplace( sinkName, &osc2apa102s[ name ] );
+        sinks[ sinkName ] = &osc2apa102s[ name ] ;
         cout << endl << "OSC2APA102: " << name << endl << setw(4) << params << endl;
         osc2apa102s[ name ].addPools( pools );
         osc2apa102s[ name ].setPool( params );

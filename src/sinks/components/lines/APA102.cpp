@@ -29,7 +29,7 @@ namespace Lines {
     }
 
 
-void APA102::calculate() {
+void APA102::update() {
 
     cout << "actually updating APA102Line" << endl;
     

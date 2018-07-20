@@ -28,7 +28,7 @@ public:
     ~APA102() = default;
     
     void setup()    override{}
-    void calculate()   override ;
+    void update()   override ;
     void draw()     override{}
     void exit()     override{}
     

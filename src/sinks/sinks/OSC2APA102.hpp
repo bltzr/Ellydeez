@@ -14,7 +14,6 @@
 
 #include "../components/lines/APA102.hpp"
 #include "../components/lines/DMX.hpp"
-#include "brightPixel.hpp"
 
 using namespace std;
 
