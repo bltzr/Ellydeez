@@ -9,24 +9,30 @@
 #define APA102Line_hpp
 
 #include <stdio.h>
-#include "LineBase.hpp"
+#include "../LineBase.hpp"
 
 namespace Sinks {
+namespace Lines {
     
-class APA102Line : public Line {
+    class APA102 : public Line {
     
 public:
     
-    APA102Line():
+    APA102():
     Line()
     {}
     
-    APA102Line( ofJson& params  );
+    APA102( ofJson& params  ):
+    Line( params ),
+    brightXpos{0},
+    brightYpos{0},
+    brightChan{0}
+    {}
     
-    ~APA102Line() = default;
+    ~APA102() = default;
     
     void setup()    {}
-    void update();
+    void update() ;
     void draw()     {}
     void exit()     {}
     
@@ -50,7 +56,8 @@ private:
     
     
 };
-    
+  
+} // namespace Lines 
 } // namespace Sinks
 
 

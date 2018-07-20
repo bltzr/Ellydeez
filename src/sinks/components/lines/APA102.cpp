@@ -5,20 +5,22 @@
 //  Created by Pascal Baltazar on 15/07/2018.
 //
 
-#include "APA102Line.hpp"
+#include "APA102.hpp"
 
 namespace Sinks {
+namespace Lines {
     
-    APA102Line::APA102Line( ofJson& params  ):
+    /*
+    APA102::APA102( ofJson& params  ):
     Line{ params },
     brightXpos{0},
     brightYpos{0},
     brightChan{0}
     {}
+    */
 
-void APA102Line::update() {
-    
-    
+void APA102::update() {
+
     cout << "updating APA102Line" << endl;
     
     bright = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan); 
@@ -36,5 +38,5 @@ void APA102Line::update() {
 
 }
 
-    
+} // namespace Lines 
 } // namespace Sinks

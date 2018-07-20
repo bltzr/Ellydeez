@@ -39,6 +39,7 @@ public:
 protected:
     
     Line() = default;
+    
     Line( ofJson& params );
 
     virtual ~Line() = default;

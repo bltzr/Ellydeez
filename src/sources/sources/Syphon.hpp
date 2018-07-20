@@ -12,8 +12,6 @@
 #include "ofxSyphon.h"
 #include "SourceBase.hpp"
 
-using namespace std;
-
 namespace Sources {
     
 class Syphon : public Source {

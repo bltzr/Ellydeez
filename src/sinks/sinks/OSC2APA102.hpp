@@ -12,8 +12,8 @@
 #include "../devices/Serial.hpp"
 #include "../protocols/OSC.hpp"
 
-#include "APA102Line.hpp"
-#include "DMXLine.hpp"
+#include "../components/lines/APA102.hpp"
+#include "../components/lines/DMX.hpp"
 #include "brightPixel.hpp"
 
 using namespace std;
@@ -54,19 +54,19 @@ protected:
     
     Pool *                     source;
         
-    void add( string srcName, ofJson& params );
+    void add( string lineName, ofJson& params );
     
-    void remove( const string& srcName );
-    void remove( Source* );
+    void remove( const string& lineName );
+    void remove( Line* );
     
 private:
     
     uint8_t                     brightness{255};
     
-    map<string, APA102Line>     ledLines; // string is the OSC address
-    map<string, DMXLine>        dmxLines; // string is the OSC address
+    map<string, Lines::APA102>     ledLines; // string is the OSC address
+    map<string, Lines::DMX>        dmxLines; // string is the OSC address
     
-    list<Line*>             allLines;
+    map<string, Line*>             allLines; // string is the type + address
     
     int                         brightXpos {-1};
     int                         brightYpos {-1};

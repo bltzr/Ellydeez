@@ -10,15 +10,16 @@
 
 namespace Sinks {
     
-    Line::Line( ofJson& params )
-    {
-        format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ;
-        if (format!="RGB") setPixelFormat(format);
-            if (nPix==0) {
-                nPix = width*height;
-                nBytes = nPix*3;
-            }
-    }
+Line::Line( ofJson& params )
+{
+    cout << "constructing LineBase with json " << endl;
+    format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ;
+    if (format!="RGB") setPixelFormat(format);
+        if (nPix==0) {
+            nPix = width*height;
+            nBytes = nPix*3;
+        }
+}
     
 void Line::fetchPixelsfromSource(){
     source -> getPixels().cropTo( pixels, Xoffset, Yoffset, width, height );
