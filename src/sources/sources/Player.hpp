@@ -27,14 +27,14 @@ public:
     
     ~Player() = default;
     
-    void setup();
-    void update() { player.update(); }
-    void draw(){}
-    void exit(){}
+    void setup() override;
+    void update() override { cout << "player updating" << endl; player.update(); }
+    void draw() override{}
+    void exit() override{}
     
 protected:
     
-    ofPixels& getPixels() { return player.getPixels(); }
+    ofPixels& getPixels() override { return player.getPixels(); }
     
     void setLoopMode(int mode);
     

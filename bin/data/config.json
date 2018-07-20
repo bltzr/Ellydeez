@@ -52,6 +52,7 @@
     },
     "sinks": {
         "osc2apa102.1": {
+            "device": 3262750, 
             "LEDline.1": {
                 "source": "rim",
                 "address": "/1",
@@ -65,12 +66,13 @@
                 "source": "rim",
                 "address": "/DMX",
                 "Xoffset": 0,
-                "Yoffset": 0,
+                "Yoffset": 5,
                 "width": 45,
                 "height": 5
             }
         },
         "osc2apa102.2": {
+            "device": "/dev/cu.usbmodem3262750", 
             "LEDline.1": {
                 "source": "center",
                 "address": "/1",

@@ -8,9 +8,8 @@
 #include "SourceFactory.hpp"
 
 void SourceFactory::update(){
-    //for (auto& src : sources) src->second()->update();
-    //for (auto src = sources.begin(); src!= sources.end(); ++src) src->second()->update();
-    //for (auto sink = sinks.begin(); sink!= sinks.end(); ++sink) sink->second->update();
+    cout << "------------------ updating sources" << endl;
+    for (auto& src : sources) src.second->update();
 }
 
 

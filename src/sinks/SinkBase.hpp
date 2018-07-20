@@ -10,7 +10,6 @@
 
 #include <stdio.h>
 #include "ofMain.h"
-//#include "SinkPool.hpp"
 
 using namespace std;
 

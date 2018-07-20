@@ -36,7 +36,7 @@ public:
     
     ~SerialDevice() = default;
     
-    void setup(){
+    void setup() override{
         if (name == "") {
             ofLogError("Serial device") << "please set dev name before setup()";
             return;
@@ -45,9 +45,21 @@ public:
             ofLogError("Serial device") << "Can't connect to " << name;
     }
     
-    void update()   {}
-    void draw()     {}
-    void exit()     {}
+    void setup( string deviceName ) {
+        name = deviceName;
+        cout << "Serial device, setting with name: " << name << endl;
+        setup();
+    }
+    
+    void setup( int SN) {
+        cout << "Serial device, setting with SN: " <<  SN << endl;
+        name = portName(SN);
+        setup();
+    }
+    
+    void update() override  { cout << "serial updating" << endl;}
+    void draw()   override  {}
+    void exit()   override  {}
     
     void reconnect(){
         if ( !dev.setup(name) )

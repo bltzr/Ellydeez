@@ -10,13 +10,19 @@
 
 namespace Sinks{
     
-    
-    
+
     void OSC2APA102::setup( ofJson& params ){
         
+        if ( params[ "device" ].is_number() ) name = portName(params[ "device" ]) ;
+        else if ( params[ "device" ].is_string() ) name = params[ "device" ] ;
+        cout << "OSC2APA102 device, setting with name: " << name << endl;
+        SerialDevice::setup( name );
+          
     }
     
     void OSC2APA102::update() {
+        
+        cout << "updating OSC2APA102" << endl;
         
         // Get the global brightness (aka FastLED "dither")
         if ( brightXpos >= 0 && brightXpos >= 0 )

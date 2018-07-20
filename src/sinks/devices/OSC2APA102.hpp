@@ -26,6 +26,11 @@ public:
     
         OSC2APA102() = default;
         
+        OSC2APA102( ofJson& params ):
+        SerialDevice(),
+        OSC()
+        { setup ( params ); }
+        
         OSC2APA102( string addr, ofJson& params ):
         SerialDevice( addr ),
         OSC()
@@ -39,7 +44,7 @@ public:
         ~OSC2APA102() = default;
     
     void setup( ofJson& params );
-    void setup()    {}
+
     void update();
     void draw()     {}
     void exit()     {}
