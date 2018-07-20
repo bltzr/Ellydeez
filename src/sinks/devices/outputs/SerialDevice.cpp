@@ -8,6 +8,15 @@
 #include "SerialDevice.hpp"
 
 namespace Sinks {
+    
+void SerialDevice::setup() {
+    if (name == "") {
+        ofLogError("Serial device") << "please set dev name before setup()";
+        return;
+    }
+    if ( !dev.setup(name) )
+        ofLogError("Serial device") << "Can't connect to " << name;
+}
 
 string SerialDevice::portName( int SN )
 {
@@ -15,7 +24,7 @@ string SerialDevice::portName( int SN )
     for (const ofx::IO::SerialDeviceInfo& devInfo : devicesInfo){
         // ofLog() << "for " << devInfo.getHardwareId() << ": " << (to_string(SN)) << " -> find: " << devInfo.getHardwareId().find((to_string(SN))) << endl;
         if ((devInfo.getHardwareId().find((to_string(SN))))<60){
-            ofLog() << "found: " << devInfo.getPort() << endl;
+            ofLog() << "Serial : found device " << devInfo.getPort() << "for SN " << SN << endl;
             return devInfo.getPort();
         }
     }
@@ -44,6 +53,7 @@ void printSerialDevices(){
         ofLogNotice("  ") << devNumb << ": " << d;
         ++devNumb;
     }
+    cout << endl;
 }
 
 } //namespace Sinks

@@ -15,7 +15,6 @@ namespace Sinks{
         
         if ( params[ "device" ].is_number() ) name = portName(params[ "device" ]) ;
         else if ( params[ "device" ].is_string() ) name = params[ "device" ] ;
-        cout << "OSC2APA102 device, setting with name: " << name << endl;
         SerialDevice::setup( name );
           
     }

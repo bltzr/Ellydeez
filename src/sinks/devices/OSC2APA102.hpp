@@ -45,9 +45,9 @@ public:
     
     void setup( ofJson& params );
 
-    void update();
-    void draw()     {}
-    void exit()     {}
+    void update() override;
+    void draw()   override  {}
+    void exit()   override  {}
     
     
 protected:
