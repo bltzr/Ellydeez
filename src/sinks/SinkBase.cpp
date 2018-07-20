@@ -6,3 +6,12 @@
 //
 
 #include "SinkBase.hpp"
+
+
+void Sink::addPools(map< string, Pool* >& sourcePools) {
+    
+    for (auto& pool : sourcePools)
+        pools[ pool.first ] = pool.second;
+    cout << "add base pools" << endl;
+    
+}

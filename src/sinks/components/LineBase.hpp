@@ -14,7 +14,7 @@
 
 using namespace std;
 
-class Sink;
+//class Sink;
 
 namespace Sinks {
  
@@ -23,7 +23,7 @@ class Line {
 public:
     
     virtual void setup() {}
-    virtual void udpate() { cout << "updating LineBase" << endl; }
+    virtual void calculate() { cout << "updating LineBase" << endl; }
     virtual void draw() {}
     virtual void exit() {}
     
@@ -31,23 +31,41 @@ public:
     
     string  getPixelFormat() { return format; }
     
+    int     getWidth()      { return width;}
+    int     getHeight()     { return height;}
+    
     int     getNumChannels() { return nChannels; }
     
     int     getNumberOfPixels()    { return nPix;}
     int     getNumberOfBytes()     { return nBytes;}
     
+    virtual void    setPool  ( Pool* sourcePool ) { source = sourcePool; cout << "setting pool from Base" << endl;}
+    
 protected:
     
-    Line() = default;
+    Line()
+    {}
     
-    Line( ofJson& params );
+    Line( ofJson& params )
+    {
+        cout << "constructing LineBase with json " << endl;
+        width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;
+        height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
+        Xoffset = ( params.count( "Xoffset" ) ) ? int(params[ "Xoffset" ]) : 0 ;
+        Yoffset = ( params.count( "Yoffset" ) ) ? int(params[ "Yoffset" ]) : 0 ;
+        format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ;
+        if (format!="RGB") setPixelFormat(format);
+        if (nPix==0) {
+            nPix = width*height;
+            nBytes = nPix*nChannels;
+        }
+    }
 
     virtual ~Line() = default;
     
     void    setPixelFormat( string fmt );
     
     void    fetchPixelsfromSource();
-    
     
     Pool *          source;         // source pool
 
@@ -67,7 +85,7 @@ private:
     int             nPix{0};           // number of pixels
     int             nBytes{0};          // number of pixels
     
-    friend class    ::Sink;
+    //friend class    ::Sink;
     
 };
     

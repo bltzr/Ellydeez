@@ -18,36 +18,34 @@ namespace Lines {
     
 public:
     
+       
     APA102():
     Line()
     {}
-    
-    APA102( ofJson& params  ):
-    Line( params ),
-    brightXpos{0},
-    brightYpos{0},
-    brightChan{0}
-    {}
+        
+    APA102( ofJson& params  );
     
     ~APA102() = default;
     
-    void setup()    {}
-    void update() ;
-    void draw()     {}
-    void exit()     {}
+    void setup()    override{}
+    void calculate()   override ;
+    void draw()     override{}
+    void exit()     override{}
     
-    const uint8_t getBrightness() { return bright; }
+    const uint8_t getBrightness() { return brightness; }
+        
+    void setPool( Pool* sourcePool ) override { source = sourcePool; cout << "setting pool from APA" << endl;}
     
 protected:
     
-    void    setBrightness(int brightness) { bright = uint8_t(brightness); }
+    void    setBrightness(int globalBrightness) { brightness = uint8_t(globalBrightness); }
     
 private:
     
-    uint8_t bright = 255;
+    uint8_t brightness = 255;
     
-    int     brightXpos {0};
-    int     brightYpos {0};
+    int     brightXpos {-1};
+    int     brightYpos {-1};
     int     brightChan {0};
     
     uint8_t mapBright[256] = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 15, 15, 15, 15, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 20, 20, 20, 21, 21, 21, 22, 22, 22, 23, 23, 23, 24, 24, 24, 25, 25, 25, 26, 26, 27, 27, 28, 28, 28, 29, 29, 30, 30, 31, 31, 31};

@@ -10,6 +10,23 @@
 
 namespace Sinks{
     
+    OSC2APA102::OSC2APA102( ofJson& params ):
+    Serial(),
+    OSC()
+    {
+        if ( params[ "brightness" ].is_null() ) { cout << "no brightness parama" << endl; brightness = 255; }
+        else if ( params[ "brightness" ].is_number() ) brightness = int( params[ "brightness" ]);
+        else if ( params[ "brightness" ].is_object() ){
+            cout << "some brightness parama" << endl;
+            auto& bParams = params[ "brightness" ];
+            brightXpos = ( bParams.count( "Xpos" ) ) ? int(bParams[ "Xpos" ]) : 0 ;
+            brightYpos = ( bParams.count( "Ypos" ) ) ? int(bParams[ "Ypos" ]) : 0 ;
+            brightChan = ( bParams.count( "channel" ) ) ? int(bParams[ "channel" ]) : 0 ;
+        }
+        setup ( params );
+        
+    }
+    
 
     void OSC2APA102::setup( ofJson& params ){
         
@@ -33,7 +50,7 @@ namespace Sinks{
             brightness = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan);
         sendValueAsIntMessage("/b", brightness);
         
-        for ( auto& l : allLines ) { cout << "updating " << l.first << endl; l.second->udpate(); }
+        for ( auto& l : allLines ) { cout << "updating " << l.first << endl; l.second->calculate(); }
         
         /*
         for ( auto& l : ledLines ) {
@@ -52,6 +69,20 @@ namespace Sinks{
         
     }
     
+    void OSC2APA102::setPool( Pool* sourcePool ) {
+        
+        source = sourcePool;
+        cout << "set OSC2APA102 pool" << endl;
+    }
+    
+     void OSC2APA102::setPool( ofJson& params ) {
+         source = pools[ params[ "source"] ];
+         for (auto& l : allLines) { cout << endl << "APA102line: " << l.first << endl << setw(4) << params["lines"][l.first]["source"]  << endl;
+             cout << pools[ params["lines"][l.first]["source"] ] << endl  << l.second->getWidth() << endl;
+             l.second->setPool( pools[ params["lines"][l.first]["source"] ] ) ;
+         }
+     }
+    
     void OSC2APA102::add( string lineName, ofJson& params ){
     
         string name = lineName;
@@ -60,12 +91,16 @@ namespace Sinks{
             ledLines.emplace( name, Lines::APA102( params ) );
             allLines.emplace( lineName, &ledLines[ name ] );
             cout << endl << "APA102line: " << name << endl << setw(4) << params << endl;
+            allLines[ lineName ]->setPool( pools[ params[ "source" ] ] );
+            cout << "setting pool: " << params[ "source" ] << endl;
             
         } else if ( lineName.find( "DMXline" ) == 0) {
             name = "/DMX";
             dmxLines.emplace( name, Lines::DMX( params ) );
             allLines.emplace( lineName, &dmxLines[ name ] );
             cout << endl << "DMXline: " << name << endl << setw(4) << params << endl;
+            allLines[ lineName ]->setPool( pools[ params[ "source" ] ] );
+            cout << "setting pool: " << params[ "source" ] << endl;
             
         } else {ofLogError("OSC2APA102 config: ") << "unknown line type: " << name;}
     }

@@ -52,7 +52,13 @@
     },
     "sinks": {
         "osc2apa102.1": {
-            "device": 3262750, 
+            "device": 3262750,
+            "source": "rim",
+            "brightness": { 
+                "Xpos": 2,
+                "Ypos": 5,
+                "channel": 0
+            },
             "lines": {
                 "APA102line.1": {
                     "source": "rim",
@@ -61,7 +67,8 @@
                     "Yoffset": 0,
                     "width": 132,
                     "height": 1,
-                    "format": "RGB"
+                    "format": "RGB", 
+                    "brightness": 128
                 },
                 "DMXline": {
                     "source": "rim",
@@ -75,6 +82,12 @@
         },
         "osc2apa102.2": {
             "device": "/dev/cu.usbmodem3262750", 
+            "source": "center",
+            "brightness": { 
+                "Xpos": 1,
+                "Ypos": 2,
+                "channel": 1
+            },
             "lines": {
                 "APA102line.1": {
                     "source": "center",
@@ -82,7 +95,12 @@
                     "Xoffset": 0,
                     "Yoffset": 0,
                     "width": 45,
-                    "height": 2
+                    "height": 2,
+                    "brightness": { 
+                        "Xpos": 4,
+                        "Ypos": 5,
+                        "channel": 3
+                    }
                 },
                 "APA102line.2": {
                     "source": "center",

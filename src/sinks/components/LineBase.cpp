@@ -9,7 +9,8 @@
 
 
 namespace Sinks {
-    
+  
+    /*
 Line::Line( ofJson& params )
 {
     cout << "constructing LineBase with json " << endl;
@@ -24,6 +25,7 @@ Line::Line( ofJson& params )
             nBytes = nPix*nChannels;
         }
 }
+     */
     
 void Line::fetchPixelsfromSource(){
     source -> getPixels().cropTo( pixels, Xoffset, Yoffset, width, height );

@@ -10,21 +10,33 @@
 namespace Sinks {
 namespace Lines {
     
-    /*
+
     APA102::APA102( ofJson& params  ):
     Line{ params },
-    brightXpos{0},
-    brightYpos{0},
+    brightXpos{-1},
+    brightYpos{-1},
     brightChan{0}
-    {}
-    */
+    {
+        if ( params[ "brightness" ].is_null() ) { cout << "no brightness parama" << endl; brightness = 255; }
+        else if ( params[ "brightness" ].is_number() ) brightness = int( params[ "brightness" ]);
+        else if ( params[ "brightness" ].is_object() ){
+            cout << "some brightness parama" << endl;
+            auto& bParams = params[ "brightness" ];
+            brightXpos = ( bParams.count( "Xpos" ) ) ? int(bParams[ "Xpos" ]) : 0 ;
+            brightYpos = ( bParams.count( "Ypos" ) ) ? int(bParams[ "Ypos" ]) : 0 ;
+            brightChan = ( bParams.count( "channel" ) ) ? int(bParams[ "channel" ]) : 0 ;
+        }
+    }
 
-void APA102::update() {
 
-    cout << "updating APA102Line" << endl;
+void APA102::calculate() {
+
+    cout << "actually updating APA102Line" << endl;
     
     /*
-    bright = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan);
+     if ( brightXpos >= 0 && brightXpos >= 0 ) {
+    brightness = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan);
+     }
     
     fetchPixelsfromSource();
 
@@ -32,13 +44,14 @@ void APA102::update() {
         for (int j = 0; j < height; ++j){
             for (int c = 0; c < getNumChannels(); ++c ){
                 int pos = ( j* width + i ) * getNumChannels() + c ;
-                pixels[ pos ] = pixels[ pos ] * mapCol[ bright ] / 255;
+                pixels[ pos ] = pixels[ pos ] * mapCol[ brightness ] / 255;
             }
         }
     }
-     */
+    */
 
 }
 
+    
 } // namespace Lines 
 } // namespace Sinks

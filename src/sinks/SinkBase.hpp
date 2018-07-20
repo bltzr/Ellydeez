@@ -27,17 +27,19 @@ public:
     virtual void draw()     = 0;
     virtual void exit()     = 0;
     
+    virtual void setPool( Pool* sourcePool ) { source = sourcePool;  cout << "set base pool" << endl; }
+    virtual void setPool( ofJson& params ) { source = pools[ params[ "source"] ]; cout << "setting pool from Base" << endl;}
     
+    virtual void addPools(map< string, Pool* >& pools);
     
 protected:
-    
-    Pool *            source;
     
     Sink() = default;
     
     virtual ~Sink() = default;
     
-    
+    Pool*                   source;
+    map<string, Pool*>      pools;
     
 private:
     
