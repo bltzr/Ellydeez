@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 #include "ofMain.h"
+#include "Pool.hpp"
+
 
 using namespace std;
 
@@ -28,6 +30,8 @@ public:
     
     
 protected:
+    
+    Pool *            source;
     
     Sink() = default;
     

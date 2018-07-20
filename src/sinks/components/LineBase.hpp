@@ -64,8 +64,8 @@ private:
     ofPixelFormat   pixFormat{OF_PIXELS_RGB};
     int             nChannels{3};
     
-    int             nPix;           // number of pixels
-    int             nBytes;          // number of pixels
+    int             nPix{0};           // number of pixels
+    int             nBytes{0};          // number of pixels
     
     friend class    ::Sink;
     

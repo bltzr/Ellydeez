@@ -59,17 +59,17 @@
                     "address": "/1",
                     "Xoffset": 0,
                     "Yoffset": 0,
-                    "width": 45,
-                    "height": 5,
+                    "width": 132,
+                    "height": 1,
                     "format": "RGB"
                 },
                 "DMXline": {
                     "source": "rim",
                     "address": "/DMX",
                     "Xoffset": 0,
-                    "Yoffset": 5,
+                    "Yoffset": 1,
                     "width": 45,
-                    "height": 5
+                    "height": 1
                 }
             }
         },
@@ -81,7 +81,7 @@
                     "address": "/1",
                     "Xoffset": 0,
                     "Yoffset": 0,
-                    "width": 100,
+                    "width": 45,
                     "height": 2
                 },
                 "APA102line.2": {
@@ -89,7 +89,7 @@
                     "address": "/2",
                     "Xoffset": 0,
                     "Yoffset": 2,
-                    "width": 100,
+                    "width": 45,
                     "height": 2
                 }
             }

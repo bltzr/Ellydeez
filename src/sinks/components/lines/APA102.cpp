@@ -23,7 +23,8 @@ void APA102::update() {
 
     cout << "updating APA102Line" << endl;
     
-    bright = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan); 
+    /*
+    bright = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan);
     
     fetchPixelsfromSource();
 
@@ -35,6 +36,7 @@ void APA102::update() {
             }
         }
     }
+     */
 
 }
 

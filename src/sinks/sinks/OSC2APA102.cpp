@@ -33,8 +33,9 @@ namespace Sinks{
             brightness = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan);
         sendValueAsIntMessage("/b", brightness);
         
-        for ( auto& l : allLines ) { l.second->udpate(); }
+        for ( auto& l : allLines ) { cout << "updating " << l.first << endl; l.second->udpate(); }
         
+        /*
         for ( auto& l : ledLines ) {
             sendValueAsIntMessage( l.first, l.second.getBrightness());
             sendPixelsAsBlobMessage(l.first, l.second.getPixels(), l.second.getNumberOfBytes());
@@ -47,6 +48,7 @@ namespace Sinks{
         
         // Make an OSC bundle witt all previous messages and send it to the serial device
         sendPacket( Protocols::OSCBundle2ByteBuffer( fetchBundle() ) );
+        */
         
     }
     

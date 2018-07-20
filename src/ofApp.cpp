@@ -17,8 +17,10 @@ void ofApp::setup(){
         
         config( conf["config"] );
         sources.setup( conf["sources"] );
-        sinks.setup( conf["sinks"] );
         sources.addPools( conf[ "pools" ] );
+        sinks.addPools( sources.getPools() );
+        sinks.setup( conf["sinks"] );
+        
         
     }
     

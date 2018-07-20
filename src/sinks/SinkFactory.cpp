@@ -37,3 +37,12 @@ void SinkFactory::add( string sinkName, ofJson& params ) {
     } else {ofLogError("Config: ") << "unknown source type: " << name;}
     
 }
+
+void SinkFactory::addPools(map< string, Pool >& sourcePools) {
+    
+    for (auto& pool : sourcePools){
+        pools[ pool.first ] = &pool.second;
+    }
+    //osc2apa102s[name].source = nullptr;
+    
+}

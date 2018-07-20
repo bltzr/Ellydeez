@@ -23,6 +23,8 @@ public:
     void draw();
     void exit();
     
+    void addPools(map< string, Pool >& pools);
+    
 protected:
     
     void add( string sinkName, ofJson& params );
@@ -34,7 +36,7 @@ protected:
 private:
     
     map<string, Sink*>              sinks;
-    // map<string, Pool*>  pools; // ????
+    map<string, Pool*>              pools; 
     
     map<string, Sinks::OSC2APA102>  osc2apa102s;
 

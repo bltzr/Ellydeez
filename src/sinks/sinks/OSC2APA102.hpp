@@ -52,7 +52,7 @@ public:
     
 protected:
     
-    Pool *                     source;
+    
         
     void add( string lineName, ofJson& params );
     

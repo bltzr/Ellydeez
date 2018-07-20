@@ -36,6 +36,8 @@ public:
     void draw();
     void exit();
     
+    map< string, Pool >& getPools() {return pools;}
+    
 protected:
     
     void add( string srcName, ofJson& params );
