@@ -17,10 +17,9 @@ namespace Lines {
     brightYpos{-1},
     brightChan{0}
     {
-        if ( params[ "brightness" ].is_null() ) { cout << "no brightness parama" << endl; brightness = 255; }
+        if ( params[ "brightness" ].is_null() ) {  brightness = 255; }
         else if ( params[ "brightness" ].is_number() ) brightness = int( params[ "brightness" ]);
         else if ( params[ "brightness" ].is_object() ){
-            cout << "some brightness parama" << endl;
             auto& bParams = params[ "brightness" ];
             brightXpos = ( bParams.count( "Xpos" ) ) ? int(bParams[ "Xpos" ]) : 0 ;
             brightYpos = ( bParams.count( "Ypos" ) ) ? int(bParams[ "Ypos" ]) : 0 ;

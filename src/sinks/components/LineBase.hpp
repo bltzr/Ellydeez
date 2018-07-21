@@ -39,7 +39,7 @@ public:
     int     getNumberOfPixels()    { return nPix;}
     int     getNumberOfBytes()     { return nBytes;}
     
-    virtual void    setPool  ( Pool* sourcePool ) { source = sourcePool; cout << "setting pool from Base" << endl;}
+    virtual void    setPool  ( Pool* sourcePool ) { source = sourcePool; }
     
 protected:
     

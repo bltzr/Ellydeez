@@ -13,7 +13,6 @@ namespace Sinks {
 
 Line::Line( ofJson& params )
 {
-    cout << "constructing LineBase with json " << endl;
     width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;
     height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
     Xoffset = ( params.count( "Xoffset" ) ) ? int(params[ "Xoffset" ]) : 0 ;

@@ -34,7 +34,7 @@ public:
     
     const uint8_t getBrightness() { return brightness; }
         
-    void setPool( Pool* sourcePool ) override { source = sourcePool; cout << "setting pool from APA" << endl;}
+    void setPool( Pool* sourcePool ) override { source = sourcePool; }
     
 protected:
     

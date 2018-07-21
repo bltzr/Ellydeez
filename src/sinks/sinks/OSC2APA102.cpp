@@ -10,16 +10,13 @@
 
 namespace Sinks{
     
-    /*
     OSC2APA102::OSC2APA102( ofJson& params ):
     Serial(),
     OSC()
     {
      setup ( params );
     }
-     */
     
-
     void OSC2APA102::setup( ofJson& params ){
     
         // setting serial device
@@ -35,16 +32,13 @@ namespace Sinks{
         
         // setting appropriate pool for each line (we assume pools has been constructed)
         source = pools[ params[ "source"] ];
-        for (auto& l : allLines) { cout << endl << "APA102line: " << l.first << endl << setw(4) << params["lines"][l.first]["source"]  << endl;
-            cout << pools[ params["lines"][l.first]["source"] ] << endl  << l.second->getWidth() << endl;
+        for (auto& l : allLines)
             l.second->setPool( pools[ params["lines"][l.first]["source"] ] ) ;
-        }
         
         // setting brightness params
-        if ( params[ "brightness" ].is_null() ) { cout << "no brightness parama" << endl; brightness = 255; }
+        if ( params[ "brightness" ].is_null() ) { brightness = 255; }
         else if ( params[ "brightness" ].is_number() ) brightness = int( params[ "brightness" ]);
         else if ( params[ "brightness" ].is_object() ){
-            cout << "some brightness parama" << endl;
             auto& bParams = params[ "brightness" ];
             brightXpos = ( bParams.count( "Xpos" ) ) ? int(bParams[ "Xpos" ]) : 0 ;
             brightYpos = ( bParams.count( "Ypos" ) ) ? int(bParams[ "Ypos" ]) : 0 ;
@@ -84,16 +78,13 @@ namespace Sinks{
     }
     
     void OSC2APA102::setPool( Pool* sourcePool ) {
-        
         source = sourcePool;
-        cout << "set OSC2APA102 pool" << endl;
     }
     
      void OSC2APA102::setPool( ofJson& params ) {
          source = pools[ params[ "source"] ];
-         for (auto& l : allLines) { cout << endl << "APA102line: " << l.first << endl << setw(4) << params["lines"][l.first]["source"]  << endl;
-             cout << pools[ params["lines"][l.first]["source"] ] << endl  << l.second->getWidth() << endl;
-             l.second->setPool( pools[ params["lines"][l.first]["source"] ] ) ;
+         for (auto& l : allLines) {
+             l.second -> setPool( pools[ params["lines"][l.first]["source"] ] ) ;
          }
      }
     
@@ -106,7 +97,6 @@ namespace Sinks{
             allLines[ lineName ] = &ledLines[ name ] ;
             cout << endl << "APA102line: " << name << endl << setw(4) << params << endl;
             allLines[ lineName ]->setPool( pools[ params[ "source" ] ] );
-            cout << "setting pool: " << params[ "source" ] << endl;
             
         } else if ( lineName.find( "DMXline" ) == 0) {
             name = "DMX";
@@ -114,7 +104,6 @@ namespace Sinks{
             allLines[ lineName ] = &dmxLines[ name ] ;
             cout << endl << "DMXline: " << name << endl << setw(4) << params << endl;
             allLines[ lineName ]->setPool( pools[ params[ "source" ] ] );
-            cout << "setting pool: " << params[ "source" ] << endl;
             
         } else {ofLogError("OSC2APA102 config: ") << "unknown line type: " << name;}
     }

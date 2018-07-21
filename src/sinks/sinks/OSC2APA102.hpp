@@ -23,31 +23,32 @@ namespace Sinks {
     
 public:
     
-        // Const/Destructors
-        OSC2APA102() = default;
-        OSC2APA102( ofJson& params );
-        ~OSC2APA102() = default;
+    // Const/Destructors
+    OSC2APA102() = default;
+    OSC2APA102( ofJson& params );
+    ~OSC2APA102() = default;
+    
+    // Copy constructors/assignments are disabled for now
+    OSC2APA102( const OSC2APA102& other ) = delete;
+    OSC2APA102& operator=( const OSC2APA102& other ) = delete;
         
-        // Copy/move constructors/assignments
-        OSC2APA102( const OSC2APA102& other ) = delete;
-        OSC2APA102& operator=( const OSC2APA102& other ) = delete;
-        
-        OSC2APA102( const OSC2APA102&& other ):
-        ledLines{ move( other.ledLines ) },
-        dmxLines{ move( other.dmxLines ) },
-        allLines{ }
-        {
-            for (auto& l : ledLines ) allLines [ "APA102line."+l.first ] = &l.second;
-            for (auto& l : dmxLines ) allLines [ l.first+"line" ]        = &l.second;
-        }
-        
-        OSC2APA102& operator=( const OSC2APA102&& other ) {
-            ledLines = move( other.ledLines ) ;
-            dmxLines = move( other.dmxLines ) ;
-            for (auto& l : ledLines ) allLines [ "APA102line."+l.first ] = &l.second;
-            for (auto& l : dmxLines ) allLines [ l.first+"line" ]        = &l.second;
-            return *this;
-        }
+    // Move constructors/assignments for including our class in a std::map 
+    OSC2APA102( const OSC2APA102&& other ):
+    ledLines{ move( other.ledLines ) },
+    dmxLines{ move( other.dmxLines ) },
+    allLines{ }
+    {
+        for (auto& l : ledLines ) allLines [ "APA102line."+l.first ] = &l.second;
+        for (auto& l : dmxLines ) allLines [ l.first+"line" ]        = &l.second;
+    }
+    
+    OSC2APA102& operator=( const OSC2APA102&& other ) {
+        ledLines = move( other.ledLines ) ;
+        dmxLines = move( other.dmxLines ) ;
+        for (auto& l : ledLines ) allLines [ "APA102line."+l.first ] = &l.second;
+        for (auto& l : dmxLines ) allLines [ l.first+"line" ]        = &l.second;
+        return *this;
+    }
         
     void setup( ofJson& params );
 
