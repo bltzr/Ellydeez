@@ -10,22 +10,20 @@
 Pool::Pool(string name, ofJson& params):
 poolName{name}
 {
-    width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;
+    width =  ( params.count( "width" ) )  ? int(params[ "width" ]) : 1 ;
     height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
     setPixelFormat( format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ) ;
+    pixels.allocate(width, height, pixFormat);
 }
 
 uint8_t Pool::getPixelChannelValue(int Xpos, int Ypos, int channel){
-    cout << ( (Xpos + Ypos * width ) * nChannels + channel ) << endl;
-    return 255; // pixels [ ( Xpos + Ypos * width ) * nChannels + channel ] ;
+    return pixels [ ( Xpos + Ypos * width ) * nChannels + channel ] ;
 }
 
 int Pool::getPixelSummedValue(int Xpos, int Ypos){
     int res { 0 };
     int pos = ( Xpos + Ypos * width ) * nChannels;
-    for (int i = 0; i < nChannels; ++i) {
-        res += pixels [ pos  + i ];
-    }
+    for (int i = 0; i < nChannels; ++i) res += pixels [ pos  + i ];
     return res;
 }
 
