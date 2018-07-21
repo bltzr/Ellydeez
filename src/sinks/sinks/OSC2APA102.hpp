@@ -23,22 +23,32 @@ namespace Sinks {
     
 public:
     
+        // Const/Destructors
         OSC2APA102() = default;
-        
         OSC2APA102( ofJson& params );
-        
-        OSC2APA102( string addr, ofJson& params ):
-        Serial( addr ),
-        OSC()
-        { setup ( params ); }
-        
-        OSC2APA102( int SN, ofJson& params ):
-        Serial( SN ),
-        OSC()
-        { setup ( params ); }
-    
         ~OSC2APA102() = default;
-    
+        
+        // Copy/move constructors/aasignments
+        OSC2APA102( const OSC2APA102& other ) = delete;
+        OSC2APA102& operator=( const OSC2APA102& other ) = delete;
+        
+        OSC2APA102( const OSC2APA102&& other ):
+        ledLines{ move( other.ledLines ) },
+        dmxLines{ move( other.dmxLines ) },
+        allLines{ }
+        {
+            for (auto& l : ledLines ) allLines [ "APA102line."+l.first ] = &l.second;
+            for (auto& l : dmxLines ) allLines [ l.first+"line" ]        = &l.second;
+        }
+        
+        OSC2APA102& operator=( const OSC2APA102&& other ) {
+            ledLines = move( other.ledLines ) ;
+            dmxLines = move( other.dmxLines ) ;
+            for (auto& l : ledLines ) allLines [ "APA102line."+l.first ] = &l.second;
+            for (auto& l : dmxLines ) allLines [ l.first+"line" ]        = &l.second;
+            return *this;
+        }
+        
     void setup( ofJson& params );
 
     void update() override;
@@ -59,10 +69,10 @@ private:
     
     uint8_t                     brightness{255};
     
-    map<string, Lines::APA102>     ledLines; // string is the OSC address
-    map<string, Lines::DMX>        dmxLines; // string is the OSC address
+    map<string, Lines::APA102>  ledLines; // string is the OSC address
+    map<string, Lines::DMX>     dmxLines; // string is the OSC address
     
-    map<string, Line*>             allLines; // string is the type + address
+    map<string, Line*>          allLines; // string is the type + address
     
     int                         brightXpos {-1};
     int                         brightYpos {-1};
