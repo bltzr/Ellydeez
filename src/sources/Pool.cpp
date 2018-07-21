@@ -34,12 +34,18 @@ void Pool::setPixelFormat(std::string fmt){
     
 }
 
+
+void Pool::update() {
+    if (activeSource) activeSource -> update();
+}
+
+
 void Pool::addSource( string srcName, Source* src ) {
-    poolSources.push_back ( src ) ;
+    poolSources[ srcName ] = src  ;
 }
 
 void Pool::removeSource( string srcName ) {
-    //poolSources.erase( srcName );
+    poolSources.erase( srcName );
 }
 
 void Pool::moveSourceTo( string srcName, Pool* dstPool ){

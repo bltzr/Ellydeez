@@ -44,6 +44,8 @@ public:
     
     string  getPixelFormat()                { return format; }
     
+    void update();
+    
 protected:
     
     void    addSource( string name, Source* src );
@@ -51,15 +53,13 @@ protected:
     void    moveSourceTo( string name, Pool* dstPool );
     
     void    setPixelFormat( std::string fmt );
-    
 
-    
     // if we want to be able to change the name, we must update it
     // in all registered Sources and all client Sinks
     
 private:
     
-    list< Source* >         poolSources;
+    map< string, Source* >  poolSources;
     
     string                  poolName;
     

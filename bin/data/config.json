@@ -9,16 +9,17 @@
             "sources": [
                 "player.Nebula",
                 "syphon.bololo"
-                
             ],
+            "activeSource": "player.Nebula",
             "width": 45,
             "height": 45
         },
         "rim": {
             "sources": [
                 "player.test",
-                "syphon.pipai"
+                "syphon.sserver"
             ],
+            "activeSource": "syphon.sserver",
             "width": 132,
             "height": 19
         }
@@ -30,7 +31,7 @@
             "width": 20,
             "height": 40
         },
-        "syphon.pipai": {
+        "syphon.sserver": {
             "app": "Simple Server",
             "width": 20,
             "height": 40

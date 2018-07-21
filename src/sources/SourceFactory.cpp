@@ -9,7 +9,7 @@
 
 void SourceFactory::update(){
     cout << "------------------ updating sources" << endl;
-    for (auto& src : sources) src.second->update();
+    for (auto& pool : pools) pool.second.update();
 }
 
 
@@ -33,8 +33,12 @@ void SourceFactory::addPools( ofJson& c ){
         pools.emplace( poolName , Pool( poolName, poolParams ) );
         auto p = &pools[ poolName ];
         for (string srcN : poolParams[ "sources" ])
-            if ( sources[ srcN ] )
+            if ( sources[ srcN ] ) {
                 p -> addSource( srcN, sources[ srcN ] ) ;
+                cout << "adding source " << srcN << " to pool " << poolName << endl;
+            }
+        p -> setActiveSource ( ( poolParams.count( "activeSource" ) ) ?
+                  p -> poolSources[ poolParams[ "activeSource" ] ] : nullptr );
     }
     
 }
