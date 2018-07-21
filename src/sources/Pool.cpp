@@ -7,7 +7,9 @@
 
 #include "Pool.hpp"
 
-Pool::Pool(string name, ofJson& params): poolName{name} {
+Pool::Pool(string name, ofJson& params):
+poolName{name}
+{
     width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;
     height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
     setPixelFormat( format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ) ;
@@ -36,7 +38,10 @@ void Pool::setPixelFormat(std::string fmt){
 
 
 void Pool::update() {
-    if (activeSource) activeSource -> update();
+    if (activeSource) {
+        activeSource -> update();
+        //pixels = activeSource -> getPixels();
+    }
 }
 
 

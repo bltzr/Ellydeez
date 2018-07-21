@@ -63,11 +63,12 @@ namespace Sources {
         syphon.draw(0, 0, width, height);
         fbo.end();
         
+        fbo.readToPixels(pixels);
+        
     }
     
     ofPixels& Syphon::getPixels() {
         
-        fbo.readToPixels(pixels);
         return pixels;
         
     }

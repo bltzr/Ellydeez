@@ -30,9 +30,7 @@ public:
     void update() override;
     void draw() override {}
     void exit() override {}
-    
-protected:
-    
+
     ofPixels& getPixels() override;
     
 private:

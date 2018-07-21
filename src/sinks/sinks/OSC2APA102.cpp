@@ -51,16 +51,16 @@ namespace Sinks{
         
         cout << "updating OSC2APA102" << endl;
         
-        /*
         // Get the global brightness (aka FastLED "dither")
+        /*
         if ( brightXpos >= 0 && brightXpos >= 0 )
             brightness = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan);
         sendValueAsIntMessage("/b", brightness);
-         */
+        
         
         for ( auto& l : allLines ) { cout << "updating " << l.first << endl; l.second->update(); }
         
-        /*
+        
         for ( auto& l : ledLines ) {
             sendValueAsIntMessage( "/"+l.first, l.second.getBrightness());
             sendPixelsAsBlobMessage(l.first, l.second.getPixels(), l.second.getNumberOfBytes());

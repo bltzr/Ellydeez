@@ -24,6 +24,8 @@ public:
     virtual void draw() = 0;
     virtual void exit() = 0;
     
+    virtual ofPixels& getPixels()  = 0;
+    
 protected:
     
     Source()
@@ -37,8 +39,7 @@ protected:
     
     virtual ~Source() = default ;
     
-    virtual ofPixels& getPixels()  = 0;
-    
+
     void setPixelFormat(std::string fmt);
     
     

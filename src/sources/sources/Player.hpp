@@ -32,8 +32,6 @@ public:
     void draw() override{}
     void exit() override{}
     
-protected:
-    
     ofPixels& getPixels() override { return player.getPixels(); }
     
     void setLoopMode(int mode);
