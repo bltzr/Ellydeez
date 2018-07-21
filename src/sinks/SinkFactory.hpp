@@ -23,7 +23,7 @@ public:
     void draw();
     void exit();
     
-    void addPools(map< string, Pool >& pools);
+    void addPools( map< string, Pool >& pools);
     
 protected:
     

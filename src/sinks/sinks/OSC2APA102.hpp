@@ -25,7 +25,10 @@ public:
     
         OSC2APA102() = default;
         
-        OSC2APA102( ofJson& params );
+        OSC2APA102( ofJson& params ):
+        Serial(),
+        OSC()
+        { setup ( params ); }
         
         OSC2APA102( string addr, ofJson& params ):
         Serial( addr ),
