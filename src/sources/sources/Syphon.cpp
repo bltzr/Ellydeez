@@ -10,7 +10,7 @@
 namespace Sources {
     
     Syphon::Syphon( ofJson& params ):
-    Source( params )
+    Source( )
     {
         name = ( params.count( "name" ) ) ? params[ "name" ] : "" ;
         app = ( params.count( "app" ) ) ? params[ "app" ] : "Simple Server" ;
@@ -39,6 +39,8 @@ namespace Sources {
     }
     
     void Syphon::update(){
+        
+    cout << "syphon updating" << endl;
     
     // If the source dimensions change,
     if ( ( syphon.getTexture().getWidth() != 0 && syphon.getTexture().getHeight() != 0)
@@ -62,8 +64,6 @@ namespace Sources {
         if (disableAlpha) ofDisableAlphaBlending();
         syphon.draw(0, 0, width, height);
         fbo.end();
-        
-        fbo.readToPixels(pixels);
         
     }
     

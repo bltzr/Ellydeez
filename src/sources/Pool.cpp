@@ -16,7 +16,8 @@ poolName{name}
 }
 
 uint8_t Pool::getPixelChannelValue(int Xpos, int Ypos, int channel){
-    return pixels [ ( Xpos + Ypos * width ) * nChannels + channel ] ;
+    cout << ( (Xpos + Ypos * width ) * nChannels + channel ) << endl;
+    return 255; // pixels [ ( Xpos + Ypos * width ) * nChannels + channel ] ;
 }
 
 int Pool::getPixelSummedValue(int Xpos, int Ypos){
@@ -40,7 +41,7 @@ void Pool::setPixelFormat(std::string fmt){
 void Pool::update() {
     if (activeSource) {
         activeSource -> update();
-        //pixels = activeSource -> getPixels();
+        pixels = activeSource -> getPixels();
     }
 }
 

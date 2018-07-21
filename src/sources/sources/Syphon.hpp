@@ -18,13 +18,12 @@ class Syphon : public Source {
     
 public:
     
+    Syphon() = default;
     Syphon( ofJson& params );
     
-    Syphon( const string& pixelFormat = "RGB"):
-    Source( pixelFormat )
-    {}
-    
     ~Syphon() = default ;
+    
+    void setup( ofJson& params );
     
     void setup() override;
     void update() override;

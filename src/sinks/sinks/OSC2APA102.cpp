@@ -52,7 +52,7 @@ namespace Sinks{
         cout << "updating OSC2APA102" << endl;
         
         // Get the global brightness (aka FastLED "dither")
-        /*
+        
         if ( brightXpos >= 0 && brightXpos >= 0 )
             brightness = source -> getPixelChannelValue(brightXpos, brightYpos, brightChan);
         sendValueAsIntMessage("/b", brightness);
@@ -73,7 +73,7 @@ namespace Sinks{
         
         // Make an OSC bundle witt all previous messages and send it to the serial device
         sendPacket( Protocols::OSCBundle2ByteBuffer( fetchBundle() ) );
-        */
+        
         
     }
     

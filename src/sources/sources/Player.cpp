@@ -10,7 +10,7 @@
 namespace Sources {
     
     Player::Player( ofJson& params ):
-    Source( params )
+    Source( )
     {
         filePath = ( params.count( "filePath" ) ) ? params[ "filePath" ] : "" ;
         width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;

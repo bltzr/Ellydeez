@@ -31,12 +31,6 @@ protected:
     Source()
     {}
     
-    Source( ofJson& params )
-    {}
-    
-    Source( const string& pixelFormat = "RGB" )
-    {setPixelFormat(pixelFormat);}
-    
     virtual ~Source() = default ;
     
 
