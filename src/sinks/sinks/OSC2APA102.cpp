@@ -50,7 +50,7 @@ namespace Sinks{
             brightYpos = ( bParams.count( "Ypos" ) ) ? int(bParams[ "Ypos" ]) : 0 ;
             brightChan = ( bParams.count( "channel" ) ) ? int(bParams[ "channel" ]) : 0 ;
         }
-          
+        
     }
     
     void OSC2APA102::update() {
@@ -68,12 +68,12 @@ namespace Sinks{
         
         /*
         for ( auto& l : ledLines ) {
-            sendValueAsIntMessage( l.first, l.second.getBrightness());
+            sendValueAsIntMessage( "/"+l.first, l.second.getBrightness());
             sendPixelsAsBlobMessage(l.first, l.second.getPixels(), l.second.getNumberOfBytes());
         }
         
         for ( auto& l : dmxLines ) {
-            sendPixelsAsBlobMessage(l.first, l.second.getPixels(), l.second.getNumberOfBytes());
+            sendPixelsAsBlobMessage( "/"+l.first, l.second.getPixels(), l.second.getNumberOfBytes());
         }
         
         
@@ -101,7 +101,7 @@ namespace Sinks{
     
         string name = lineName;
         if ( lineName.find( "APA102line." ) == 0) {
-            name = "/" + name.erase( 0, 11 );
+            name.erase( 0, 11 );
             ledLines.emplace( name, Lines::APA102( params ) );
             allLines[ lineName ] = &ledLines[ name ] ;
             cout << endl << "APA102line: " << name << endl << setw(4) << params << endl;
@@ -109,7 +109,7 @@ namespace Sinks{
             cout << "setting pool: " << params[ "source" ] << endl;
             
         } else if ( lineName.find( "DMXline" ) == 0) {
-            name = "/DMX";
+            name = "DMX";
             dmxLines.emplace( name, Lines::DMX( params ) );
             allLines[ lineName ] = &dmxLines[ name ] ;
             cout << endl << "DMXline: " << name << endl << setw(4) << params << endl;
