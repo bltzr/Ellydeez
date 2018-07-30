@@ -19,12 +19,16 @@ class Source {
     
 public:
     
-    virtual void setup() = 0;
-    virtual void update() = 0;
-    virtual void draw() = 0;
-    virtual void exit() = 0;
+    virtual void setup()            = 0;
+    virtual void update()           = 0;
+    virtual void draw()             = 0;
+    virtual void exit()             = 0;
     
-    virtual ofPixels& getPixels()  = 0;
+    virtual void draw (float x, float y, float w, float h) = 0;
+    virtual ofPixels& getPixels()   = 0;
+    
+    virtual float getWidth()          = 0;
+    virtual float getHeight()         = 0;
     
 protected:
     
@@ -33,12 +37,11 @@ protected:
     
     virtual ~Source() = default ;
     
-
     void setPixelFormat(std::string fmt);
     
     
-    int             width{1};
-    int             height{0};
+    float           width{1};
+    float           height{0};
     
     string          format{"RGB"}; // other choices: RGBA, G, GA
     ofPixelFormat   pixFormat{OF_PIXELS_RGB};

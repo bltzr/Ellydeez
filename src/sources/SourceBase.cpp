@@ -9,10 +9,10 @@
 
 
 
-void Source::setPixelFormat(string fmt){
+void Source::setPixelFormat(string fmt)
+{
     if      (fmt=="RGBA")   pixFormat=OF_PIXELS_RGBA;
     else if (fmt=="W")      pixFormat=OF_PIXELS_GRAY;
     else if (fmt=="WA")     pixFormat=OF_PIXELS_GRAY_ALPHA;
     else                    pixFormat=OF_PIXELS_RGB;
-    
 }

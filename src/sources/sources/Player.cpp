@@ -20,27 +20,46 @@ namespace Sources {
     
 void Player::setup(){
     
-    player.setPixelFormat(pixFormat);
+    loaded = player.load( filePath );
     
-    player.load(filePath);
-    width = player.getWidth();
-    height = player.getHeight();
-    
-    setLoopMode(loop);
-    
-    if(autoplay){
-        player.play();
-        player.setSpeed(speed);
+    if ( loaded ) {
+        width = player.getWidth();
+        height = player.getHeight();
+        
+        setLoopMode(loop);
+        
+        if(autoplay){
+            player.play();
+            player.setSpeed(speed);
+        }
+        
+        player.setPaused(paused);
     }
-    
-    player.setPaused(paused);
-    
 }
+    
+void Player::update() {
+    if ( loaded ) {
+        cout << "player " << filePath <<  " updating" << endl;
+        player.update();
+    }
+    }
 
 void Player::setLoopMode(int mode){
     if      (mode == 1) {player.setLoopState(OF_LOOP_NORMAL);}
     else if (mode == 2) {player.setLoopState(OF_LOOP_PALINDROME);}
     else                {player.setLoopState(OF_LOOP_NONE);}
+}
+    
+void Player::draw (float x, float y, float w, float h) {
+    player.draw( x, y, w, h);
+}
+
+float Player::getWidth() {
+    return player.getWidth();
+}
+
+float Player::getHeight() {
+    return player.getHeight();
 }
     
 } //namespace Sources

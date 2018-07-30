@@ -24,12 +24,17 @@ public:
     
     ~Player() = default;
     
-    void setup() override;
-    void update() override { cout << "player updating" << endl; player.update(); }
-    void draw() override{}
-    void exit() override{}
+    void setup()    override;
+    void update()   override;
+    void draw()     override{}
+    void exit()     override{}
+    
+    void draw  (float x, float y, float w, float h) override;
     
     ofPixels& getPixels() override { return player.getPixels(); }
+    
+    float getWidth() override;
+    float getHeight() override;
     
     void setLoopMode(int mode);
     
@@ -40,6 +45,8 @@ private:
     string          filePath;
     bool            autoplay{0};
     int             loop{1};
+    
+    bool            loaded{0};
     
     float           speed{1.0};
     bool            paused{false};

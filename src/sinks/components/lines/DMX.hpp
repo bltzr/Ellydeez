@@ -29,7 +29,7 @@ public:
     
     void setup()    override {}
     void update()  override {
-        cout << "actually updating DMXLine" << endl;
+        //cout << "actually updating DMXLine" << endl;
         fetchPixelsfromSource();
     }
     void draw()    override  {}

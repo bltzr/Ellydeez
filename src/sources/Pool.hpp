@@ -36,15 +36,19 @@ public:
 
     string  getName() const                 { return poolName; }
     
-    void    setActiveSource(Source* src)    { activeSource = src; }
+    void    setActiveSource(Source* src);
     Source* getActiveSource() const         { return activeSource; }
     
     int     getWidth()                      { return width; }
     int     getHeight()                     { return height; }
     
+    // resizes and returns false if passed dimensions exceed current dimensions
+    bool    checkSize( float width, float height );
+    
     string  getPixelFormat()                { return format; }
     
     void update();
+    void draw();
     
 protected:
     
@@ -59,22 +63,25 @@ protected:
     
 private:
     
-    map< string, Source* >  poolSources;
-    
     string                  poolName;
     
+    map< string, Source* >  poolSources;
+
     
     Source*                 activeSource{nullptr};
-    
+    ofFbo                   fbo;
     ofPixels                pixels;
     
     
     string                  format{"RGB"}; // other choices: RGBA, W, WA
     int                     nChannels{3};
     ofPixelFormat           pixFormat{OF_PIXELS_RGB};
+    int                     GLFormat{GL_RGB};
+    bool                    disableAlpha{1};
     
     int                     width {0};
     int                     height {0};
+    bool                    direct {false};
     
     
     friend class            SourceFactory;

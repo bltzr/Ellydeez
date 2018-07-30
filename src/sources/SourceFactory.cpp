@@ -8,7 +8,7 @@
 #include "SourceFactory.hpp"
 
 void SourceFactory::update(){
-    cout << "------------------ updating sources" << endl;
+    //cout << "------------------ updating sources" << endl;
     for (auto& pool : pools) pool.second.update();
 }
 

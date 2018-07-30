@@ -29,8 +29,13 @@ public:
     void update() override;
     void draw() override {}
     void exit() override {}
+    
+    void draw (float x, float y, float w, float h) override;
 
     ofPixels& getPixels() override;
+    
+    float getWidth() override;
+    float getHeight() override;
     
 private:
     

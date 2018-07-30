@@ -97,6 +97,7 @@ void ofApp::draw(){
 }
 
 void ofApp::exit(){
+    
 }
 
 void ofApp::config( ofJson c ) {

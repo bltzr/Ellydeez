@@ -8,7 +8,7 @@
 #include "SinkFactory.hpp"
 
 void SinkFactory::update(){
-    cout << "------------------ updating sinks" <<endl;
+    //cout << "------------------ updating sinks" <<endl;
     for (auto& sink : sinks) sink.second->update();
 }
 
