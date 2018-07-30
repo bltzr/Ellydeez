@@ -34,7 +34,9 @@ namespace Sinks{
         source = pools[ params[ "source"] ];
         for (auto& l : allLines) {
             l.second -> setPool( pools[ params["lines"][l.first]["source"] ] ) ;
-            pools[ params["lines"][l.first]["source"] ] -> checkSize( l.second -> getWidth(), l.second -> getHeight() );
+            // check than the line won't try to fetch pixels over the pool's size, resize it if needed
+            pools[ params["lines"][l.first]["source"] ]
+                -> checkSize( l.second -> getWidth(), l.second -> getHeight() );
         }
         
         // setting brightness params

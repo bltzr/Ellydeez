@@ -25,7 +25,7 @@ void Pool::setPixelFormat(std::string fmt){
 }
 
 void Pool::setActiveSource(Source* src) {
-    direct = ( width == src -> getWidth() && height == src -> getHeight() ) ? true : false ;
+    
     activeSource = src;
     if ( ! direct ) {
         fbo.allocate(width, height, GLFormat);
@@ -40,6 +40,7 @@ bool Pool::checkSize( float w, float h ) {
     bool res = true;
     if ( w > width ) { width = w; res = false; }
     if ( h > height ) { height = h; res = false; }
+    if ( ! res ) direct = ( width == activeSource -> getWidth() && height == activeSource -> getHeight() ) ? true : false ;
     return res;
 }
 
