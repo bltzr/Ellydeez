@@ -19,7 +19,7 @@ using namespace std;
 
 namespace Sinks {
     
-    class OSC2APA102 : public Devices::Serial, Protocols::OSC {
+    class OSC2APA102 : public Sink, Devices::Serial, Protocols::OSC {
     
 public:
     
@@ -50,7 +50,7 @@ public:
         return *this;
     }
         
-    void setup( ofJson& params );
+    void setup( ofJson& params ) override;
 
     void update() override;
     void draw()   override  {}
@@ -65,9 +65,9 @@ protected:
     
     void remove( const string& lineName );
     void remove( Line* );
-    
+        
 private:
-    
+             
     uint8_t                     brightness{255};
     
     map<string, Lines::APA102>  ledLines; // string is the OSC address

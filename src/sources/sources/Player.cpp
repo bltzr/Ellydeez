@@ -15,7 +15,6 @@ namespace Sources {
         filePath = ( params.count( "filePath" ) ) ? params[ "filePath" ] : "" ;
         width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;
         height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
-        format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ;
     }
     
 void Player::setup(){
@@ -39,10 +38,10 @@ void Player::setup(){
     
 void Player::update() {
     if ( loaded ) {
-        cout << "player " << filePath <<  " updating" << endl;
+        // cout << "player " << filePath <<  " updating" << endl;
         player.update();
     }
-    }
+}
 
 void Player::setLoopMode(int mode){
     if      (mode == 1) {player.setLoopState(OF_LOOP_NORMAL);}

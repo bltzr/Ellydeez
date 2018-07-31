@@ -12,21 +12,38 @@ poolName{name}
 {
     width =  ( params.count( "width" ) )  ? int(params[ "width" ]) : 1 ;
     height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
-    setPixelFormat( format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ) ;
+    setPixelFormatFromString( ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ) ;
     pixels.allocate(width, height, pixFormat);
 }
 
-void Pool::setPixelFormat(std::string fmt){
-    if      ( fmt=="RGBA" )  {pixFormat=OF_PIXELS_RGBA;       nChannels = 4; GLFormat = GL_RGBA; disableAlpha = 0;}
-    else if ( fmt==  "W"  )  {pixFormat=OF_PIXELS_GRAY;       nChannels = 1; GLFormat = GL_RGB;  disableAlpha = 1; }
-    else if ( fmt== "WA"  )  {pixFormat=OF_PIXELS_GRAY_ALPHA; nChannels = 2; GLFormat = GL_RGBA; disableAlpha = 0;}
-    else                     {pixFormat=OF_PIXELS_RGB; ;      nChannels = 3; GLFormat = GL_RGB;  disableAlpha = 1;}
+
+void Pool::setPixelFormatFromString(  string format) {
+    if      ( format == "RGBA" || format == "RGB_ALPHA" )   setPixelFormat( Pixel::Format::RGBA );
+    else if ( format == "RGBA" || format == "RGB_ALPHA" )   setPixelFormat( Pixel::Format::RGB );
+    else if ( format == "WA"   || format == "GRAY_ALPHA" )  setPixelFormat( Pixel::Format::WA );
+    else if ( format == "W"    || format == "GRAY" )        setPixelFormat( Pixel::Format::W );
+    else    setPixelFormat( Pixel::Format::NONE );
     
 }
+
+void Pool::setPixelFormat( Pixel::Format format ){
+    m_format = format;
+    if      ( m_format == Pixel::Format::RGBA )  {pixFormat=OF_PIXELS_RGBA;       nChannels = 4; GLFormat = GL_RGBA; disableAlpha = 0;}
+    else if ( m_format == Pixel::Format::RGB )   {pixFormat=OF_PIXELS_RGB; ;      nChannels = 3; GLFormat = GL_RGB;  disableAlpha = 1;}
+    else if ( m_format == Pixel::Format::WA )    {pixFormat=OF_PIXELS_GRAY_ALPHA; nChannels = 2; GLFormat = GL_RGBA; disableAlpha = 0;}
+    else if ( m_format == Pixel::Format::W )     {pixFormat=OF_PIXELS_GRAY;       nChannels = 1; GLFormat = GL_RGB;  disableAlpha = 1;}
+}
+
+
 
 void Pool::setActiveSource(Source* src) {
     
     activeSource = src;
+    
+    /// TODO: get format from source and act accordingly
+    
+    
+    // If the size or pixel formats differ, then we need to pass through a FBO, so let's initialize it first:
     if ( ! direct ) {
         fbo.allocate(width, height, GLFormat);
         fbo.begin();

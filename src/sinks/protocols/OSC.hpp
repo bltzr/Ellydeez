@@ -50,8 +50,8 @@ private:
 ///@brief: Encode an OSC Bundle to a Byte Buffer with SLIP encoding
 ofx::IO::ByteBuffer OSCBundle2ByteBuffer ( const osc::OutboundPacketStream& packet );
     
-} // namespace   protocols
-} //namespace Sinks
+} // namespace Protocols
+} // namespace Sinks
     
 
 #endif /* OSCDevice_hpp */

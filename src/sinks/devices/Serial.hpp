@@ -21,7 +21,7 @@ using namespace std;
 namespace Sinks {
 namespace Devices {
     
-class Serial : public Sink {
+class Serial {
     
 public:
     
@@ -37,7 +37,7 @@ public:
     
     ~Serial() = default;
     
-    void setup() override; 
+    void setup();
     
     void setup( string deviceName ) {
         name = deviceName;
@@ -49,9 +49,9 @@ public:
         setup();
     }
     
-    void update() override  { cout << "serial updating" << endl;}
-    void draw()   override  {}
-    void exit()   override  {}
+    void update()   { cout << "serial updating" << endl;}
+    void draw()     {}
+    void exit()     {}
     
     void reconnect(){
         if ( !dev.setup(name) )

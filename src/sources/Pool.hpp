@@ -19,7 +19,7 @@
 using namespace std;
 
 class SourceFactory;
-class LineBase;
+class Line;
 
 class Pool {
     
@@ -45,7 +45,7 @@ public:
     // resizes and returns false if passed dimensions exceed current dimensions
     bool    checkSize( float width, float height );
     
-    string  getPixelFormat()                { return format; }
+    Pixel::Format  getPixelFormat()                { return m_format; }
     
     void update();
     void draw();
@@ -56,7 +56,8 @@ protected:
     void    removeSource( string name );
     void    moveSourceTo( string name, Pool* dstPool );
     
-    void    setPixelFormat( std::string fmt );
+    void    setPixelFormat( Pixel::Format format );
+    void    setPixelFormatFromString( string format );
 
     // if we want to be able to change the name, we must update it
     // in all registered Sources and all client Sinks
@@ -73,11 +74,11 @@ private:
     ofPixels                pixels;
     
     
-    string                  format{"RGB"}; // other choices: RGBA, W, WA
-    int                     nChannels{3};
-    ofPixelFormat           pixFormat{OF_PIXELS_RGB};
-    int                     GLFormat{GL_RGB};
-    bool                    disableAlpha{1};
+    Pixel::Format             m_format{ Pixel::Format::NONE };
+    int                     nChannels{ 3 };
+    ofPixelFormat           pixFormat{ OF_PIXELS_RGB };
+    int                     GLFormat{ GL_RGB };
+    bool                    disableAlpha{ 1 };
     
     int                     width {0};
     int                     height {0};
@@ -85,7 +86,8 @@ private:
     
     
     friend class            SourceFactory;
-    friend class            LineBase;
+    friend class            Sink;
+    friend class            Line;
 
 };
 

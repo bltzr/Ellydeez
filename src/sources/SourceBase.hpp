@@ -8,10 +8,7 @@
 #ifndef SourceBase_hpp
 #define SourceBase_hpp
 
-#include <stdio.h>
-#include "ofMain.h"
-
-using namespace std;
+#include "../Common.hpp"
 
 class SourceFactory;
 
@@ -37,14 +34,9 @@ protected:
     
     virtual ~Source() = default ;
     
-    void setPixelFormat(std::string fmt);
-    
-    
     float           width{1};
     float           height{0};
-    
-    string          format{"RGB"}; // other choices: RGBA, G, GA
-    ofPixelFormat   pixFormat{OF_PIXELS_RGB};
+
     
 private:
     
