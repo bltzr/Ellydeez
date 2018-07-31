@@ -28,9 +28,7 @@ public:
     virtual void exit()                     = 0;
     
     virtual void setPool( Pool* sourcePool ) { source = sourcePool;  }
-    virtual void setPool( ofJson& params )   { source = pools[ params[ "source" ] ]; }
-    
-    virtual void addPools( map< string, Pool* >& pools );
+   //virtual void setPool( ofJson& params )   { source = pools[ params[ "source" ] ]; }
     
     Pixel::Format getPixelFormat() { return m_format; }
     
@@ -44,7 +42,7 @@ protected:
     void    setPixelFormatFromString( string format );
     
     Pool*                   source;
-    map< string, Pool* >    pools;
+
     
 private:
     

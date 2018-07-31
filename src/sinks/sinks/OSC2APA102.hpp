@@ -56,8 +56,10 @@ public:
     void draw()   override  {}
     void exit()   override  {}
         
+    void addPools( map< string, Pool* >& pools );
+        
     void setPool( Pool* sourcePool ) override;
-    void setPool( ofJson& params ) override;
+    void setPool( ofJson& params );
         
 protected:
         
@@ -70,14 +72,17 @@ private:
              
     uint8_t                     brightness{255};
     
-    map<string, Lines::APA102>  ledLines; // string is the OSC address
-    map<string, Lines::DMX>     dmxLines; // string is the OSC address
+    map< string, Lines::APA102 >  ledLines; // string is the OSC address
+    map< string, Lines::DMX >     dmxLines; // string is the OSC address
     
-    map<string, Line*>          allLines; // string is the type + address
+    map< string, Line* >          allLines; // string is the type + address
+        
+    map< string, Pool* >          pools;
     
-    int                         brightXpos {-1};
-    int                         brightYpos {-1};
-    int                         brightChan  {0};
+    float                         brightXpos {-1};
+    float                         brightYpos {-1};
+    int                           brightChan  {0};
+    
         
 };
 

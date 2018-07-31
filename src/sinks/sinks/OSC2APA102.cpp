@@ -30,9 +30,10 @@ void OSC2APA102::setup( ofJson& params ){
         add( line.key(), line.value() );
     }
     
-    // Set pixel format, pool and check that they match
-    setPixelFormatFromString( ( params.count( "format" ) ) ? params[ "format" ] : "RGB" );
+    // Set pool, pixel format, and check that they match
     source = pools[ params[ "source"] ];
+    setPixelFormatFromString( ( params.count( "format" ) ) ? params[ "format" ] : "RGB" );
+    source -> checkPixelFormat( getPixelFormat() );
     
     // setting appropriate pool for each line (we assume pools have been constructed)
     for (auto& l : allLines) {
@@ -41,6 +42,13 @@ void OSC2APA102::setup( ofJson& params ){
         ln -> setPool( pl ) ;
         // check that the line won't try to fetch pixels over the pool's size, resize it if needed
         pl -> checkSize( ln -> getWidth(), ln -> getHeight() );
+        pl -> checkPixelFormat( ln -> getPixelFormat() );
+    }
+    
+    for (auto& l : ledLines ) {
+        auto& ln = l.second;
+        ln.getPool() -> checkSize( l.second.getBrightXpos(), l.second.getBrightYpos() );
+        ln.getPool() -> checkPixelFormat( Pixel::Format(ln.getBrightChan() ) );
     }
     
     // setting brightness params
@@ -52,7 +60,9 @@ void OSC2APA102::setup( ofJson& params ){
         brightYpos = ( bParams.count( "Ypos" ) ) ? int(bParams[ "Ypos" ]) : 0 ;
         brightChan = ( bParams.count( "channel" ) ) ? int(bParams[ "channel" ]) : 0 ;
         source -> checkSize ( brightXpos, brightYpos );
+        source -> checkPixelFormat( Pixel::Format( brightChan ) );
     }
+    
     
 }
 
@@ -84,6 +94,11 @@ void OSC2APA102::update() {
     //sendPacket( Protocols::OSCBundle2ByteBuffer( fetchBundle() ) );
     
     
+}
+    
+void OSC2APA102::addPools(map< string, Pool* >& sourcePools) {
+    for (auto& pool : sourcePools)
+        pools[ pool.first ] = pool.second;
 }
 
 void OSC2APA102::setPool( Pool* sourcePool ) {

@@ -16,7 +16,7 @@ poolName{name}
     pixels.allocate(width, height, pixFormat);
 }
 
-bool Pool::checkFormat ( Pixel::Format format ){
+bool Pool::checkPixelFormat ( Pixel::Format format ){
     if (format > m_format ) { m_format = format; return false; }
     return true;
 }

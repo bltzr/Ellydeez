@@ -8,10 +8,7 @@
 #include "SinkBase.hpp"
 
 
-void Sink::addPools(map< string, Pool* >& sourcePools) {
-    for (auto& pool : sourcePools)
-        pools[ pool.first ] = pool.second;
-}
+
 
 void Sink::setPixelFormatFromString(  string format) {
     if      ( format == "RGBA" || format == "RGB_ALPHA" )   setPixelFormat( Pixel::Format::RGBA );

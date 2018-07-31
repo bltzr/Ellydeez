@@ -40,6 +40,7 @@ public:
     int     getNumberOfBytes()     { return nBytes;}
     
     virtual void    setPool  ( Pool* sourcePool ) { source = sourcePool; }
+    Pool* getPool() {return source;}
     
 protected:
     
@@ -68,8 +69,8 @@ private:
     
     Pixel::Format   m_format{ Pixel::Format::RGB };
     ofPixelFormat   pixFormat{OF_PIXELS_RGB};
-    int             nChannels{3};
     
+    int             nChannels{3};
     int             nPix{0};           // number of pixels
     int             nBytes{0};          // number of pixels
     

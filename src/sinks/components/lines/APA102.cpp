@@ -24,6 +24,7 @@ namespace Lines {
             brightXpos = ( bParams.count( "Xpos" ) ) ? int(bParams[ "Xpos" ]) : 0 ;
             brightYpos = ( bParams.count( "Ypos" ) ) ? int(bParams[ "Ypos" ]) : 0 ;
             brightChan = ( bParams.count( "channel" ) ) ? int(bParams[ "channel" ]) : 0 ;
+            source -> checkSize( brightXpos, brightYpos );
         }
     }
 

@@ -39,12 +39,12 @@ public:
     void    setActiveSource(Source* src);
     Source* getActiveSource() const         { return activeSource; }
     
-    int     getWidth()                      { return width; }
-    int     getHeight()                     { return height; }
+    int     getWidth() const                { return width; }
+    int     getHeight() const               { return height; }
     
     // resizes and returns false if passed dimensions exceed current dimensions
     bool    checkSize( float width, float height );
-    bool    checkFormat ( Pixel::Format format );
+    bool    checkPixelFormat ( Pixel::Format format );
     
     Pixel::Format  getPixelFormat()                { return m_format; }
     

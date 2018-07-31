@@ -49,10 +49,6 @@ public:
         setup();
     }
     
-    void update()   { cout << "serial updating" << endl;}
-    void draw()     {}
-    void exit()     {}
-    
     void reconnect(){
         if ( !dev.setup(name) )
             ofLogError("Serial device") << "Can't connect to " << name;
