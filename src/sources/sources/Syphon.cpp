@@ -23,9 +23,7 @@ void Syphon::setup(){
     syphon.set( name , app );
     
     syphon.getTexture();
-    
-
-    
+  
 }
 
 void Syphon::update(){
@@ -41,7 +39,7 @@ void Syphon::draw (float x, float y, float w, float h) {
 }
     
 ofPixels& Syphon::getPixels() {
-    //syphon.getTexture().readToPixels(pixels);
+    syphon.getTexture().readToPixels(pixels);
     return pixels;
 }
 

@@ -44,6 +44,7 @@ public:
     
     // resizes and returns false if passed dimensions exceed current dimensions
     bool    checkSize( float width, float height );
+    bool    checkFormat ( Pixel::Format format );
     
     Pixel::Format  getPixelFormat()                { return m_format; }
     

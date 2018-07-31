@@ -29,7 +29,7 @@ public:
     
     const ofPixels& getPixels();
     
-    string  getPixelFormat() { return format; }
+    Pixel::Format  getPixelFormat() { return m_format; }
     
     int     getWidth()      { return width;}
     int     getHeight()     { return height;}
@@ -50,7 +50,8 @@ protected:
     
     virtual ~Line() = default;
     
-    void    setPixelFormat( string fmt );
+    void    setPixelFormat( Pixel::Format format );
+    void    setPixelFormatFromString( string format );
     
     void    fetchPixelsfromSource();
     
@@ -65,7 +66,7 @@ protected:
     
 private:
     
-    string          format{"RGB"}; // other choices: RGBA, W, WA
+    Pixel::Format   m_format{ Pixel::Format::RGB };
     ofPixelFormat   pixFormat{OF_PIXELS_RGB};
     int             nChannels{3};
     

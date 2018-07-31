@@ -25,12 +25,12 @@ public:
     
     void setup( ofJson& params );
     
-    void setup() override;
-    void update() override;
-    void draw() override {}
-    void exit() override {}
+    void setup()    override;
+    void update()   override;
+    void draw()     override {}
+    void exit()     override {}
     
-    void draw (float x, float y, float w, float h) override;
+    void draw ( float x, float y, float w, float h ) override;
 
     ofPixels& getPixels() override;
     
@@ -42,9 +42,6 @@ private:
     ofxSyphonClient     syphon;
     ofFbo               fbo;
     ofPixels            pixels;
-    
-    int                 GLFormat{GL_RGB};
-    bool                disableAlpha{1};
     
     string              name{""};
     string              app{"Simple Server"};

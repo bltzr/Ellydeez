@@ -48,7 +48,7 @@ protected:
     
 private:
     
-    Pixel::Format             m_format{ Pixel::Format::NONE };
+    Pixel::Format           m_format{ Pixel::Format::NONE };
     ofPixelFormat           pixFormat{OF_PIXELS_RGB};
     
     friend class SinkFactory;
