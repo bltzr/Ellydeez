@@ -30,7 +30,7 @@ void SourceFactory::addPools( ofJson& c ){
     for(auto pool = c.begin(); pool!= c.end(); ++pool ){
         auto poolName = pool.key() ; auto& poolParams = pool.value();
         cout << endl << poolName << endl << setw(4) << poolParams << endl;
-        pools.emplace( poolName , Pool( poolName, poolParams ) );
+        pools.emplace( poolName , Pool( poolParams ) );
         auto p = &pools[ poolName ];
         for (string srcN : poolParams[ "sources" ])
             if ( sources[ srcN ] ) {

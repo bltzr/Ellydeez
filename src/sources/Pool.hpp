@@ -16,8 +16,6 @@
 #include "Player.hpp"
 //#include "SourceFactory.hpp"
 
-using namespace std;
-
 class SourceFactory;
 class Line;
 
@@ -27,14 +25,12 @@ public:
     
     Pool() = default;
 
-    Pool(string name, ofJson& params);
+    Pool(ofJson& params);
     
     ofPixels& getPixels()                   { return pixels; }
     
     uint8_t getPixelChannelValue(int Xpos, int Ypos = 0, int channel = 0);
     int     getPixelSummedValue (int Xpos, int Ypos = 0);
-
-    string  getName() const                 { return poolName; }
     
     void    setActiveSource(Source* src);
     Source* getActiveSource() const         { return activeSource; }
@@ -59,13 +55,8 @@ protected:
     
     void    setPixelFormat( Pixel::Format format );
     void    setPixelFormatFromString( string format );
-
-    // if we want to be able to change the name, we must update it
-    // in all registered Sources and all client Sinks
     
 private:
-    
-    string                  poolName;
     
     map< string, Source* >  poolSources;
 
