@@ -10,7 +10,6 @@
 namespace Sinks {
 namespace Lines {
     
-
     APA102::APA102( ofJson& params  ):
     Line{ params },
     brightXpos{-1},

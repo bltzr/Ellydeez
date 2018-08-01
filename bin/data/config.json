@@ -19,7 +19,7 @@
                 "player.test",
                 "syphon.sserver"
             ],
-            "activeSource": "syphon.sserver",
+            "activeSource": "player.test",
             "width": 132,
             "height": 19
         }
@@ -47,7 +47,7 @@
             "filePath": "test2.mov",
             "width": 132,
             "height": 19,
-            "format": "RGBA",
+            "volume": 0.23,
             "autoplay": true
         }
     },

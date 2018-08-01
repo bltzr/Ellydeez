@@ -43,6 +43,7 @@ private:
     ofFbo               fbo;
     ofPixels            pixels;
     
+    // user-settable parameters:
     string              name{""};
     string              app{"Simple Server"};
     

@@ -28,7 +28,7 @@ void Pool::setPixelFormatFromString(  string format) {
     else    setPixelFormat( Pixel::Format::NONE );
 }
 
-void Pool::setPixelFormat( Pixel::Format format ){
+void Pool::setPixelFormat( Pixel::Format format ) {
     m_format = format;
     if      ( m_format == Pixel::Format::RGBA )  { pixFormat=OF_PIXELS_RGBA;       nChannels = 4; GLFormat = GL_RGBA; disableAlpha = 0; }
     else if ( m_format == Pixel::Format::RGB )   { pixFormat=OF_PIXELS_RGB; ;      nChannels = 3; GLFormat = GL_RGB;  disableAlpha = 1; }
@@ -36,12 +36,17 @@ void Pool::setPixelFormat( Pixel::Format format ){
     else if ( m_format == Pixel::Format::W )     { pixFormat=OF_PIXELS_GRAY;       nChannels = 1; GLFormat = GL_RGB;  disableAlpha = 1; }
 }
 
-
-
 void Pool::setActiveSource(Source* src) {
-    
-    activeSource = src;
-    
+    if ( src ) {
+        activeSource = src;
+        float srcW = activeSource -> getWidth();
+        float srcH = activeSource -> getHeight();
+        if ( srcW > width || srcH > height ) {
+            direct = false;
+            width = srcW;
+            height = srcH;
+        }
+    }
     // If the size or pixel formats differ, then we need to pass through a FBO, so let's initialize it first:
     if ( ! direct ) {
         fbo.allocate(width, height, GLFormat);
@@ -64,6 +69,8 @@ void Pool::update() {
     
     if ( activeSource ) {
         
+        activeSource -> update();
+        
         if ( direct ) {
             
             pixels = activeSource -> getPixels();
@@ -76,11 +83,7 @@ void Pool::update() {
             fbo.end();
 
             fbo.readToPixels(pixels);
-            
         }
-        
-        activeSource -> update();
-        pixels = activeSource -> getPixels();
     }
 }
 

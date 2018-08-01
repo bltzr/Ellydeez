@@ -11,8 +11,6 @@
 #include <stdio.h>
 #include "SourceBase.hpp"
 
-using namespace std;
-
 namespace Sources {
 
 class Network : public Source {

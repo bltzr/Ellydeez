@@ -29,10 +29,10 @@ public:
     
     ofPixels& getPixels()                   { return pixels; }
     
-    uint8_t getPixelChannelValue(int Xpos, int Ypos = 0, int channel = 0);
-    int     getPixelSummedValue (int Xpos, int Ypos = 0);
+    uint8_t getPixelChannelValue( int Xpos, int Ypos = 0, int channel = 0 );
+    int     getPixelSummedValue ( int Xpos, int Ypos = 0 );
     
-    void    setActiveSource(Source* src);
+    void    setActiveSource( Source* src );
     Source* getActiveSource() const         { return activeSource; }
     
     int     getWidth() const                { return width; }
@@ -58,24 +58,26 @@ protected:
     
 private:
     
-    map< string, Source* >  poolSources;
-
-    
+    // user-settable parameters:
     Source*                 activeSource{nullptr};
-    ofFbo                   fbo;
-    ofPixels                pixels;
+    Pixel::Format           m_format{ Pixel::Format::NONE };
+
+    // read-only parameters:
+    float                   width {0};
+    float                   height {0};
+    bool                    direct {false};
     
-    
-    Pixel::Format             m_format{ Pixel::Format::NONE };
+    // internal (invisible) parameters
     int                     nChannels{ 3 };
     ofPixelFormat           pixFormat{ OF_PIXELS_RGB };
     int                     GLFormat{ GL_RGB };
     bool                    disableAlpha{ 1 };
     
-    int                     width {0};
-    int                     height {0};
-    bool                    direct {false};
+    // Members
+    ofFbo                   fbo;
+    ofPixels                pixels;
     
+    map< string, Source* >  poolSources;
     
     friend class            SourceFactory;
     friend class            Sink;

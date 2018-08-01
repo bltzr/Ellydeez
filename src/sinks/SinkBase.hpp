@@ -12,9 +12,6 @@
 #include "ofMain.h"
 #include "../sources/Pool.hpp"
 
-
-using namespace std;
-
 class SinkFactory;
 
 class Sink {

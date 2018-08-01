@@ -36,6 +36,7 @@ protected:
     
     virtual ~Source() = default ;
     
+    // read-only parameters:
     float           width{1};
     float           height{0};
 

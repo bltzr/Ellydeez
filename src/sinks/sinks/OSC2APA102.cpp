@@ -5,7 +5,6 @@
 //  Created by Pascal Baltazar on 13/07/2018.
 //
 
-#include <stdio.h>
 #include "OSC2APA102.hpp"
 
 namespace Sinks{
@@ -62,8 +61,6 @@ void OSC2APA102::setup( ofJson& params ){
         source -> checkSize ( brightXpos, brightYpos );
         source -> checkPixelFormat( Pixel::Format( brightChan ) );
     }
-    
-    
 }
 
 void OSC2APA102::update() {

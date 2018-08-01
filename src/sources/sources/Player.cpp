@@ -13,8 +13,8 @@ namespace Sources {
     Source( )
     {
         filePath = ( params.count( "filePath" ) ) ? params[ "filePath" ] : "" ;
-        width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;
-        height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
+        autoplay = ( params.count( "autoplay" ) ) ? int(params[ "autoplay" ]) : true ;
+        volume   = ( params.count( "volume" ) ) ? int(params[ "volume" ]) : 1. ;
     }
     
 void Player::setup(){
@@ -30,7 +30,7 @@ void Player::setup(){
         if(autoplay){
             player.play();
             player.setSpeed(speed);
-        }
+        } else { player.stop(); }
         
         player.setPaused(paused);
     }
@@ -39,6 +39,8 @@ void Player::setup(){
 void Player::update() {
     if ( loaded ) {
         // cout << "player " << filePath <<  " updating" << endl;
+        player.setVolume( volume );
+        player.setSpeed( speed );
         player.update();
     }
 }
@@ -54,11 +56,11 @@ void Player::draw (float x, float y, float w, float h) {
 }
 
 float Player::getWidth() {
-    return player.getWidth();
+    return width = player.getWidth();
 }
 
 float Player::getHeight() {
-    return player.getHeight();
+    return height = player.getHeight();
 }
     
 } //namespace Sources

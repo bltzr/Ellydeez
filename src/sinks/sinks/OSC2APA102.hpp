@@ -11,11 +11,8 @@
 #include <list>
 #include "../devices/Serial.hpp"
 #include "../protocols/OSC.hpp"
-
 #include "../components/lines/APA102.hpp"
 #include "../components/lines/DMX.hpp"
-
-using namespace std;
 
 namespace Sinks {
     

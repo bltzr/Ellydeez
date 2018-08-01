@@ -44,11 +44,11 @@ ofPixels& Syphon::getPixels() {
 }
 
 float Syphon::getWidth() {
-    return syphon.getTexture().getWidth();
+    return width = syphon.getTexture().getWidth();
 }
 
 float Syphon::getHeight() {
-    return syphon.getTexture().getHeight();
+    return height = syphon.getTexture().getHeight();
 }
     
     

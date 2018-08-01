@@ -11,8 +11,6 @@
 #include <stdio.h>
 #include "SourceBase.hpp"
 
-using namespace std;
-
 namespace Sources {
     
 class Player : public Source {
@@ -39,17 +37,19 @@ public:
     void setLoopMode(int mode);
     
 private:
-    
+
     ofVideoPlayer   player;
     
+    // user-settable parameters:
     string          filePath;
-    bool            autoplay{0};
+    bool            autoplay{true};
     int             loop{1};
-    
-    bool            loaded{0};
-    
     float           speed{1.0};
     bool            paused{false};
+    float           volume {1};
+    
+    // read-only parameters:
+    bool            loaded{0};
     
 };
 
