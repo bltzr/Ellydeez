@@ -65,7 +65,7 @@ private:
     // read-only parameters:
     float                   width {0};
     float                   height {0};
-    bool                    direct {false};
+    bool                    direct {true};
     
     // internal (invisible) parameters
     int                     nChannels{ 3 };
