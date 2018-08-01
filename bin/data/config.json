@@ -12,7 +12,8 @@
             ],
             "activeSource": "player.Nebula",
             "width": 45,
-            "height": 45
+            "height": 45,
+            "format": "RGB"
         },
         "rim": {
             "sources": [
@@ -21,7 +22,8 @@
             ],
             "activeSource": "player.test",
             "width": 132,
-            "height": 19
+            "height": 19,
+            "format": "RGB"
         }
     },
     "sources": {
@@ -40,7 +42,6 @@
             "filePath": "Nebula.mov",
             "width": 45,
             "height": 45,
-            "format": "RGB",
             "autoplay": false
         },
         "player.test": {

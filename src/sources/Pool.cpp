@@ -40,24 +40,21 @@ void Pool::setPixelFormat( Pixel::Format format ) {
 }
 
 void Pool::setActiveSource(Source* src) {
-    if ( src && activeSource != src ) {
+    if ( activeSource != src ) {
         activeSource = src;
-        float srcW = activeSource -> getWidth();
-        float srcH = activeSource -> getHeight();
-        cout << "source dims= " << srcW << " / " << srcH << endl;
-        cout << "pool dims= " << width << " / " << height << endl;
-        if ( srcW > width || srcH > height ) {
-            direct = false;
-            width = srcW;
-            height = srcH;
-        }
-        if ( activeSource -> getPixelFormat() != m_format ) {
-            direct = false;
-        }
-        cout << "formats : source: " << int (activeSource -> getPixelFormat()) << " / pool: " << int( m_format ) << endl;
-        cout << "direct ? " << direct << endl;
+        checkActiveSource();
     }
     allocate();
+}
+
+bool Pool::checkActiveSource() {
+    if ( activeSource ) {
+        float srcW = activeSource -> getWidth();
+        float srcH = activeSource -> getHeight();
+        if ( srcW > width || srcH > height || activeSource -> getPixelFormat() != m_format )  {
+            return direct = false;
+        } else return direct = true;
+    }
 }
 
 bool Pool::checkSize( float w, float h ) {

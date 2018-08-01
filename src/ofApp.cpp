@@ -20,6 +20,7 @@ void ofApp::setup(){
         sources.addPools( conf[ "pools" ] );
         sinks.addPools( sources.getPools() );
         sinks.setup( conf["sinks"] );
+        sources.checkup();
         
         
     }

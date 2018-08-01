@@ -34,6 +34,7 @@ public:
     
     void    setActiveSource( Source* src );
     Source* getActiveSource() const         { return activeSource; }
+    bool    checkActiveSource();
     
     int     getWidth() const                { return width; }
     int     getHeight() const               { return height; }

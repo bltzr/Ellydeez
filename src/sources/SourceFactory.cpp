@@ -20,7 +20,13 @@ void SourceFactory::setup(ofJson& c){
     for(auto src = c.begin(); src!= c.end(); ++src ){
         add( src.key(), src.value() );
     }
+}
 
+void SourceFactory::checkup() {
+    for (auto& p : pools) {
+        cout << p.first << ": direct ? " << p.second.checkActiveSource() << endl;
+    }
+    
 }
 
 void SourceFactory::addPools( ofJson& c ){
@@ -37,6 +43,7 @@ void SourceFactory::addPools( ofJson& c ){
                 p -> addSource( srcN, sources[ srcN ] ) ;
                 cout << "adding source " << srcN << " to pool " << poolName << endl;
             }
+        cout << "setting source: " << poolParams[ "activeSource" ] << " to pool: " << poolName << endl;
         p -> setActiveSource ( ( poolParams.count( "activeSource" ) ) ?
                   p -> poolSources[ poolParams[ "activeSource" ] ] : nullptr );
     }

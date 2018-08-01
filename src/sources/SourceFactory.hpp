@@ -32,6 +32,8 @@ public:
     
     void addPools( ofJson& config );
     
+    void checkup();
+    
     void update();
     void draw();
     void exit();
