@@ -42,7 +42,7 @@ public:
     bool    checkSize( float width, float height );
     bool    checkPixelFormat ( Pixel::Format format );
     
-    Pixel::Format  getPixelFormat()                { return m_format; }
+    Pixel::Format  getPixelFormat()         { return m_format; }
     
     void update();
     void draw();

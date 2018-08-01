@@ -31,8 +31,9 @@ public:
     
     ofPixels& getPixels() override { return player.getPixels(); }
     
-    float getWidth() override;
-    float getHeight() override;
+    float           getWidth() override;
+    float           getHeight() override;
+    Pixel::Format   getPixelFormat() override;
     
     void setLoopMode(int mode);
     

@@ -16,18 +16,17 @@ class Source {
     
 public:
     
-    virtual void        setup()            = 0;
-    virtual void        update()           = 0;
-    virtual void        draw()             = 0;
-    virtual void        exit()             = 0;
+    virtual void            setup()            = 0;
+    virtual void            update()           = 0;
+    virtual void            draw()             = 0;
+    virtual void            exit()             = 0;
     
-    virtual void        draw (float x, float y, float w, float h) = 0;
-    virtual ofPixels&   getPixels()   = 0;
+    virtual void            draw (float x, float y, float w, float h) = 0;
+    virtual ofPixels&       getPixels()   = 0;
     
-    virtual float       getWidth()          = 0;
-    virtual float       getHeight()         = 0;
-    
-    bool                outputsPixels() { return hasPixels; }
+    virtual float           getWidth()          = 0;
+    virtual float           getHeight()         = 0;
+    virtual Pixel::Format   getPixelFormat()    = 0;
     
 protected:
     
@@ -37,12 +36,10 @@ protected:
     virtual ~Source() = default ;
     
     // read-only parameters:
-    float           width{1};
-    float           height{0};
+    float                   width{1};
+    float                   height{0};
 
 private:
-    
-    bool            hasPixels{false};
     
     friend class    SourceFactory;
     

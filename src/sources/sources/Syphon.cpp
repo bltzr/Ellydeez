@@ -14,6 +14,8 @@ Source( )
 {
     name = ( params.count( "name" ) ) ? params[ "name" ] : "" ;
     app = ( params.count( "app" ) ) ? params[ "app" ] : "Simple Server" ;
+    width =  ( params.count( "width" ) )  ? int(params[ "width" ]) : 1 ;
+    height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
 }
 
 
@@ -46,6 +48,9 @@ float Syphon::getHeight() {
     return height = syphon.getTexture().getHeight();
 }
     
+Pixel::Format Syphon::getPixelFormat() {
+    return Pixel::Format::NONE;
+}
     
 } // namespace Sources
 

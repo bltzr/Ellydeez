@@ -33,6 +33,7 @@ public:
     void draw ( float x, float y, float w, float h ) override;
 
     ofPixels& getPixels() override;
+    Pixel::Format   getPixelFormat() override;
     
     float getWidth() override;
     float getHeight() override;

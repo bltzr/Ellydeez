@@ -15,6 +15,8 @@ namespace Sources {
         filePath = ( params.count( "filePath" ) ) ? params[ "filePath" ] : "" ;
         autoplay = ( params.count( "autoplay" ) ) ? int(params[ "autoplay" ]) : true ;
         volume   = ( params.count( "volume" ) ) ? int(params[ "volume" ]) : 1. ;
+        width =  ( params.count( "width" ) )  ? int(params[ "width" ]) : 1 ;
+        height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
     }
     
 void Player::setup(){
@@ -62,6 +64,17 @@ float Player::getWidth() {
 float Player::getHeight() {
     return height = player.getHeight();
 }
+    
+Pixel::Format Player::getPixelFormat() {
+    Pixel::Format format { Pixel::Format::NONE };
+    auto pixFormat = player.getPixelFormat();
+    if      ( pixFormat == OF_PIXELS_RGBA       )  { format = Pixel::Format::RGBA; }
+    else if ( pixFormat == OF_PIXELS_RGB        )  { format = Pixel::Format::RGB;  }
+    else if ( pixFormat == OF_PIXELS_GRAY_ALPHA )  { format = Pixel::Format::WA;   }
+    else if ( pixFormat == OF_PIXELS_GRAY       )  { format = Pixel::Format::W;    }
+    return format;
+}
+    
     
 } //namespace Sources
 

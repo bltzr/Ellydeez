@@ -40,7 +40,7 @@ void Pool::setPixelFormat( Pixel::Format format ) {
 }
 
 void Pool::setActiveSource(Source* src) {
-    if ( src ) {
+    if ( src && activeSource != src ) {
         activeSource = src;
         float srcW = activeSource -> getWidth();
         float srcH = activeSource -> getHeight();
@@ -49,6 +49,10 @@ void Pool::setActiveSource(Source* src) {
             width = srcW;
             height = srcH;
         }
+        if ( activeSource -> getPixelFormat() != m_format ) {
+            direct = false;
+        }
+        cout << "direct ? " << direct << endl;
     }
     allocate();
 }
@@ -58,11 +62,11 @@ bool Pool::checkSize( float w, float h ) {
     if ( w > width ) { width = w; res = false; }
     if ( h > height ) { height = h; res = false; }
     if ( ! res ) {
-        if (( direct = ( width == activeSource -> getWidth()
-                      && height == activeSource -> getHeight() ) )) {
-            allocate();
-        }
+        direct = ( width == activeSource -> getWidth()
+                && height == activeSource -> getHeight() );
+        allocate();
     }
+    cout << "direct ? " << direct << endl;
     return res;
 }
 
@@ -121,7 +125,7 @@ void Pool::removeSource( string srcName ) {
 }
 
 void Pool::allocate() {
-    if (( direct = ( width == activeSource -> getWidth() && height == activeSource -> getHeight() ) )) {
+    if ( direct ) {
         pixels.allocate(width, height, pixFormat);
         texture.allocate( pixels );
     } else {
