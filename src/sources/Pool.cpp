@@ -12,11 +12,11 @@ Pool::Pool(ofJson& params)
     width =  ( params.count( "width" ) )  ? int(params[ "width" ]) : 1 ;
     height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
     setPixelFormatFromString( ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ) ;
-    pixels.allocate(width, height, pixFormat);
+    allocate();
 }
 
 bool Pool::checkPixelFormat ( Pixel::Format format ){
-    if (format > m_format ) { m_format = format; return false; }
+    if (format > m_format ) { setPixelFormat( format ); return false; }
     return true;
 }
 
@@ -29,11 +29,14 @@ void Pool::setPixelFormatFromString(  string format) {
 }
 
 void Pool::setPixelFormat( Pixel::Format format ) {
-    m_format = format;
-    if      ( m_format == Pixel::Format::RGBA )  { pixFormat=OF_PIXELS_RGBA;       nChannels = 4; GLFormat = GL_RGBA; disableAlpha = 0; }
-    else if ( m_format == Pixel::Format::RGB )   { pixFormat=OF_PIXELS_RGB; ;      nChannels = 3; GLFormat = GL_RGB;  disableAlpha = 1; }
-    else if ( m_format == Pixel::Format::WA )    { pixFormat=OF_PIXELS_GRAY_ALPHA; nChannels = 2; GLFormat = GL_RGBA; disableAlpha = 0; }
-    else if ( m_format == Pixel::Format::W )     { pixFormat=OF_PIXELS_GRAY;       nChannels = 1; GLFormat = GL_RGB;  disableAlpha = 1; }
+    if ( m_format != format ) {
+        m_format = format;
+        if      ( m_format == Pixel::Format::RGBA )  { pixFormat=OF_PIXELS_RGBA;       nChannels = 4; GLFormat = GL_RGBA; disableAlpha = 0; }
+        else if ( m_format == Pixel::Format::RGB )   { pixFormat=OF_PIXELS_RGB; ;      nChannels = 3; GLFormat = GL_RGB;  disableAlpha = 1; }
+        else if ( m_format == Pixel::Format::WA )    { pixFormat=OF_PIXELS_GRAY_ALPHA; nChannels = 2; GLFormat = GL_RGBA; disableAlpha = 0; }
+        else if ( m_format == Pixel::Format::W )     { pixFormat=OF_PIXELS_GRAY;       nChannels = 1; GLFormat = GL_RGB;  disableAlpha = 1; }
+        allocate();
+    }
 }
 
 void Pool::setActiveSource(Source* src) {
@@ -47,21 +50,19 @@ void Pool::setActiveSource(Source* src) {
             height = srcH;
         }
     }
-    // If the size or pixel formats differ, then we need to pass through a FBO, so let's initialize it first:
-    if ( ! direct ) {
-        fbo.allocate(width, height, GLFormat);
-        fbo.begin();
-        if (disableAlpha) ofDisableAlphaBlending();
-        ofClear(0,0,0);
-        fbo.end();
-    }
+    allocate();
 }
 
 bool Pool::checkSize( float w, float h ) {
     bool res = true;
     if ( w > width ) { width = w; res = false; }
     if ( h > height ) { height = h; res = false; }
-    if ( ! res ) direct = ( width == activeSource -> getWidth() && height == activeSource -> getHeight() ) ;
+    if ( ! res ) {
+        if (( direct = ( width == activeSource -> getWidth()
+                      && height == activeSource -> getHeight() ) )) {
+            allocate();
+        }
+    }
     return res;
 }
 
@@ -103,6 +104,14 @@ void Pool::draw() {
     fbo.draw( 0 ,0, width, height );
 }
 
+void Pool::draw(float x, float y, float w, float h) {
+    if ( direct ) {
+        texture.loadData( pixels );
+    } else {
+        fbo.draw( x , y, w, h );
+    }
+}
+
 void Pool::addSource( string srcName, Source* src ) {
     poolSources[ srcName ] = src  ;
 }
@@ -111,9 +120,18 @@ void Pool::removeSource( string srcName ) {
     poolSources.erase( srcName );
 }
 
-void Pool::moveSourceTo( string srcName, Pool* dstPool ){
-    //if ( poolSources[ srcName ] ) {
-      //  dstPool -> addSource ( srcName, poolSources[ srcName ] );
-        //poolSources.erase( srcName );
-    //}
+void Pool::allocate() {
+    if (( direct = ( width == activeSource -> getWidth() && height == activeSource -> getHeight() ) )) {
+        pixels.allocate(width, height, pixFormat);
+        texture.allocate( pixels );
+    } else {
+        fbo.allocate(width, height, GLFormat);
+        fbo.begin();
+        if (disableAlpha) {
+            ofDisableAlphaBlending();
+            ofClear(0,0,0);
+        } else { ofClear(0,0,0, 255); }
+        fbo.end();
+    }
 }
+

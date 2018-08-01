@@ -18,20 +18,15 @@ Source( )
 
 
 void Syphon::setup(){
-
     syphon.setup();
     syphon.set( name , app );
     
     syphon.getTexture();
-  
 }
 
 void Syphon::update(){
-    
     // cout << "syphon" << name <<  " / " << app << " updating" << endl;
-    
     //syphon.getTexture().readToPixels(pixels);
-    
 }
 
 void Syphon::draw (float x, float y, float w, float h) {

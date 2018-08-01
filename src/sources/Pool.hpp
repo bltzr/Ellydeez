@@ -46,12 +46,12 @@ public:
     
     void update();
     void draw();
+    void draw  (float x, float y, float w, float h);
     
 protected:
     
     void    addSource( string name, Source* src );
     void    removeSource( string name );
-    void    moveSourceTo( string name, Pool* dstPool );
     
     void    setPixelFormat( Pixel::Format format );
     void    setPixelFormatFromString( string format );
@@ -73,11 +73,15 @@ private:
     int                     GLFormat{ GL_RGB };
     bool                    disableAlpha{ 1 };
     
+    
     // Members
     ofFbo                   fbo;
     ofPixels                pixels;
+    ofTexture               texture;
     
     map< string, Source* >  poolSources;
+    
+    void allocate();
     
     friend class            SourceFactory;
     friend class            Sink;
