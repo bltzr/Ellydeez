@@ -40,7 +40,7 @@ void OSC2APA102::setup( ofJson& params ){
         auto* pl = pools[ params["lines"][l.first]["source"] ];
         ln -> setPool( pl ) ;
         // check that the line won't try to fetch pixels over the pool's size, resize it if needed
-        pl -> checkSize( ln -> getWidth(), ln -> getHeight() );
+        pl -> checkSize( ln -> getXpos() + ln -> getWidth() - 1, ln -> getXpos() + ln -> getHeight() - 1 );
         pl -> checkPixelFormat( ln -> getPixelFormat() );
     }
     

@@ -31,8 +31,10 @@ public:
     
     Pixel::Format  getPixelFormat() { return m_format; }
     
-    int     getWidth()      { return width;}
-    int     getHeight()     { return height;}
+    float     getWidth()      { return width;}
+    float     getHeight()     { return height;}
+    float     getXpos()      { return Xpos;}
+    float     getYpos()     { return Ypos;}
     
     int     getNumChannels() { return nChannels; }
     
@@ -58,10 +60,10 @@ protected:
     
     Pool *          source;         // source pool
 
-    int             width = 1;       // X length of the line
-    int             height = 0;       // how many lines to include
-    int             Xoffset = 0;     // how many pixels to offset from (X)
-    int             Yoffset = 0;     // how many lines to offset from
+    float             width = 1;       // X length of the line
+    float             height = 0;       // how many lines to include
+    float             Xpos = 0;     // how many pixels to offset from (X)
+    float             Ypos = 0;     // how many lines to offset from
     
     ofPixels        pixels;         
     

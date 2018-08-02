@@ -65,8 +65,8 @@
                 "APA102line.1": {
                     "source": "rim",
                     "address": "/1",
-                    "Xoffset": 0,
-                    "Yoffset": 0,
+                    "Xpos": 0,
+                    "Ypos": 19,
                     "width": 132,
                     "height": 1,
                     "format": "RGB", 
@@ -75,8 +75,8 @@
                 "DMXline": {
                     "source": "rim",
                     "address": "/DMX",
-                    "Xoffset": 0,
-                    "Yoffset": 1,
+                    "Xpos": 0,
+                    "Ypos": 1,
                     "width": 45,
                     "height": 1
                 }
@@ -94,8 +94,8 @@
                 "APA102line.1": {
                     "source": "center",
                     "address": "/1",
-                    "Xoffset": 0,
-                    "Yoffset": 0,
+                    "Xpos": 0,
+                    "Ypos": 0,
                     "width": 45,
                     "height": 2,
                     "brightness": { 
@@ -107,8 +107,8 @@
                 "APA102line.2": {
                     "source": "center",
                     "address": "/2",
-                    "Xoffset": 0,
-                    "Yoffset": 2,
+                    "Xpos": 0,
+                    "Ypos": 2,
                     "width": 45,
                     "height": 2
                 }

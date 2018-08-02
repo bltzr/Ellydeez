@@ -52,8 +52,10 @@ bool Pool::checkActiveSource() {
         float srcW = activeSource -> getWidth();
         float srcH = activeSource -> getHeight();
         if ( srcW > width || srcH > height || activeSource -> getPixelFormat() != m_format )  {
-            return direct = false;
-        } else return direct = true;
+            direct = false;
+        } else direct = true;
+        allocate();
+        return direct;
     }
 }
 

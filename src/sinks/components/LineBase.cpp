@@ -15,8 +15,8 @@ Line::Line( ofJson& params )
 {
     width = ( params.count( "width" ) ) ? int(params[ "width" ]) : 1 ;
     height = ( params.count( "height" ) ) ? int(params[ "height" ]) : 0 ;
-    Xoffset = ( params.count( "Xoffset" ) ) ? int(params[ "Xoffset" ]) : 0 ;
-    Yoffset = ( params.count( "Yoffset" ) ) ? int(params[ "Yoffset" ]) : 0 ;
+    Xpos = ( params.count( "Xpos" ) ) ? int(params[ "Xpos" ]) : 0 ;
+    Ypos = ( params.count( "Ypos" ) ) ? int(params[ "Ypos" ]) : 0 ;
     string format = ( params.count( "format" ) ) ? params[ "format" ] : "RGB" ;
     if (format!="RGB") setPixelFormatFromString(format);
         if (nPix==0) {
@@ -45,7 +45,7 @@ void Line::setPixelFormat( Pixel::Format format ){
 }
     
 void Line::fetchPixelsfromSource(){
-    source -> getPixels().cropTo( pixels, Xoffset, Yoffset, width, height );
+    source -> getPixels().cropTo( pixels, Xpos, Ypos, width, height );
 }
 
 const ofPixels& Line::getPixels(){
