@@ -19,13 +19,13 @@ public:
     void draw();
     void exit();
     
-    void fpsChanged();
+    void fpsChanged(int &fps);
     
 private:
     
     void config(ofJson jsConfig);
     
-    ofJson          conf;
+    ofJson              conf;
     
     string              name {"Ellydeez"};
     
@@ -37,11 +37,11 @@ private:
     
     ofParameter<int>    fps{60};
     
-    SourceFactory   sources;
-    SinkFactory     sinks;
+    SourceFactory       sources;
+    SinkFactory         sinks;
     
-    bool            running {true};
-    bool            drawing {true};
+    bool                running {true};
+    bool                drawing {true};
     
 
 };

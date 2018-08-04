@@ -24,7 +24,13 @@ void ofApp::setup(){
         
     }
     
-    //server.setup(parameters, OSCport, WSPort, name);
+    parameters.setName("Ellydeez Test App");
+    parameters.add(fps.set("fps", 60, 1, 120));
+    fps.addListener(this, &ofApp::fpsChanged);
+    
+    
+    // Setup server
+    server.setup(parameters, OSCport, WSPort, name);
     
     // display
     ofSetWindowTitle(name);
@@ -116,7 +122,8 @@ void ofApp::config( ofJson c ) {
     
 }
 
-void ofApp::fpsChanged(){
-    
+void ofApp::fpsChanged(int &fps){
+    ofSetFrameRate(fps);
+    ofLog() << "fps: " << fps ;
 }
 

@@ -1,6 +1,8 @@
 {
     "config": {
         "name": "TestConfig",
+        "OSCport": 4231,
+        "WSPort": 9786,
         "fps": 60,
         "dummy": "param"
     },
