@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #include "ofMain.h"
-
+#include "ofxOscQueryServer.h"
 #include "SinkFactory.hpp"
 #include "SourceFactory.hpp"
 
@@ -18,20 +18,30 @@ public:
     void draw();
     void exit();
     
+    void fpsChanged();
+    
 private:
     
     void config(ofJson jsConfig);
     
-    ofJson          conf;
+    ofJson              conf;
     
-    string          name {"Ellydeez"};
-    int             fps{60};
+    string              name {"Ellydeez"};
     
-    SourceFactory   sources;
-    SinkFactory     sinks;
+    int                 OSCport {4321};
+    int                 WSPort  {8765};
+    //ofxOscQueryServer   server{OSCport, WSPort};
     
-    bool            running {true};
-    bool            drawing {true};
+    ofParameterGroup    parameters;
+    
+    
+    ofParameter<int>    fps{60};
+    
+    SourceFactory       sources;
+    SinkFactory         sinks;
+    
+    bool                running {true};
+    bool                drawing {true};
     
 
 };

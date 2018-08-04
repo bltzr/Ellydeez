@@ -22,8 +22,9 @@ void ofApp::setup(){
         sinks.setup( conf["sinks"] );
         sources.checkup();
         
-        
     }
+    
+    //server.setup(parameters, OSCport, WSPort, name);
     
     // display
     ofSetWindowTitle(name);
@@ -104,8 +105,10 @@ void ofApp::exit(){
 void ofApp::config( ofJson c ) {
 
     for(auto src = c.begin(); src!= c.end(); ++src ){
-        if      (src.key() == "name") name = src.value();
-        else if (src.key() == "fps")  fps = src.value();
+        if      (src.key() == "name") name = src.value() ;
+        else if (src.key() == "OSCport") OSCport = src.value();
+        else if (src.key() == "WSPort") WSPort = src.value();
+        else if (src.key() == "fps")  fps.set(src.value());
         else ofLogError("config")
             << "extra field for config: " << src.key()
             << " with value: " << src.value() << endl;
@@ -113,4 +116,7 @@ void ofApp::config( ofJson c ) {
     
 }
 
+void ofApp::fpsChanged(){
+    
+}
 
