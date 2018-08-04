@@ -9,7 +9,7 @@
 #define SinkFactory_hpp
 
 #include <stdio.h>
-#include "OSC2APA102.hpp"
+#include "sinks/OSC2APA102.hpp"
 
 using namespace std;
 

@@ -14,7 +14,7 @@
 #include "ofxXmlPoco.h"
 #include "ofxSerial.h"
 
-#include "SinkBase.hpp"
+//#include "../SinkBase.hpp"
 
 using namespace std;
 

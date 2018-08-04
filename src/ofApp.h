@@ -4,8 +4,9 @@
 
 #include "ofMain.h"
 #include "ofxOscQueryServer.h"
-#include "SinkFactory.hpp"
-#include "SourceFactory.hpp"
+
+#include "sinks/SinkFactory.hpp"
+#include "sources/SourceFactory.hpp"
 
 using namespace std;
 
@@ -24,24 +25,23 @@ private:
     
     void config(ofJson jsConfig);
     
-    ofJson              conf;
+    ofJson          conf;
     
     string              name {"Ellydeez"};
     
     int                 OSCport {4321};
     int                 WSPort  {8765};
-    //ofxOscQueryServer   server{OSCport, WSPort};
+    ofxOscQueryServer   server{OSCport, WSPort};
     
     ofParameterGroup    parameters;
     
-    
     ofParameter<int>    fps{60};
     
-    SourceFactory       sources;
-    SinkFactory         sinks;
+    SourceFactory   sources;
+    SinkFactory     sinks;
     
-    bool                running {true};
-    bool                drawing {true};
+    bool            running {true};
+    bool            drawing {true};
     
 
 };

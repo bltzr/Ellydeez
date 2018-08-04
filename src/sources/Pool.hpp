@@ -12,8 +12,8 @@
 #include <map>
 #include "ofMain.h"
 #include "SourceBase.hpp"
-#include "Syphon.hpp"
-#include "Player.hpp"
+#include "sources/Syphon.hpp"
+#include "sources/Player.hpp"
 //#include "SourceFactory.hpp"
 
 class SourceFactory;

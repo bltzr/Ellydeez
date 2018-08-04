@@ -9,6 +9,7 @@
 #define OSC2APA102_hpp
 
 #include <list>
+#include "../SinkBase.hpp"
 #include "../devices/Serial.hpp"
 #include "../protocols/OSC.hpp"
 #include "../components/lines/APA102.hpp"
@@ -67,7 +68,7 @@ protected:
         
 private:
              
-    uint8_t                     brightness{255};
+    uint8_t                       brightness{255};
     
     map< string, Lines::APA102 >  ledLines; // string is the OSC address
     map< string, Lines::DMX >     dmxLines; // string is the OSC address
