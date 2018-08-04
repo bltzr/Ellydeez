@@ -10,7 +10,7 @@
 
 #include <vector>
 #include "ofMain.h"
-#include "Pool.hpp"
+#include "../../sources/Pool.hpp"
 
 using namespace std;
 

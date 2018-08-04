@@ -4,8 +4,8 @@
 
 #include "ofMain.h"
 
-#include "SinkFactory.hpp"
-#include "SourceFactory.hpp"
+#include "sinks/SinkFactory.hpp"
+#include "sources/SourceFactory.hpp"
 
 using namespace std;
 

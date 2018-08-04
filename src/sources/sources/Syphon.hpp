@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 #include "ofxSyphon.h"
-#include "SourceBase.hpp"
+#include "../SourceBase.hpp"
 
 namespace Sources {
     
@@ -33,10 +33,10 @@ public:
     void draw ( float x, float y, float w, float h ) override;
 
     ofPixels& getPixels() override;
-    Pixel::Format   getPixelFormat() override;
     
     float getWidth() override;
     float getHeight() override;
+    Pixel::Format   getPixelFormat() override;
     
 private:
     

@@ -14,8 +14,8 @@
 
 #include "Pool.hpp"
 
-#include "Syphon.hpp"
-#include "Player.hpp"
+#include "sources/Syphon.hpp"
+#include "sources/Player.hpp"
 //#include "Network.hpp"
 //#include "Generator.hpp"
 

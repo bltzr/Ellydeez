@@ -10,7 +10,7 @@
 namespace Sources {
     
 Syphon::Syphon( ofJson& params ):
-Source( )
+Source()
 {
     name = ( params.count( "name" ) ) ? params[ "name" ] : "" ;
     app = ( params.count( "app" ) ) ? params[ "app" ] : "Simple Server" ;
@@ -27,7 +27,7 @@ void Syphon::setup(){
 }
 
 void Syphon::update(){
-    // cout << "syphon" << name <<  " / " << app << " updating" << endl;
+     cout << "syphon" << name <<  " / " << app << " updating" << endl;
     //syphon.getTexture().readToPixels(pixels);
 }
 
