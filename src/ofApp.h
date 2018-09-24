@@ -41,6 +41,31 @@ public:
 
     ofxOscReceiver receiver;
 
+    /// TODO: move this in the appropriate class
+    std::vector<ofx::IO::SerialDeviceInfo> devicesInfo;
+    std::string portName(int SN)
+    {
+        for (const auto& devInfo : devicesInfo){
+            cout << "for " << devInfo.getHardwareId() << ": " << (std::to_string(SN)) << " -> find: " << devInfo.getHardwareId().find((std::to_string(SN))) << endl;
+            if ((devInfo.getHardwareId().find((std::to_string(SN))))<60){
+                cout << "found: " << devInfo.getPort() << endl;
+                return devInfo.getPort();
+            }
+        }
+        return "";
+    }
+    // ^
+    
+    
+    int playing{0};
+    int drawing{1};
+    
+    int timeCounter{0};
+    int currentTime{0};
+    bool timeToPlay{false};
+    bool live{false};
+    
+    
     OSC2APA102 device[NUM_TEENSIES] ;
 
     LedLine ledLine[NUM_LEDLINES];

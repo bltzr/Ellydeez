@@ -3,3 +3,4 @@
 /bin/NebulaLEDs.app
 /bin/NebulaLEDsDebug.app
 *.app
+.DS_Store
