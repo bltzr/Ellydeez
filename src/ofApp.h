@@ -46,7 +46,7 @@ public:
     std::vector<ofx::IO::SerialDeviceInfo> devicesInfo;
     std::string portName(int SN)
     {
-        for (const ofx::IO::SerialDeviceInfo& devInfo : devicesInfo){
+        for (const auto& devInfo : devicesInfo){
             cout << "for " << devInfo.getHardwareId() << ": " << (std::to_string(SN)) << " -> find: " << devInfo.getHardwareId().find((std::to_string(SN))) << endl;
             if ((devInfo.getHardwareId().find((std::to_string(SN))))<60){
                 cout << "found: " << devInfo.getPort() << endl;
